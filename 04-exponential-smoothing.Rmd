@@ -1,0 +1,458 @@
+# Exponential Smoothing {#exponential}
+
+```{r include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+library(feasts) # feature extraction and statistics
+library(fable) # forecasting
+library(patchwork) # arranging plots
+library(flextable)
+library(kableExtra)
+```
+
+Exponential smoothing methods are weighted averages of past observations, with the weights decaying exponentially as the observations get more remote. Exponential smoothing is a family of methods that vary by their *trend* and *seasonal* components.
+
+```{r echo=FALSE}
+data.frame(
+  `Trend Component` = c("None (N)", "Additive (A)", "Additive Damped (A~d~)"),
+  `None (N)` = c("(N, N)<br>Simple <br>Exponential <br>Smoothing",
+                 "(A, N)<br>Holt’s <br>linear <br>method", 
+                 "(A~d~, N)<br>Additive <br>damped <br>trend <br>method"),
+  `Additive (A)` = c("(N, A)", 
+                     "(A, A)<br>Additive <br>Holt-Winters’ <br>method", 
+                     "(A~d~, A)"),
+  `Multiplicative (M)` = c("(N, M)", 
+                           "(A, M)<br>Multiplicative <br>Holt-Winters’ <br>method", 
+                           "(A~d~, M)<br>Holt-Winters’ <br>damped <br>method")
+) %>%
+  kbl(
+    col.names = c("Trend Component", "None <br>(N)", "Additive <br>(A)", "Multiplicative <br>(M)"),
+    caption = "Exponential smoothing taxonomy.",
+    escape = FALSE
+  ) %>%
+  add_header_above(c(" " = 1, "Seasonal Component" = 3)) %>%
+  kable_classic(full_width = FALSE, position = "float_right") %>%
+  kable_styling(bootstrap_options = c("condensed"))
+```
+
+* There can be no trend (N), an additive (A) linear trend from the forecast horizon, or a damped additive (A<sub>d</sub>) trend leveling off from the forecast horizon. *The trend could also be multiplicative (M) or multiplicative damped (M<sub>d</sub>), but [Hyndman](https://otexts.com/fpp3/taxonomy.html) explains that they do not produced good forecasts.*
+
+* There can be no seasonality (N), or it can be additive (A) change, or multiplicative (M) (proportional) change. *Apparently seasonality does not have an additive damped version.*
+
+The trend and seasonal combinations produce 3 x 3 = 9 possible exponential smoothing methods. ETS (Error, Trend, and Seasonality) models double the number of possible *state space models* to 18 by treating the error variances as either additive (A) or multiplicative (M). ETS models do not just extend the exponential smoothing models; they also estimate their parameters differently, using maximum likelihood estimation. For models with additive errors, this is equivalent to minimizing the sum of squared errors (SSE). The great advantage of using ETS models is that you can optimize the parameter settings by minimizing the Akaike Information Criterion (AIC<sub>c</sub>).
+
+The `fable::ETS()` function fits ETS models. The combinations are specified through the formula:
+
+`ETS(y ~ error(c("A", "M")) + trend(c("N", "A", "Ad")) + season(c("N", "A", "M"))`
+
+The following sections review just the named models above.
+
+## Simple Exponential Smoothing (SES)
+
+Simple exponential smoothing models have no seasonal or trend components. Simple exponential smoothing models are of the form $\hat{y}_{T+h|T} = \alpha y_T + \alpha(1-\alpha)y_{T-1} + \alpha(1-\alpha)^2y_{T-2} \dots$ where $0 < \alpha < 1$ is a weighting parameter. On the one extreme, $\alpha$ = 1 is the same as a naive model. On the other extreme $\alpha \approx$ 0 is the average model. 
+
+Exponential smoothing models are commonly expressed in a component form as a recursive model. 
+
+$$
+\begin{align}
+\hat{y}_{t+h|t} &= l_t \\
+l_t &= \alpha y_t + (1 - \alpha)l_{t-1}
+\end{align}
+$$
+
+The first component, $\hat{y}_{t+h|t}$, is the forecast. It equals the last value of the estimated level, kind of like a y-intercept. The second component, $l_t$ is the level (or smoothed value) of the series at time $t$. It describes how the level changes over time, kind of like a slope. 
+
+There are two parameters to estimate: $\alpha$ and $l_0$ - the level at base of the recursion. Estimate the parameters by minimizing the SSE with a nonlinear optimization method (black box for me).
+
+#### Example {-}
+
+Data set `tsibbledata::global_economy` contains annual country-level economic indicators, including `Exports`. This time series has no trend or seasonality, so it is a good candidate for a simple exponential smoothing model.
+
+```{r}
+tsibbledata::global_economy %>%
+  filter(Country == "Algeria") %>%
+  ggplot(aes(x = Year, y = Exports)) +
+  geom_line() +
+  theme_light() +
+  labs(title = "Algerian exports (% of GDP) show no trend or seasonality.")
+```
+
+`ETS()` is **fable's** exponential smoothing function. Using additive errors, this is an ETS(A, N, N) model.
+
+```{r}
+mdl_ses <- tsibbledata::global_economy %>%
+  filter(Country == "Algeria") %>%
+  model(ETS(Exports ~ error("A") + trend("N") + season("N")))
+
+mdl_ses %>% report()
+```
+
+`ETS()` estimates $\hat{l}_0$ = `r mdl_ses %>% tidy() %>% filter(term == "l[0]") %>% pull(estimate) %>% scales::number(accuracy = .001)` and $\hat{\alpha}$ = `r mdl_ses %>% tidy() %>% filter(term == "alpha") %>% pull(estimate) %>% scales::number(accuracy = .001)`, a high weighting on the prior value.
+
+Check the model assumptions with residuals plots. 
+
+```{r}
+gg_tsresiduals(mdl_ses)
+```
+
+Autocorrelation in the residuals increases the prediction intervals. The autocorrelation function plot finds a barely significant negative spike at lag 12 (years). Heteroscedasticity can make prediction intervals inaccurate. The residuals vs time diagnostic plot finds no heteroscedasticity, although there might be an outlier around 1962. Non-normality of the residuals can also make the prediction intervals inaccurate. The histogram shows that the residuals are slightly left-skewed. 
+
+Use the fitted model to forecast the response variable for five periods.
+
+```{r}
+mdl_ses_fc <- mdl_ses %>%
+  forecast(h = 5) %>%
+  mutate(sigma = map_dbl(Exports, ~pluck(.x, "sigma")),
+         ci_025 = qnorm(.025, .mean, sigma),
+         ci_975 = qnorm(.975, .mean, sigma))
+
+mdl_ses %>%
+  augment() %>%
+  ggplot(aes(x = Year)) +
+  geom_line(aes(y = Exports)) +
+  geom_line(aes(y = .fitted), color = "goldenrod") +
+  geom_line(data = mdl_ses_fc, aes(y = .mean), color = "goldenrod") +
+  geom_ribbon(data = mdl_ses_fc, 
+              aes(ymin = ci_025, ymax = ci_975),
+              alpha = 0.2, fill = "goldenrod") +
+  theme_light() +
+  labs(title = "Simple Exponential Smoothing ETS(A, N, N)",
+       subtitle = "Algerian exports (% of GDP).")
+```
+
+## Holt's Linear Method
+
+Holt's linear method extends SES with a trend component.
+
+$$
+\begin{align}
+\hat{y}_{t+h|t} &= l_t + hb_t \\
+l_t &= \alpha y_t + (1 - \alpha)(l_{t-1} + hb_{t-1}) \\
+b_t &= \beta^*(l_t - l_{t-1}) + (1 - \beta^*)b_{t-1}
+\end{align}
+$$
+
+The level equation, $l_t$ is the same except for a trend adjustment. A third equation, $b_t$, the trend, describes how the slope changes over time. The parameter $\beta^*$ describes how quickly the slope can change. Now there are four parameter to estimate, $\alpha$, $l_0$, $\beta^*$, and $b_0$.
+
+#### Example {-}
+
+Data set `tsibbledata::global_economy` contains annual country-level economic indicators, including `Population` size. This time series has a trend, so it is a good candidate for Holt's linear trend method.
+
+```{r}
+tsibbledata::global_economy %>%
+  filter(Country == "Australia") %>%
+  ggplot(aes(x = Year, y = Population)) +
+  geom_line() +
+  theme_light() +
+  labs(title = "Australian population has trend, but no seasonality.")
+```
+
+Fit the model with `ETS()` again. This time specify an "additive" trend, ETS(A, A, N).
+
+```{r}
+mdl_holt <- tsibbledata::global_economy %>%
+  filter(Country == "Australia") %>%
+  model(ETS(Population ~ error("A") + trend("A") + season("N")))
+
+mdl_holt %>% report()
+```
+
+`ETS()` estimates an $\hat{l}_0$ of `r mdl_holt %>% tidy() %>% filter(term == "l[0]") %>% pull(estimate) %>% scales::comma()` people at period 0 (1960) with a very high weighting on recent values $\hat{\alpha}$ of `r mdl_holt %>% tidy() %>% filter(term == "alpha") %>% pull(estimate) %>% scales::number(accuracy = .0001)`. $\alpha$ is high when the trend increases rapidly. $\beta_0$ is `r mdl_holt %>% tidy() %>% filter(term == "b[0]") %>% pull(estimate) %>% scales::comma()` with a $\hat{\beta}$ of `r mdl_holt %>% tidy() %>% filter(term == "beta") %>% pull(estimate) %>% scales::number(accuracy = .001)`. This is a fairly large $\beta$, meaning the trend changes often. 
+
+Check the model assumptions with residuals plots. I'll skip that step this time and move on to forecasting.
+
+```{r}
+mdl_holt_fc <- mdl_holt %>%
+  forecast(h = 10) %>%
+  mutate(sigma = map_dbl(Population, ~pluck(.x, "sigma")),
+         ci_025 = qnorm(.025, .mean, sigma),
+         ci_975 = qnorm(.975, .mean, sigma))
+
+mdl_holt %>%
+  augment() %>%
+  ggplot(aes(x = Year)) +
+  geom_line(aes(y = Population)) +
+  geom_line(aes(y = .fitted), color = "goldenrod") +
+  geom_line(data = mdl_holt_fc, aes(y = .mean), color = "goldenrod") +
+  geom_ribbon(data = mdl_holt_fc, 
+              aes(ymin = ci_025, ymax = ci_975),
+              alpha = 0.2, fill = "goldenrod") +
+  theme_light() +
+  labs(title = "Holt's Linear Method",
+       subtitle = "Australian Population.")
+```
+
+## Additive Damped Trend Method
+
+Holt's linear trend produces a sloped, but straight line. Research has shown that the assumption of a constant trend in the forecast tends to overshoot. Gardner and McKenzie added a damping parameter $\phi$ to reduce the forecasted trend to a flat line over time. The forecast equation replaces the $h$ with the series $\phi^1 + \phi^2 + \cdots + \phi^h$ and the level equation replaces $h$ with $\phi$. The trend equation adds $\phi$ as a multiplier to the second term.
+
+$$
+\begin{align}
+\hat{y}_{t+h|t} &= l_t + (\phi^1 + \phi^2 + \cdots + \phi^h)b_t \\
+l_t &= \alpha y_t + (1 - \alpha)(l_{t-1} + \phi b_{t-1}) \\
+b_t &= \beta^*(l_t - l_{t-1}) + (1 - \beta^*) \phi b_{t-1}
+\end{align}
+$$
+
+There are now five parameters to estimate, $\alpha$, $\beta^*$, $l_0$, $b_0$, and $\phi$ (although you can supply a $\phi$ value to the `trend()` equation. Expect a $\phi$ between .8 and .998. This is an ETS(A, A<sub>d</sub>, N) model. 
+
+#### Example {-}
+
+Return to the Australian population data. You can fit the original model and the additive damped trend model in a single statement.
+
+```{r}
+mdl_holt_d <- tsibbledata::global_economy %>%
+  filter(Country == "Australia") %>%
+  model(
+    `Holt's method` = ETS(Population ~ error("A") + trend("A") + season("N")),
+    `Damped Holt's method` = ETS(Population ~ error("A") + trend("Ad") + season("N"))
+  )
+
+mdl_holt_d %>% select(`Damped Holt's method`) %>% report()
+```
+
+`ETS()` estimates $\hat{\phi}$ = `r mdl_holt_d %>% tidy() %>% filter(term == "phi") %>% pull(estimate) %>% scales::number(accuracy = .001)` - just a small amount of damping. 
+
+```{r}
+mdl_holt_d_fc <- mdl_holt_d %>%
+  forecast(h = 10) %>%
+  mutate(sigma = map_dbl(Population, ~pluck(.x, "sigma")),
+         ci_025 = qnorm(.025, .mean, sigma),
+         ci_975 = qnorm(.975, .mean, sigma))
+
+mdl_holt %>%
+  augment() %>%
+  ggplot(aes(x = Year)) +
+  geom_line(aes(y = Population)) +
+  geom_line(aes(y = .fitted), color = "goldenrod") +
+  geom_line(data = mdl_holt_d_fc, aes(y = .mean, color = .model)) +
+  geom_ribbon(data = mdl_holt_d_fc, 
+              aes(ymin = ci_025, ymax = ci_975, fill = .model),
+              alpha = 0.2) +
+  scale_fill_manual(values = c(`Holt's method` = "goldenrod", 
+                               `Damped Holt's method` = "seagreen")) +
+  scale_color_manual(values = c(`Holt's method` = "goldenrod", 
+                               `Damped Holt's method` = "seagreen")) +
+  theme_light() +
+  labs(fill = "Model", color = "Model",
+       title = "Additive Damped Trend Method",
+       subtitle = "Australian Population")
+```
+
+## Holt-Winters
+
+The Holt-Winters method extends Holt's method with a seasonality component, $s_t$, for $m$ seasons per period. There are two versions of this model, the *additive* and the *multiplicative*. The additive method assumes the error variance is constant, and the seasonal component sums to approximately zero over the course of the year. The multiplicative version assumes the error variance scales with the level, and the seasonal component sums to approximately $m$ over the course of the year. 
+
+### Additive Holt-Winters Method
+
+The additive method introduces the seasonality component as an additive element. 
+
+$$
+\begin{align}
+\hat{y}_{t+h|t} &= l_t + hb_t + s_{t+h-m(k+1)} \\
+l_t &= \alpha(y_t - s_{t-m}) + (1 - \alpha)(l_{t-1} + b_{t-1}) \\
+b_t &= \beta^*(l_t - l_{t-1}) + (1 - \beta^*)b_{t-1} \\
+s_t &= \gamma(y_t - l_{t-1} - b_{t-1}) + (1 - \gamma)s_{t-m}
+\end{align}
+$$
+
+$k$ is the modulus of $(h - 1) / m$, so $s_{t+h-m(k+1)}$ is always based on the prior seasonal period. $l_t$ is a weighted average ($alpha$ weighting) between the seasonally adjusted observation and the non-seasonal forecast. The trend component is unchanged. The seasonal component is a weighted average ($\gamma$ weighting) between the current seasonal index and the same season of the prior season period.  
+
+Now there are five smoothing parameters to estimate: $\alpha$, $l_0$, $\beta^*$, $b_0$, and $\gamma$, plus an initial value for each season of the seasonal period.
+
+### Multiplicative Holt-Winters Method
+
+In the multiplicative version, the seasonality averages to one. Use the multiplicative method if the seasonal variation increases with the level.
+
+$$
+\begin{align}
+\hat{y}_{t+h|t} &= (l_t + hb_t) s_{t+h-m(k+1)} \\
+l_t &= \alpha\frac{y_t}{s_{t-m}} + (1 - \alpha)(l_{t-1} + b_{t-1}) \\
+b_t &= \beta^*(l_t - l_{t-1}) + (1-\beta*)b_{t-1} \\
+s_t &= \gamma\frac{y_t}{(l_{t-1} - b_{t-1})} + (1 - \gamma)s_{t-m} \\
+\end{align}
+$$
+
+#### Example {-}
+
+Data set `tsibble::tourism` contains quarterly domestic tourist visit-nights in Australia. The plot below is extended with forecasts using the Holt-Winters additive method and the Holt-Winters seasonal method. It's not obvious whether the error variance increases with the series level, so either the additive or the multiplicative method may be appropriate. The RMSE from the multiplicative model 
+
+```{r message=FALSE}
+tour <- tsibble::tourism %>%
+  filter(Purpose == "Holiday") %>%
+  summarize(Trips = sum(Trips) / 1000)
+
+tour_fit <- tour %>%
+  model(
+    Additive = ETS(Trips ~ error("A") + trend("A") + season("A")),
+    Multiplicative = ETS(Trips ~ error("M") + trend("A") + season("M"))
+  )
+
+tour_fit %>% report()
+```
+
+```{r}
+tour_fit_fc <- tour_fit %>%
+  forecast(h = 10) %>%
+  mutate(sigma = map_dbl(Trips, ~pluck(.x, "sigma")),
+         ci_025 = qnorm(.025, .mean, sigma),
+         ci_975 = qnorm(.975, .mean, sigma))
+
+tour_fit_aug <- tour_fit %>%
+  augment()
+
+tour_fit_aug %>% 
+  # filter(.model == "Additive") %>%
+  ggplot(aes(x = Quarter)) +
+  geom_line(aes(y = Trips)) +
+  geom_line(aes(y = .fitted, color = .model)) +
+  geom_line(data = tour_fit_fc, aes(y = .mean, color = .model)) +
+  geom_ribbon(data = tour_fit_fc, 
+              aes(ymin = ci_025, ymax = ci_975, fill = .model),
+              alpha = 0.2) +
+  scale_color_manual(values = c("Additive" = "goldenrod", "Multiplicative" = "slategray")) +
+  scale_fill_manual(values = c("Additive" = "goldenrod", "Multiplicative" = "slategray")) +
+  theme_light() +
+  labs(title = "Australian Domestic Tourism with Holt-Winters Models.",
+       y = "Trips (millions)", fill = "Model", color = "Model")
+```
+
+Notice below that the additive seasonal component estimates (`s[0]` to `s[-3]`) sum to approximately zero.
+
+```{r}
+tour_fit %>% select(Additive) %>% report()
+```
+
+And the multiplicative seasonal component estimates (`s[0]` to `s[-3]`) sum to approximately 4 - the number of seasons in the seasonal period.
+
+```{r}
+tour_fit %>% select(Multiplicative) %>% report()
+```
+Check the model assumptions with `checkresiduals`. The residuals plot shows some long-term autocorrelation (a long hump), and the variance increases in the latter years. The histogram shows a normal distribution. The autocorrelation function (ACF) plot shows many spikes outside the insignificance band, and the Ljung-Box test rejects the null hypothesis of no autocorrelation of the residuals (p < 0.0001).
+
+```{r}
+# checkresiduals(a10.hw)
+```
+
+Here is a four-week Holt-Winters forecast of the `hyndsight` dataset of daily pageviews on the Hyndsight blog for one year starting April 30, 2014. Create a training dataset consisting of all obserations minus the last four weeks.  Then forecast those four weeks with Holt-Winters.  Use the `additive` method because the variance is not scaling with page volume.  Creae a second forecast with the seasonal naive method as a benchmark.
+
+
+
+Notice that the Ljung-Box test rejects the null hypothesis of no autocorrelation of the residuals.  The forecast might still provide useful information even with residuals that fail the white noise test.
+
+```{r}
+# hyndsight.train <- subset(hyndsight, end = length(hyndsight) - 4*7)
+# 
+# hyndsight.hw <- hw(hyndsight.train, seasonal = "additive", h = 4*7)
+# 
+# hyndsight.sn <- snaive(hyndsight.train, h = 4*7)
+# 
+# checkresiduals(hyndsight.hw)
+```
+
+Compare Holt-Winters to the seasonal naive forecast.  The RMSE of Holt-Winters (201.7656) is smaller than the RMSE of seasonal naive (202.7610), so it is the more accurate forecast.
+
+```{r}
+# accuracy(hyndsight.hw, hyndsight)
+# accuracy(hyndsight.sn, hyndsight)
+```
+
+Here finally is a plot of the forecasted page views.
+
+```{r}
+# autoplot(hyndsight) +
+#   autolayer(hyndsight.hw$mean)
+```
+
+## Model Selection with CV
+
+Let's compare the performance of a few candidate models for the base R datasets::WWWusage data set of internet usage.
+
+```{r}
+datasets::WWWusage %>%
+  as_tsibble() %>%
+  ggplot(aes(x = index, y = value)) +
+  geom_line() +
+  theme_light() +
+  labs(title = "Internet usage by minute", x = NULL, y = "Users")
+```
+
+We will use time-series cross-validation. The data set has `r length(datasets::WWWusage)` rows. Function `stretch_tsibble(.init, .step)` takes a tsibble and creates a new tsibble for cross validation. First `stretch_tsibble()` takes the first `.init` rows from the tsibble and adds a new column `.id` with value 1. Then it takes the first `.init` + `.step` rows from the tsibble and assigns `.id` value 2. It continues like this, creating longer and longer tsibbles until it cannot create a longer one from the original tsibble. Finally, it appends these together into one long tsibble with `.id` added to the index. Nofmal cross-validation repeatedly fits a model to data set with one of the rows left out. Since `model()` fits a separate model per index value, creating this long tsibble effectively accomplishes the same thing. Note the fundamental difference here though: time seris CV does not leave out single values from points along in the time series. It leaves out *all* points after a particular point along the time series - each sub-data set starts at the beginning and is uninterrupted until reaching the varying end points. Let's take a look at the CV data set before using it to fit the models.
+
+```{r collapse=TRUE}
+www_cv <- datasets::WWWusage %>%
+  as_tsibble() %>%
+  stretch_tsibble(.init = 10, .step = 1)
+
+# 10 rows + 11 rows + ... + 100 rows = 5,005 rows:
+nrow(www_cv)
+
+# .id added to index
+head(www_cv)
+
+# 91 index values
+summary(www_cv$.id)
+```
+
+Fit four models to the 91 data sets to compare the accuracy. Here's the full code.
+
+```{r}
+datasets::WWWusage %>%
+  as_tsibble() %>%
+  stretch_tsibble(.init = 10, .step = 1) %>%
+  model(
+    OLS = TSLM(value ~ index),
+    `Simple Exponential Smoothing` = ETS(value ~ error("A") + trend("N") + season("N")),
+    `Holt's method` = ETS(value ~ error("A") + trend("A") + season("N")),
+    `Holt's method (damped)` = ETS(value ~ error("A") + trend("Ad") + season("N"))
+  ) %>%
+  forecast(h = 1) %>%
+  accuracy(data = as_tsibble(datasets::WWWusage))
+```
+
+The best model as measured by RMSE was Holt's method with damping. OLS was pretty bad. Let's fit it to the whole data set and forecast future periods.
+
+```{r}
+www_fit <- datasets::WWWusage %>%
+  as_tsibble() %>%
+  model(holt_d = ETS(value ~ error("A") + trend("Ad") + season("N")))
+
+www_fit %>% report()
+```
+
+This time the damping parameter is very small (`r www_fit %>% tidy() %>% filter(term == "phi") %>% pull("estimate") %>% scales::number(accuracy = .001)`), resulting in a quick return to the horizontal.
+
+```{r}
+www_fc <- www_fit %>%
+  forecast(h = 10) %>%
+  mutate(sigma = map_dbl(value, ~pluck(.x, "sigma")),
+         ci_025 = qnorm(.025, .mean, sigma),
+         ci_975 = qnorm(.975, .mean, sigma))
+
+www_fit %>%
+  augment() %>%
+  ggplot(aes(x = index)) +
+  geom_line(aes(y = value)) +
+  geom_line(aes(y = .fitted), color = "goldenrod") +
+  geom_line(data = www_fc, aes(y = .mean), color = "goldenrod") +
+  geom_ribbon(data = www_fc, aes(ymin = ci_025, ymax = ci_975), alpha = 0.2, fill = "goldenrod") +
+  theme_light() +
+  labs(title = "Internet usage by Minute.", 
+       subtitle = "Holt's method with damping. Shaded are is 95% prediction interval.",
+       x = NULL)
+```
+
+## Model Selection via Maximum Likelihood
+
+If you specify an ETS model with no parameters, it will use maximum likelihood to select the model with the minimum AIC<sub>c</sub>. Try it with the internet usage data set.
+
+```{r}
+ets_mdl <- datasets::WWWusage %>%
+  as_tsibble() %>%
+  model(ETS(value))
+
+ets_mdl %>% report()
+```
+
+ETS chose an additive damped trend model, the same as we found using cross validation. 
