@@ -315,8 +315,8 @@ future_dat
 ausprod_fc <- forecast(ausprod_lm, new_data = future_dat)
 
 ausprod_fc_2 <- ausprod_fc %>%
-  mutate(mu = map_dbl(Beer, ~pluck(.x, "mu")),
-         sigma = map_dbl(Beer, ~pluck(.x, "sigma")),
+  mutate(mu = map_dbl(Beer, ~unlist(.) %>% .["mu"]),
+         sigma = map_dbl(Beer, ~unlist(.) %>% .["sigma"]),
          ci_025 = qnorm(.025, mu, sigma),
          ci_100 = qnorm(.100, mu, sigma),
          ci_900 = qnorm(.900, mu, sigma),
@@ -357,8 +357,8 @@ boston_lm <- boston_dat %>%
 
 boston_fc <- boston_lm %>%
   forecast(h = 10) %>%
-  mutate(mu = map_dbl(Minutes, ~pluck(.x, "mu")),
-         sigma = map_dbl(Minutes, ~pluck(.x, "sigma")),
+  mutate(mu = map_dbl(Minutes, ~unlist(.) %>% .["mu"]),
+         sigma = map_dbl(Minutes, ~unlist(.) %>% .["sigma"]),
          ci_025 = qnorm(.025, mu, sigma),
          ci_100 = qnorm(.100, mu, sigma),
          ci_900 = qnorm(.900, mu, sigma),

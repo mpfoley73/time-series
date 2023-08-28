@@ -103,7 +103,7 @@ Use the fitted model to forecast the response variable for five periods.
 ```{r}
 mdl_ses_fc <- mdl_ses %>%
   forecast(h = 5) %>%
-  mutate(sigma = map_dbl(Exports, ~pluck(.x, "sigma")),
+  mutate(sigma = map_dbl(Exports, ~unlist(.) %>% .["sigma"]),
          ci_025 = qnorm(.025, .mean, sigma),
          ci_975 = qnorm(.975, .mean, sigma))
 
@@ -165,7 +165,7 @@ Check the model assumptions with residuals plots. I'll skip that step this time 
 ```{r}
 mdl_holt_fc <- mdl_holt %>%
   forecast(h = 10) %>%
-  mutate(sigma = map_dbl(Population, ~pluck(.x, "sigma")),
+  mutate(sigma = map_dbl(Population, ~unlist(.) %>% .["mu"]),
          ci_025 = qnorm(.025, .mean, sigma),
          ci_975 = qnorm(.975, .mean, sigma))
 
@@ -217,7 +217,7 @@ mdl_holt_d %>% select(`Damped Holt's method`) %>% report()
 ```{r}
 mdl_holt_d_fc <- mdl_holt_d %>%
   forecast(h = 10) %>%
-  mutate(sigma = map_dbl(Population, ~pluck(.x, "sigma")),
+  mutate(sigma = map_dbl(Population, ~unlist(.) %>% .["mu"]),
          ci_025 = qnorm(.025, .mean, sigma),
          ci_975 = qnorm(.975, .mean, sigma))
 
@@ -295,7 +295,7 @@ tour_fit %>% report()
 ```{r}
 tour_fit_fc <- tour_fit %>%
   forecast(h = 10) %>%
-  mutate(sigma = map_dbl(Trips, ~pluck(.x, "sigma")),
+  mutate(sigma = map_dbl(Trips, ~unlist(.) %>% .["mu"]),
          ci_025 = qnorm(.025, .mean, sigma),
          ci_975 = qnorm(.975, .mean, sigma))
 
@@ -426,7 +426,7 @@ This time the damping parameter is very small (`r www_fit %>% tidy() %>% filter(
 ```{r}
 www_fc <- www_fit %>%
   forecast(h = 10) %>%
-  mutate(sigma = map_dbl(value, ~pluck(.x, "sigma")),
+  mutate(sigma = map_dbl(value, ~unlist(.) %>% .["mu"]),
          ci_025 = qnorm(.025, .mean, sigma),
          ci_975 = qnorm(.975, .mean, sigma))
 

@@ -137,8 +137,8 @@ The `autoplot()` and `autolayer()` functions take a lot of the headache out of p
 #   autolayer(goog_train, Close, color = "goldenrod")
 
 goog_fc_2 <- goog_fc %>%
-  mutate(mu = map_dbl(Close, ~pluck(.x, "mu")),
-         sigma = map_dbl(Close, ~pluck(.x, "sigma")),
+  mutate(mu = map_dbl(Close, ~unlist(.) %>% .["mu"]),
+         sigma = map_dbl(Close, ~unlist(.) %>% .["sigma"]),
          ci_025 = qnorm(.025, mu, sigma),
          ci_100 = qnorm(.100, mu, sigma),
          ci_900 = qnorm(.900, mu, sigma),
@@ -255,7 +255,7 @@ accuracy(goog_fc, goog) %>%
 
 There is a better way of evaluating a model than with a single test set.  Time series *cross-validation* breaks the dataset into multiple training sets by setting the cutoff at varying points and then setting the test set to be a single steps ahead of the horizon.  Function `stretch_tsibble()` creates a tsibble of initial size `.init` then appends additional data sets of increasing size `.step`.
 
-```{r warning=FALSE}
+```{r warning=FALSE, eval=FALSE}
 goog_train_cv <- goog %>%
   filter(year(Date) == 2015) %>%
   stretch_tsibble(.init = 3, .step = 1) %>%
@@ -276,6 +276,6 @@ goog_fc <- goog_train_cv %>%
   ungroup()
 
 goog_fc %>%
-  accuracy(goog %>% filter(year(Date) == 2015), by = c("h", ".model")) %>%
+  accuracy(data = goog %>% filter(year(Date) == 2015), by = c("h", ".model")) %>%
   select(h, RMSE)
 ```

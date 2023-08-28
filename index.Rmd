@@ -3,23 +3,6 @@ title: "Time Series Analysis"
 author: "Michael Foley"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output:
-  bookdown::html_book:
-    toc: TRUE
-    toc_depth: 3
-    toc_float: TRUE
-    highlight: tango
-    fig_caption: true
-    lib_dir: assets
-    split_by: section
-    config:
-      toc:
-        collapse: subsection
-        scroll_highlight: yes
-        before: null
-        after: null
-      toolbar:
-        position: static
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
