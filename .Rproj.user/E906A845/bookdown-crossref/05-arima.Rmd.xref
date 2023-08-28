@@ -1,0 +1,9 @@
+h1:arima ARIMA
+h2:tranformations-and-differencing Tranformations and Differencing
+fig:elec This data series has non-constant variance.
+fig:xform Standard transformations under- or over-shoot constant variance.
+fig:boxcox Box-Cox transformation produces constant variance.
+h2:autoregressive-models Autoregressive Models
+h2:moving-average-models Moving Average Models
+h2:non-seasonal-arima Non-Seasonal ARIMA
+

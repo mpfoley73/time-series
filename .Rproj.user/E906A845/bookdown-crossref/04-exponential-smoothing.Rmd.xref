@@ -1,0 +1,14 @@
+h1:exponential Exponential Smoothing
+h2:simple-exponential-smoothing-ses Simple Exponential Smoothing (SES)
+h4:example Example
+h2:holts-linear-method Holt’s Linear Method
+h4:example-1 Example
+h2:additive-damped-trend-method Additive Damped Trend Method
+h4:example-2 Example
+h2:holt-winters Holt-Winters
+h3:additive-holt-winters-method Additive Holt-Winters Method
+h3:multiplicative-holt-winters-method Multiplicative Holt-Winters Method
+h4:example-3 Example
+h2:model-selection-with-cv Model Selection with CV
+h2:model-selection-via-maximum-likelihood Model Selection via Maximum Likelihood
+

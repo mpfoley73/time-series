@@ -1,0 +1,7 @@
+"0","augment(ausprod_lm) %>%"
+"0","  ggplot(aes(x = .fitted, y = .resid)) +"
+"0","  geom_point() +"
+"0","  labs(title = ""There is no relationship between residuals and fitted values."","
+"0","       subtitle = ""otherwise the response variable may require transformation."","
+"0","       y = ""Residuals"", x = ""Fitted"") +"
+"0","  theme_light()"

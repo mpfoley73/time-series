@@ -1,0 +1,3 @@
+"0","(ausprod_lm_lb <- ausprod_lm %>%"
+"0","   augment() %>%"
+"0","   features(.innov, ljung_box, lag = 12, dof = 4))"

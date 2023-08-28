@@ -1,0 +1,6 @@
+"0","prison_tsibble <- prison %>% "
+"0","  mutate(Date = yearquarter(Date)) %>%"
+"0","  rename(Qtr = Date) %>%"
+"0","  tsibble(key = c(State, Gender, Legal, Indigenous), index = Qtr)"
+"0",""
+"0","head(prison_tsibble)"

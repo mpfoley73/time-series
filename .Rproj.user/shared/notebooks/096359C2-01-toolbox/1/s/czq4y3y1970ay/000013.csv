@@ -1,0 +1,8 @@
+"0","goog <- tsibbledata::gafa_stock %>%"
+"0","  filter(Symbol == ""GOOG"", year(Date) >= 2015) %>%"
+"0","  # re-index on trading day since markets not open on weekends, holidays"
+"0","  arrange(Date) %>%"
+"0","  mutate(trading_day = row_number()) %>%"
+"0","  update_tsibble(index = trading_day, regular = TRUE)"
+"0",""
+"0","head(goog)"

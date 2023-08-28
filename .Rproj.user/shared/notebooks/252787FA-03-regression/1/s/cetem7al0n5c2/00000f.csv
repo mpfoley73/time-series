@@ -1,0 +1,5 @@
+"0","x <- ausprod_gas %>%"
+"0","  model(TSLM(Beer ~ season()))"
+"0",""
+"0","# Gets the number of dummies right, but why call them ""year""?"
+"0","coef(x)"

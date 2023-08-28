@@ -1,0 +1,1 @@
+{"classes":["grouped_ts","grouped_df","tbl_ts","tbl_df","tbl","data.frame"],"nrow":768,"ncol":6,"summary":{"A tsibble":["768 x 6 [1Y]"],"Key":["State, Gender, Legal, Indigenous [64]"],"Groups":["State, Gender, Legal [32]"]}}

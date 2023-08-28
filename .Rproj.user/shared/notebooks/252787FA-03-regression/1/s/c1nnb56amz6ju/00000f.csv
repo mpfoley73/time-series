@@ -1,0 +1,6 @@
+"0","ausprod_fmla <- update(ausprod_fmla, . ~ . + trend() + season())"
+"0",""
+"0","ausprod_lm <- ausprod_gas %>%"
+"0","  model(TSLM(ausprod_fmla))"
+"0",""
+"0","plot_lm()"

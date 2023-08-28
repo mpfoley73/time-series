@@ -1,0 +1,27 @@
+{
+    "id": "CDBF833A",
+    "path": "~/GitHub/time-series/01-toolbox.Rmd",
+    "project_path": "01-toolbox.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1693213012086.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "cursorPosition": "139,52",
+        "scrollLine": "115"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1693210804,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1693210804,
+    "read_only": false,
+    "read_only_alternatives": []
+}

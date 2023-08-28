@@ -1,0 +1,18 @@
+"0","library(tidyverse)"
+"0","library(lubridate)"
+"0","library(tsibble)"
+"0","library(feasts) # feature extraction and statistics"
+"0","library(fable) # forecasting"
+"0","library(patchwork) # arranging plots"
+"2","Warning: package ‘patchwork’ was built under R version 4.3.1"
+"0","library(flextable)"
+"2","Warning: package ‘flextable’ was built under R version 4.3.1"
+"2","
+Attaching package: ‘flextable’
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    compose
+
+"

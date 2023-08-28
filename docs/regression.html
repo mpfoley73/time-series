@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Time Series Regression | Time Series Analysis</title>
+  <meta name="description" content="Time series analysis using R." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Time Series Regression | Time Series Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Time series analysis using R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Time Series Regression | Time Series Analysis" />
+  
+  <meta name="twitter:description" content="Time series analysis using R." />
+  
+
+<meta name="author" content="Michael Foley" />
+
+
+<meta name="date" content="2023-08-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exporation.html"/>
+<link rel="next" href="exponential.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series Analysis in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="toolbox.html"><a href="toolbox.html"><i class="fa fa-check"></i><b>1</b> Toolbox</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#r-structures"><i class="fa fa-check"></i><b>1.1</b> R Structures</a>
+<ul>
+<li class="chapter" data-level="" data-path="toolbox.html"><a href="toolbox.html#ts-zoo-and-xts"><i class="fa fa-check"></i>ts, zoo, and xts</a></li>
+<li class="chapter" data-level="" data-path="toolbox.html"><a href="toolbox.html#tsibble"><i class="fa fa-check"></i>tsibble</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="toolbox.html"><a href="toolbox.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
+<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-models"><i class="fa fa-check"></i><b>1.3</b> Evaluating Models</a></li>
+<li class="chapter" data-level="1.4" data-path="toolbox.html"><a href="toolbox.html#evaluating-accuracy"><i class="fa fa-check"></i><b>1.4</b> Evaluating Accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exporation.html"><a href="exporation.html"><i class="fa fa-check"></i><b>2</b> Exploratory Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="exporation.html"><a href="exporation.html#graphical-analysis"><i class="fa fa-check"></i><b>2.1</b> Graphical Analysis</a></li>
+<li class="chapter" data-level="2.2" data-path="exporation.html"><a href="exporation.html#transformations"><i class="fa fa-check"></i><b>2.2</b> Transformations</a></li>
+<li class="chapter" data-level="2.3" data-path="exporation.html"><a href="exporation.html#decomposition"><i class="fa fa-check"></i><b>2.3</b> Decomposition</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="exporation.html"><a href="exporation.html#classical-decomposition"><i class="fa fa-check"></i><b>2.3.1</b> Classical Decomposition</a></li>
+<li class="chapter" data-level="2.3.2" data-path="exporation.html"><a href="exporation.html#x-11-and-seats"><i class="fa fa-check"></i><b>2.3.2</b> X-11 and SEATS</a></li>
+<li class="chapter" data-level="2.3.3" data-path="exporation.html"><a href="exporation.html#stl"><i class="fa fa-check"></i><b>2.3.3</b> STL</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> Time Series Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="regression.html"><a href="regression.html#exploratory-analysis"><i class="fa fa-check"></i><b>3.1</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="regression.html"><a href="regression.html#fit-model"><i class="fa fa-check"></i><b>3.2</b> Fit Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html#special-predictors"><i class="fa fa-check"></i>Special Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="regression.html"><a href="regression.html#model-evaluation"><i class="fa fa-check"></i><b>3.3</b> Model Evaluation</a>
+<ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html#outliers-leverage-points-and-influential-points"><i class="fa fa-check"></i>Outliers, Leverage Points, and Influential Points</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="regression.html"><a href="regression.html#variable-selection"><i class="fa fa-check"></i><b>3.4</b> Variable Selection</a></li>
+<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#predicting-values"><i class="fa fa-check"></i><b>3.5</b> Predicting Values</a></li>
+<li class="chapter" data-level="3.6" data-path="regression.html"><a href="regression.html#nonlinear-regression"><i class="fa fa-check"></i><b>3.6</b> Nonlinear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exponential.html"><a href="exponential.html"><i class="fa fa-check"></i><b>4</b> Exponential Smoothing</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exponential.html"><a href="exponential.html#simple-exponential-smoothing-ses"><i class="fa fa-check"></i><b>4.1</b> Simple Exponential Smoothing (SES)</a></li>
+<li class="chapter" data-level="4.2" data-path="exponential.html"><a href="exponential.html#holts-linear-method"><i class="fa fa-check"></i><b>4.2</b> Holt’s Linear Method</a></li>
+<li class="chapter" data-level="4.3" data-path="exponential.html"><a href="exponential.html#additive-damped-trend-method"><i class="fa fa-check"></i><b>4.3</b> Additive Damped Trend Method</a></li>
+<li class="chapter" data-level="4.4" data-path="exponential.html"><a href="exponential.html#holt-winters"><i class="fa fa-check"></i><b>4.4</b> Holt-Winters</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="exponential.html"><a href="exponential.html#additive-holt-winters-method"><i class="fa fa-check"></i><b>4.4.1</b> Additive Holt-Winters Method</a></li>
+<li class="chapter" data-level="4.4.2" data-path="exponential.html"><a href="exponential.html#multiplicative-holt-winters-method"><i class="fa fa-check"></i><b>4.4.2</b> Multiplicative Holt-Winters Method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exponential.html"><a href="exponential.html#model-selection-with-cv"><i class="fa fa-check"></i><b>4.5</b> Model Selection with CV</a></li>
+<li class="chapter" data-level="4.6" data-path="exponential.html"><a href="exponential.html#model-selection-via-maximum-likelihood"><i class="fa fa-check"></i><b>4.6</b> Model Selection via Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="arima.html"><a href="arima.html"><i class="fa fa-check"></i><b>5</b> ARIMA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#tranformations-and-differencing"><i class="fa fa-check"></i><b>5.1</b> Tranformations and Differencing</a></li>
+<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-models"><i class="fa fa-check"></i><b>5.2</b> Autoregressive Models</a></li>
+<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-models"><i class="fa fa-check"></i><b>5.3</b> Moving Average Models</a></li>
+<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arima"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dynamic.html"><a href="dynamic.html"><i class="fa fa-check"></i><b>6</b> Dynamic Harmonic Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="dynamic.html"><a href="dynamic.html#tbats-model"><i class="fa fa-check"></i><b>6.1</b> TBATS Model</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Time Series Regression<a href="regression.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>A time series regression forecasts a time series as a linear relationship with the independent variables.</p>
+<p><span class="math display">\[y_t = X_t \beta + \epsilon_t\]</span></p>
+<p>The linear regression model assumes there is a <strong>linear</strong> relationship between the forecast variable and the predictor variables. This implies that the errors must have mean zero, otherwise the forecasts are biased: <span class="math inline">\(E(\epsilon | X_j) = 0\)</span>. The least squares method guarantees this condition is met. The residuals must not be autocorrelated, otherwise the forecasts are inefficient because there is more information in the data that can be exploited. To produce reliable inferences and prediction intervals, the residuals must be independent normal random variables with constant variance.</p>
+<p>Let’s learn by example. Data set <code>tsibbledata::aus_production</code> contains quarterly estimates of selected indicators of manufacturing production in Australia: <code>Beer</code>, <code>Gas</code>, <code>Electricity</code>, and <code>Cement</code>. (<code>Tobacco</code> and <code>Bricks</code> too, but they are incomplete data series). We’ll look at <code>Beer</code> production.</p>
+<div id="exploratory-analysis" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Exploratory Analysis<a href="regression.html#exploratory-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The correlation matrix shows <code>Beer</code> is negatively correlated with <code>Gas</code>, <code>Electricity</code>, and <code>Cement</code>.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="regression.html#cb53-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="regression.html#cb53-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">1992</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="regression.html#cb53-3" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="regression.html#cb53-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Quarter) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="regression.html#cb53-5" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb53-6"><a href="regression.html#cb53-6" tabindex="-1"></a>  ggcorrplot<span class="sc">::</span><span class="fu">ggcorrplot</span>(<span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">lab =</span> <span class="cn">TRUE</span>, <span class="at">lab_size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb53-7"><a href="regression.html#cb53-7" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb53-8"><a href="regression.html#cb53-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Consumption is correlated with predictors&quot;</span>,</span>
+<span id="cb53-9"><a href="regression.html#cb53-9" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Correlation plot of US economic indicators.&quot;</span>, </span>
+<span id="cb53-10"><a href="regression.html#cb53-10" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Source: tsibbledata::aus_production.&quot;</span>,</span>
+<span id="cb53-11"><a href="regression.html#cb53-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>You would probably want to explore the data further, but this is a minimal example.</p>
+</div>
+<div id="fit-model" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Fit Model<a href="regression.html#fit-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider this kitchen-sink model:</p>
+<p><span class="math display">\[\mathrm{Beer}_t = \beta_0 + \beta_1 \mathrm{Gas}_t + \beta_2 \mathrm{Electricity}_t + \beta_3 \mathrm{Cement}_t + \epsilon_t\]</span></p>
+<p>Use <code>fable::TSLM()</code> to fit a linear regression model to tsibble time series data. <code>TSLM()</code> is similar to <code>lm()</code> with additional facilities for handling time series. <code>TSLM() %&gt;% report()</code> is identical to <code>lm() %&gt;% summary()</code>. <strong>fable</strong> is part of the <a href="https://tidyverts.org/">tidyverts</a> group of time series packages. One nice feature of the <strong>tidyverts</strong> is piping.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="regression.html#cb54-1" tabindex="-1"></a>ausprod_fmla <span class="ot">&lt;-</span> <span class="fu">formula</span>(Beer <span class="sc">~</span> Gas <span class="sc">+</span> Electricity <span class="sc">+</span> Cement)</span>
+<span id="cb54-2"><a href="regression.html#cb54-2" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="regression.html#cb54-3" tabindex="-1"></a>ausprod_gas <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="regression.html#cb54-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">1992</span>)</span>
+<span id="cb54-5"><a href="regression.html#cb54-5" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="regression.html#cb54-6" tabindex="-1"></a>ausprod_lm <span class="ot">&lt;-</span> ausprod_gas <span class="sc">%&gt;%</span></span>
+<span id="cb54-7"><a href="regression.html#cb54-7" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">TSLM</span>(ausprod_fmla))</span>
+<span id="cb54-8"><a href="regression.html#cb54-8" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="regression.html#cb54-9" tabindex="-1"></a><span class="fu">report</span>(ausprod_lm)</span></code></pre></div>
+<pre><code>## Series: Beer 
+## Model: TSLM 
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -61.47 -25.47 -11.00  21.05  76.03 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  4.748e+02  3.583e+01  13.250  &lt; 2e-16 ***
+## Gas         -1.216e+00  2.501e-01  -4.860 6.93e-06 ***
+## Electricity  7.544e-04  1.469e-03   0.514  0.60919    
+## Cement       7.404e-02  2.609e-02   2.838  0.00594 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 36.67 on 70 degrees of freedom
+## Multiple R-squared: 0.3097,  Adjusted R-squared: 0.2801
+## F-statistic: 10.47 on 3 and 70 DF, p-value: 9.003e-06</code></pre>
+<p>The modeled <span class="math inline">\(R^2\)</span> is 0.310, the adjusted <span class="math inline">\(R^2\)</span> is 0.280, and the standard error of the regression<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, <span class="math inline">\(\hat{\sigma}_\epsilon,\)</span> is 36.7. The fitted values follow the observations okay. The fitted to actuals plot has a moderate linear relationship.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="regression.html#cb56-1" tabindex="-1"></a>plot_lm <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb56-2"><a href="regression.html#cb56-2" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">augment</span>(ausprod_lm) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="regression.html#cb56-3" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="regression.html#cb56-4" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">color =</span> <span class="st">&quot;dark gray&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="regression.html#cb56-5" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="regression.html#cb56-6" tabindex="-1"></a>    <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb56-7"><a href="regression.html#cb56-7" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Time series&quot;</span>)</span>
+<span id="cb56-8"><a href="regression.html#cb56-8" tabindex="-1"></a>  p2 <span class="ot">&lt;-</span> <span class="fu">augment</span>(ausprod_lm) <span class="sc">%&gt;%</span></span>
+<span id="cb56-9"><a href="regression.html#cb56-9" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Beer, <span class="at">y =</span> .fitted)) <span class="sc">+</span></span>
+<span id="cb56-10"><a href="regression.html#cb56-10" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-11"><a href="regression.html#cb56-11" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;dark gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-12"><a href="regression.html#cb56-12" tabindex="-1"></a>    <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb56-13"><a href="regression.html#cb56-13" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Fitted vs actuals&quot;</span>)</span>
+<span id="cb56-14"><a href="regression.html#cb56-14" tabindex="-1"></a>  </span>
+<span id="cb56-15"><a href="regression.html#cb56-15" tabindex="-1"></a>  p3 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> p2 <span class="sc">+</span></span>
+<span id="cb56-16"><a href="regression.html#cb56-16" tabindex="-1"></a>    patchwork<span class="sc">::</span><span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Fitted values plots&quot;</span>,</span>
+<span id="cb56-17"><a href="regression.html#cb56-17" tabindex="-1"></a>                               <span class="at">subtitle =</span> ausprod_fmla)</span>
+<span id="cb56-18"><a href="regression.html#cb56-18" tabindex="-1"></a>  </span>
+<span id="cb56-19"><a href="regression.html#cb56-19" tabindex="-1"></a>  p3</span>
+<span id="cb56-20"><a href="regression.html#cb56-20" tabindex="-1"></a>}</span>
+<span id="cb56-21"><a href="regression.html#cb56-21" tabindex="-1"></a><span class="fu">plot_lm</span>()</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>Time series regressions usually suffer from autocorrelation, so you need to control for trend and seasonality by adding time and seasonal dummy variables. Do this in <code>TSLM()</code> by including the <code>trend()</code> and <code>season()</code> helper functions in the formula. These are the <strong>tidyverts</strong> equivalent to introducing a row sequence and seasonal dummies as predictors in base R.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="regression.html#cb57-1" tabindex="-1"></a>ausprod_fmla <span class="ot">&lt;-</span> <span class="fu">update</span>(ausprod_fmla, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">trend</span>() <span class="sc">+</span> <span class="fu">season</span>())</span>
+<span id="cb57-2"><a href="regression.html#cb57-2" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="regression.html#cb57-3" tabindex="-1"></a>ausprod_lm <span class="ot">&lt;-</span> ausprod_gas <span class="sc">%&gt;%</span></span>
+<span id="cb57-4"><a href="regression.html#cb57-4" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">TSLM</span>(ausprod_fmla))</span>
+<span id="cb57-5"><a href="regression.html#cb57-5" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="regression.html#cb57-6" tabindex="-1"></a><span class="fu">plot_lm</span>()</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>Much better. The modeled <span class="math inline">\(R^2\)</span> is 0.926, the adjusted <span class="math inline">\(R^2\)</span> is 0.919, and the standard error of the regression, <span class="math inline">\(\hat{\sigma}_\epsilon,\)</span> is 12.3. The fitted to actuals plot has a moderate linear relationship.</p>
+<div id="special-predictors" class="section level3 unnumbered hasAnchor">
+<h3>Special Predictors<a href="regression.html#special-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We used two special predictor functions in our model, <code>trend()</code> and <code>season()</code>. Let’s look more closely at them.</p>
+<p>Adding the <code>trend()</code> special function is the same thing as adding a row number predictor. It captures the slope of the response variable associated with its sequence in the regression.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="regression.html#cb58-1" tabindex="-1"></a>ausprod_gas <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="regression.html#cb58-2" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">TSLM</span>(Beer <span class="sc">~</span> <span class="fu">trend</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="regression.html#cb58-3" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="regression.html#cb58-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rownum =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb58-5"><a href="regression.html#cb58-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rownum)) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="regression.html#cb58-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb58-7"><a href="regression.html#cb58-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb58-8"><a href="regression.html#cb58-8" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> <span class="st">&quot;y ~ x&quot;</span>, <span class="at">size =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb58-9"><a href="regression.html#cb58-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb58-10"><a href="regression.html#cb58-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;trend() is equivalent to adding time sequence to model.&quot;</span>,</span>
+<span id="cb58-11"><a href="regression.html#cb58-11" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Beer ~ trend()&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><code>season()</code> is the equivalent to adding seasonal dummy vars to the regression. <code>tsibbledata::aus_production</code> is defined with a quarterly index, so there are three associated dummies.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="regression.html#cb59-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> ausprod_gas <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="regression.html#cb59-2" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">TSLM</span>(Beer <span class="sc">~</span> <span class="fu">season</span>()))</span>
+<span id="cb59-3"><a href="regression.html#cb59-3" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="regression.html#cb59-4" tabindex="-1"></a><span class="co"># Gets the number of dummies right, but why call them &quot;year&quot;?</span></span>
+<span id="cb59-5"><a href="regression.html#cb59-5" tabindex="-1"></a><span class="fu">coef</span>(x)</span>
+<span id="cb59-6"><a href="regression.html#cb59-6" tabindex="-1"></a><span class="do">## # A tibble: 4 × 6</span></span>
+<span id="cb59-7"><a href="regression.html#cb59-7" tabindex="-1"></a><span class="do">##   .model                term          estimate std.error statistic  p.value</span></span>
+<span id="cb59-8"><a href="regression.html#cb59-8" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                 &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb59-9"><a href="regression.html#cb59-9" tabindex="-1"></a><span class="do">## 1 TSLM(Beer ~ season()) (Intercept)      429.       3.27    131.   1.71e-85</span></span>
+<span id="cb59-10"><a href="regression.html#cb59-10" tabindex="-1"></a><span class="do">## 2 TSLM(Beer ~ season()) season()year2    -35.0      4.63     -7.57 1.14e-10</span></span>
+<span id="cb59-11"><a href="regression.html#cb59-11" tabindex="-1"></a><span class="do">## 3 TSLM(Beer ~ season()) season()year3    -17.8      4.69     -3.80 3.05e- 4</span></span>
+<span id="cb59-12"><a href="regression.html#cb59-12" tabindex="-1"></a><span class="do">## 4 TSLM(Beer ~ season()) season()year4     72.5      4.69     15.5  2.97e-24</span></span>
+<span id="cb59-13"><a href="regression.html#cb59-13" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="regression.html#cb59-14" tabindex="-1"></a><span class="fu">augment</span>(x) <span class="sc">%&gt;%</span></span>
+<span id="cb59-15"><a href="regression.html#cb59-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">quarter</span>(Quarter)) <span class="sc">%&gt;%</span></span>
+<span id="cb59-16"><a href="regression.html#cb59-16" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> season)) <span class="sc">+</span></span>
+<span id="cb59-17"><a href="regression.html#cb59-17" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb59-18"><a href="regression.html#cb59-18" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-19"><a href="regression.html#cb59-19" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb59-20"><a href="regression.html#cb59-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;season() is equivalent to adding seasonal dummy variables to model.&quot;</span>,</span>
+<span id="cb59-21"><a href="regression.html#cb59-21" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Beer ~ season()&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>There are other special variables you might consider. If an exogenous event has a one period effect or level effect, model it with an <em>intervention</em> dummy. If the intervention has a trend effect, use a <em>piecewise linear trend</em>.</p>
+<p>If you are modeling monthly totals, you might want to control for the number of days in the month (trading days, business days, etc.). You can do this by transforming your response variable, or by introducing a predictor with the normalizing factor.</p>
+<p>Some predictor variables may exert a lagged effect. A good example is advertising; its effect is most pronounced in the first month with a diminishing effect in subsequent months. If you expect a lag effect for a variable, include its lagged value in the model formula.</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1x_{l0} + \beta_2x_{l1} + \ldots\]</span></p>
+<p>Fourier terms are an alternative to dummy variables. They are especially useful for long seasonal periods. Fourier showed that a series of alternating sine and cosine terms of the right frequencies can approximate any periodic function. A quarterly seasonal regression would have terms <span class="math inline">\(\sin\left(\frac{2\pi}{m}\right)\)</span>, <span class="math inline">\(\cos\left(\frac{2\pi}{m}\right)\)</span>, <span class="math inline">\(\sin\left(\frac{4\pi}{m}\right)\)</span>. Use special function <code>fourier(K)</code> where <code>K</code> equals the number of sin and cos pairs to include, usually equal to half the number of seasonal periods.</p>
+</div>
+</div>
+<div id="model-evaluation" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Model Evaluation<a href="regression.html#model-evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Evaluate the regression model with diagnostic plots. Use <code>feasts::gg_tsresiduals()</code> from the tidyverts.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="regression.html#cb60-1" tabindex="-1"></a><span class="fu">gg_tsresiduals</span>(ausprod_lm)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>Time series observations are usually related to prior observations. That shows up in diagnostic plots as autocorrelation in the residuals. Autocorrelation in the residuals increases the prediction intervals, making forecasts less efficient (although still unbiased). The autocorrelation function plot (ACF) finds a significant negative spike at lag 1 and a positive spike at lag 12.</p>
+<p>Another test of autocorrelation in the residuals is the Breusch-Godfrey test for serial correlation up to a specified order. A small <em>p</em>-value indicates there is significant autocorrelation remaining in the residuals. The Breusch-Godfrey test is similar to the Ljung-Box test, but it is specifically designed for use with regression models. I cannot find support for the Breusch-Godfrey test.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="regression.html#cb61-1" tabindex="-1"></a>(ausprod_lm_lb <span class="ot">&lt;-</span> ausprod_lm <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="regression.html#cb61-2" tabindex="-1"></a>   <span class="fu">augment</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="regression.html#cb61-3" tabindex="-1"></a>   <span class="fu">features</span>(.innov, ljung_box, <span class="at">lag =</span> <span class="dv">12</span>, <span class="at">dof =</span> <span class="dv">4</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   .model             lb_stat lb_pvalue
+##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+## 1 TSLM(ausprod_fmla)    22.0   0.00497</code></pre>
+<p>Using Ljung-Box, the spike at lag 1 <em>is</em> significant (<em>p</em> = 0.0050). The autocorrelation is not particularly large and is unlikely to have a noticeable impact on the forecasts or the prediction intervals.</p>
+<p>The residuals vs time diagnostic plot revealed no heteroscedasticity (although there might be an outlier). Heteroscedasticity can make prediction intervals inaccurate.</p>
+<p>The histogram shows that the residuals are slightly left-skewed. Non-normality of the residuals can also make the prediction intervals inaccurate.</p>
+<p>The residuals should be independent of each of the explanatory variables <em>and</em> independent of candidate variables not used in the model. In this case, the residuals have a random pattern in each of the plots.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="regression.html#cb63-1" tabindex="-1"></a>ausprod_gas <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="regression.html#cb63-2" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">residuals</span>(ausprod_lm), <span class="at">by =</span> <span class="st">&quot;Quarter&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="regression.html#cb63-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Cement<span class="sc">:</span>Gas, <span class="at">names_to =</span> <span class="st">&quot;regressor&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;x&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-4"><a href="regression.html#cb63-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> .resid, <span class="at">color =</span> regressor)) <span class="sc">+</span></span>
+<span id="cb63-5"><a href="regression.html#cb63-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="regression.html#cb63-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(regressor), <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="regression.html#cb63-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;There is no relationship between residuals and individual regressors.&quot;</span>,</span>
+<span id="cb63-8"><a href="regression.html#cb63-8" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;otherwise the relationship may be nonlinear.&quot;</span>,</span>
+<span id="cb63-9"><a href="regression.html#cb63-9" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb63-10"><a href="regression.html#cb63-10" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb63-11"><a href="regression.html#cb63-11" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>A second check on the homoscedastity assumption is a plot of the residuals against the fitted values. Again, there should be no pattern.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="regression.html#cb64-1" tabindex="-1"></a><span class="fu">augment</span>(ausprod_lm) <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="regression.html#cb64-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb64-3"><a href="regression.html#cb64-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-4"><a href="regression.html#cb64-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;There is no relationship between residuals and fitted values.&quot;</span>,</span>
+<span id="cb64-5"><a href="regression.html#cb64-5" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;otherwise the response variable may require transformation.&quot;</span>,</span>
+<span id="cb64-6"><a href="regression.html#cb64-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Fitted&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-7"><a href="regression.html#cb64-7" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div id="outliers-leverage-points-and-influential-points" class="section level3 unnumbered hasAnchor">
+<h3>Outliers, Leverage Points, and Influential Points<a href="regression.html#outliers-leverage-points-and-influential-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Check for <em>outliers</em>, <em>leverage points</em>, and <em>influential points</em>. An outlier is a point far from the others (in either the x or y direction); a leverage point is far from the others in the x direction, potentially affecting the measured slope; an influential point is a leverage point that <em>does</em> affect the slope. For multiple linear regression models there is no straight-forward visual diagnostic like the simple linear regression scatter plot.</p>
+<p>The “hat matrix” <span class="math inline">\(H\)</span> identifies leverage points. Recall that in the linear regression model, <span class="math inline">\(\hat{y} = X \hat{\beta}\)</span>, the slope coefficients are estimated by <span class="math inline">\(\hat{\beta} = (X&#39;X)^{-1}X&#39;y\)</span>. Substituting, <span class="math inline">\(\hat{y} = X(X&#39;X)^{-1}X&#39;y\)</span>, or <span class="math inline">\(\hat{y} = Hy\)</span>, where</p>
+<p><span class="math display">\[H = X(X&#39;X)^{-1}X&#39;.\]</span></p>
+<p><span class="math inline">\(H\)</span> is called the hat matrix because <span class="math inline">\(H\)</span> puts the hat on <span class="math inline">\(y\)</span>. <span class="math inline">\(H\)</span> is an <span class="math inline">\(n \times n\)</span> matrix. The diagonal elements <span class="math inline">\(H_{ii}\)</span> are a measure of the distances between each observation <span class="math inline">\(i\)</span>’s predictor variables <span class="math inline">\(X_i\)</span> and the average of the entire data set predictor variables <span class="math inline">\(\bar{X}\)</span>. <span class="math inline">\(H_{ii}\)</span> are the leverage that the observed responses <span class="math inline">\(y_i\)</span> exert on the predicted responses <span class="math inline">\(\hat{y}_i\)</span>. Each <span class="math inline">\(H_{ii}\)</span> is in the unit interval [0, 1] and the values sum to the number of regression parameters (including the intercept) <span class="math inline">\(\sum{H_{ii}} = k + 1\)</span>. A common rule is to research any observation whose leverage value is more than 3 times larger than the mean leverage value, which since the sum of the leverage values is <span class="math inline">\(k + 1\)</span>, equals</p>
+<p><span class="math display">\[H_{ii} &gt; 3 \frac{k + 1}{n}.\]</span></p>
+<p>Identify influential points by their Cook’s distance. Cook’s distance for observation <span class="math inline">\(i\)</span> is defined</p>
+<p><span class="math display">\[D_i = \frac{(y_i - \hat{y}_i)^2}{p \times MSE} \frac{H_{ii}}{(1 - H_{ii})^2}.\]</span></p>
+<p><span class="math inline">\(D_i\)</span> directly summarizes how much all of the fitted values change when the <em>i</em>th observation is deleted. A data point with <span class="math inline">\(D_i &gt; 1\)</span> is probably influential. <span class="math inline">\(D_i &gt; 0.5\)</span> is at least worth investigating.</p>
+<blockquote>
+<p>I cannot find any support for Cook’s distance in fable.</p>
+</blockquote>
+</div>
+</div>
+<div id="variable-selection" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Variable Selection<a href="regression.html#variable-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are five common measures of predictive accuracy: <span class="math inline">\(\bar{R}^2\)</span>, CV, AIC, AICc, and BIC.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="regression.html#cb65-1" tabindex="-1"></a><span class="fu">glance</span>(ausprod_lm) <span class="sc">%&gt;%</span> <span class="fu">t</span>()</span></code></pre></div>
+<pre><code>##               [,1]                
+## .model        &quot;TSLM(ausprod_fmla)&quot;
+## r_squared     &quot;0.9263632&quot;         
+## adj_r_squared &quot;0.9185533&quot;         
+## sigma2        &quot;152.123&quot;           
+## statistic     &quot;118.613&quot;           
+## p_value       &quot;7.315323e-35&quot;      
+## df            &quot;8&quot;                 
+## log_lik       &quot;-286.6818&quot;         
+## AIC           &quot;381.3606&quot;          
+## AICc          &quot;384.1731&quot;          
+## BIC           &quot;402.0972&quot;          
+## CV            &quot;170.4503&quot;          
+## deviance      &quot;10040.12&quot;          
+## df.residual   &quot;66&quot;                
+## rank          &quot;8&quot;</code></pre>
+<p><span class="math inline">\(\bar{R}^2\)</span> is common and well-established, but tends to select too many predictor variables, making it less suitable for forecasting. BIC has the feature that if there is a true underlying model, the BIC will select it given enough data. However, there is rarely a true underlying model, and even if there was one, that model would not necessarily produce the best forecasts because the parameter estimates may not be accurate. The AICc, AIC, and CV statistics are usually best because forecasting is their objective. If the value of time series size <span class="math inline">\(T\)</span> is large enough, they all lead to the same model.</p>
+<p><span class="math inline">\(R^2 = 1 - \frac{SSE}{SST}\)</span> and <span class="math inline">\(\bar{R}^2 = 1 - (1 - R^2) \frac{T - 1}{T - k - 1}\)</span>. Maximizing <span class="math inline">\(\bar{R}^2\)</span> is equivalent to minimizing the regression standard error <span class="math inline">\(\hat{\sigma}\)</span>.</p>
+<p>Classical leave-one-out cross-validation (CV) measures the predictive ability of a model. In concept, CV is calculated by fitting the model <em>without</em> observation <span class="math inline">\(t\)</span> and measuring the predictive error on observation <span class="math inline">\(t\)</span>. Repeat for all <span class="math inline">\(T\)</span> observations. CV is the mean squared error, and the model with the minimum CV is the best model for forecasting. In practice, you use the hat matrix instead of fitting the model repeatedly.</p>
+<p><span class="math display">\[CV = MSE = \frac{1}{T} \sum_{t=1}^T \left[\frac{e_t}{1 - h_t}\right]^2\]</span></p>
+<p>where <span class="math inline">\(h_t\)</span> are the diagonal values of the hat-matrix <span class="math inline">\(H\)</span> from <span class="math inline">\(\hat{y} = X\beta = X(X&#39;X)^{-1}X&#39;y = Hy\)</span> and <span class="math inline">\(e_t\)</span> is the residual obtained from fitting the model to all <span class="math inline">\(T\)</span> observations.</p>
+<p>Closely related to CV is Akaike’s Information Criterion (AIC), defined as</p>
+<p><span class="math display">\[AIC = T \log\left(\frac{SSE}{T}\right) + 2(k + 2)\]</span></p>
+<p>The measure penalizes the model by the number of parameters that need to be estimated. The model with the minimum AIC is the best model for forecasting. For large values of <span class="math inline">\(T\)</span>, minimizing the AIC is equivalent to minimizing the CV.</p>
+<p>For small values of <span class="math inline">\(T\)</span>, the AIC tends to select too many predictors, and so a bias-corrected version of the AIC has been developed, AICc.</p>
+<p><span class="math display">\[AIC_c = AIC + \frac{2(k+2)(k + 3)}{T - k - 3}\]</span></p>
+<p>BIC is similar to AIC, but penalizes the number of parameters more heavily than the AIC. For large values of <span class="math inline">\(T\)</span>, minimizing BIC is similar to leave-<em>v</em>-out cross-validation when <span class="math inline">\(v = T[1 − 1/\log(T) - 1]\)</span>.</p>
+<p><span class="math display">\[BIC = T \log\left(\frac{SSE}{T}\right) + (k + 2)\log(T)\]</span></p>
+<p>There are many strategies to choose regression model predictors when there are many to choose from. Two common methods for using these measures are <strong>best subsets regression</strong> and <strong>stepwise regression</strong>. In best subsets regression, you fit all possible models then choose the one with the best metric value (e.g., lowest AIC). If there are too many candidate models (40 predictors would yield <span class="math inline">\(2^{40}\)</span> models!), use stepwise regression. In <em>backwards stepwise regression</em>, include <em>all</em> candidate predictors initially, then check whether leaving any one predictor out improves the evaluation metric. If any leave-one-out model is better, then choose the best leave-one-out model. Repeat until no leave-one-out model is better.</p>
+<p>Let’s use the best subsets method to evaluate the possible models for the <code>ausprod_gas</code> data set. The 3 candidate predictors yield <span class="math inline">\(2^3 = 8\)</span> possible models. I don’t know how to do this in <strong>caret</strong>, so I’ll just do it manually.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="regression.html#cb67-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">formula</span>(Beer <span class="sc">~</span> <span class="fu">trend</span>() <span class="sc">+</span> <span class="fu">season</span>())</span>
+<span id="cb67-2"><a href="regression.html#cb67-2" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="regression.html#cb67-3" tabindex="-1"></a>fmla <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb67-4"><a href="regression.html#cb67-4" tabindex="-1"></a>  <span class="sc">~</span>Gas, <span class="sc">~</span>Electricity, <span class="sc">~</span>Cement, <span class="sc">~</span>fmla,</span>
+<span id="cb67-5"><a href="regression.html#cb67-5" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Gas <span class="sc">+</span> Electricity <span class="sc">+</span> Cement),</span>
+<span id="cb67-6"><a href="regression.html#cb67-6" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Gas <span class="sc">+</span> Electricity),</span>
+<span id="cb67-7"><a href="regression.html#cb67-7" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Gas <span class="sc">+</span> Cement),</span>
+<span id="cb67-8"><a href="regression.html#cb67-8" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Electricity <span class="sc">+</span> Cement),</span>
+<span id="cb67-9"><a href="regression.html#cb67-9" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Gas),</span>
+<span id="cb67-10"><a href="regression.html#cb67-10" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Electricity),</span>
+<span id="cb67-11"><a href="regression.html#cb67-11" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">update</span>(x, <span class="sc">~</span> . <span class="sc">+</span> Cement),</span>
+<span id="cb67-12"><a href="regression.html#cb67-12" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, x</span>
+<span id="cb67-13"><a href="regression.html#cb67-13" tabindex="-1"></a>)</span>
+<span id="cb67-14"><a href="regression.html#cb67-14" tabindex="-1"></a></span>
+<span id="cb67-15"><a href="regression.html#cb67-15" tabindex="-1"></a>ausprod_best_subsets <span class="ot">&lt;-</span> fmla <span class="sc">%&gt;%</span></span>
+<span id="cb67-16"><a href="regression.html#cb67-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mdl =</span> <span class="fu">map</span>(fmla, <span class="cf">function</span>(x) <span class="fu">model</span>(ausprod_gas, <span class="fu">TSLM</span>(x))),</span>
+<span id="cb67-17"><a href="regression.html#cb67-17" tabindex="-1"></a>         <span class="at">mdl_glance =</span> <span class="fu">map</span>(mdl, glance)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-18"><a href="regression.html#cb67-18" tabindex="-1"></a>  <span class="fu">unnest</span>(mdl_glance) <span class="sc">%&gt;%</span></span>
+<span id="cb67-19"><a href="regression.html#cb67-19" tabindex="-1"></a>  <span class="fu">select</span>(Gas, Electricity, Cement, <span class="at">AdjR2 =</span> adj_r_squared, CV, AIC, AICc, BIC)</span>
+<span id="cb67-20"><a href="regression.html#cb67-20" tabindex="-1"></a></span>
+<span id="cb67-21"><a href="regression.html#cb67-21" tabindex="-1"></a>ausprod_best_subsets <span class="sc">%&gt;%</span></span>
+<span id="cb67-22"><a href="regression.html#cb67-22" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb67-23"><a href="regression.html#cb67-23" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb67-24"><a href="regression.html#cb67-24" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">border</span>(<span class="at">j =</span> <span class="dv">3</span>, <span class="at">border.right =</span> officer<span class="sc">::</span><span class="fu">fp_border</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb67-25"><a href="regression.html#cb67-25" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_double</span>(<span class="at">j =</span> <span class="dv">4</span>, <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb67-26"><a href="regression.html#cb67-26" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_double</span>(<span class="at">j =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">digits =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb67-27"><a href="regression.html#cb67-27" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">&quot;Best subsets model is Beer ~ Gas + Cement&quot;</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-6a444eb8{}.cl-6a397b00{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a397b14{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a3dcfe8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6a3dea50{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a3dea64{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a3dea65{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a3dea66{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a3dea6e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-6a444eb8'>
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">
+<span id="tab:unnamed-chunk-49">Table 3.1: </span><span>Best subsets model is Beer ~ Gas + Cement</span>
+</caption>
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">Gas</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">Electricity</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">Cement</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">AdjR2</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">CV</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">AIC</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">AICc</span></p></th><th class="cl-6a3dea50"><p class="cl-6a3dcfe8"><span class="cl-6a397b00">BIC</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea65"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.919</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">170</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">381</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">384</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">402</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea6e"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.920</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">167</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">380</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">382</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">398</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea65"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.919</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">165</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">380</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">382</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">398</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea6e"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.918</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">169</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">381</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">383</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">399</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea65"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.920</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">162</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">378</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">380</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">394</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea6e"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.919</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">165</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">379</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">381</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">395</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea65"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">1</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.919</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">164</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">379</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">381</span></p></td><td class="cl-6a3dea64"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">395</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea6e"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">0.920</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">160</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">377</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">379</span></p></td><td class="cl-6a3dea66"><p class="cl-6a3dcfe8"><span class="cl-6a397b14">391</span></p></td></tr></tbody></table></div>
+<p>All of the models produce about the same <span class="math inline">\(\bar{R}^2\)</span>. The CV, AIC, AICc, and BIC metrics shrink somewhat with less predictors, optimizing on the intercept-only model. It seems that while beer production is correlated with other commodities, it is fully explained by the trend and seasonal variables.</p>
+</div>
+<div id="predicting-values" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Predicting Values<a href="regression.html#predicting-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Use the <code>forecast()</code> method to predict future periods. If there are no predictors in the model other than <code>trend()</code> and <code>season()</code>, <code>forecast()</code> is all you need. If there <em>are</em> predictors, construct “new data” using <code>scenarios()</code> and <code>new_data()</code>.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="regression.html#cb68-1" tabindex="-1"></a><span class="co"># scenarios() creates data sets extending the key-index in `.data` `n` periods.</span></span>
+<span id="cb68-2"><a href="regression.html#cb68-2" tabindex="-1"></a>future_dat <span class="ot">&lt;-</span> <span class="fu">scenarios</span>(</span>
+<span id="cb68-3"><a href="regression.html#cb68-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">High Gas</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">new_data</span>(ausprod_gas, <span class="at">n =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-4"><a href="regression.html#cb68-4" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Gas =</span> <span class="fu">max</span>(ausprod_gas<span class="sc">$</span>Gas), </span>
+<span id="cb68-5"><a href="regression.html#cb68-5" tabindex="-1"></a>           <span class="at">Electricity =</span> <span class="fu">mean</span>(ausprod_gas<span class="sc">$</span>Electricity), </span>
+<span id="cb68-6"><a href="regression.html#cb68-6" tabindex="-1"></a>           <span class="at">Cement =</span> <span class="fu">mean</span>(ausprod_gas<span class="sc">$</span>Cement)),</span>
+<span id="cb68-7"><a href="regression.html#cb68-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">Low Gas</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">new_data</span>(ausprod_gas, <span class="at">n =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-8"><a href="regression.html#cb68-8" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Gas =</span> <span class="fu">min</span>(ausprod_gas<span class="sc">$</span>Gas), </span>
+<span id="cb68-9"><a href="regression.html#cb68-9" tabindex="-1"></a>           <span class="at">Electricity =</span> <span class="fu">mean</span>(ausprod_gas<span class="sc">$</span>Electricity), </span>
+<span id="cb68-10"><a href="regression.html#cb68-10" tabindex="-1"></a>           <span class="at">Cement =</span> <span class="fu">mean</span>(ausprod_gas<span class="sc">$</span>Cement))</span>
+<span id="cb68-11"><a href="regression.html#cb68-11" tabindex="-1"></a>)</span>
+<span id="cb68-12"><a href="regression.html#cb68-12" tabindex="-1"></a>future_dat</span>
+<span id="cb68-13"><a href="regression.html#cb68-13" tabindex="-1"></a><span class="do">## $`High Gas`</span></span>
+<span id="cb68-14"><a href="regression.html#cb68-14" tabindex="-1"></a><span class="do">## # A tsibble: 4 x 4 [1Q]</span></span>
+<span id="cb68-15"><a href="regression.html#cb68-15" tabindex="-1"></a><span class="do">##   Quarter   Gas Electricity Cement</span></span>
+<span id="cb68-16"><a href="regression.html#cb68-16" tabindex="-1"></a><span class="do">##     &lt;qtr&gt; &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb68-17"><a href="regression.html#cb68-17" tabindex="-1"></a><span class="do">## 1 2010 Q3   252      50230.  1948.</span></span>
+<span id="cb68-18"><a href="regression.html#cb68-18" tabindex="-1"></a><span class="do">## 2 2010 Q4   252      50230.  1948.</span></span>
+<span id="cb68-19"><a href="regression.html#cb68-19" tabindex="-1"></a><span class="do">## 3 2011 Q1   252      50230.  1948.</span></span>
+<span id="cb68-20"><a href="regression.html#cb68-20" tabindex="-1"></a><span class="do">## 4 2011 Q2   252      50230.  1948.</span></span>
+<span id="cb68-21"><a href="regression.html#cb68-21" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-22"><a href="regression.html#cb68-22" tabindex="-1"></a><span class="do">## $`Low Gas`</span></span>
+<span id="cb68-23"><a href="regression.html#cb68-23" tabindex="-1"></a><span class="do">## # A tsibble: 4 x 4 [1Q]</span></span>
+<span id="cb68-24"><a href="regression.html#cb68-24" tabindex="-1"></a><span class="do">##   Quarter   Gas Electricity Cement</span></span>
+<span id="cb68-25"><a href="regression.html#cb68-25" tabindex="-1"></a><span class="do">##     &lt;qtr&gt; &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb68-26"><a href="regression.html#cb68-26" tabindex="-1"></a><span class="do">## 1 2010 Q3   116      50230.  1948.</span></span>
+<span id="cb68-27"><a href="regression.html#cb68-27" tabindex="-1"></a><span class="do">## 2 2010 Q4   116      50230.  1948.</span></span>
+<span id="cb68-28"><a href="regression.html#cb68-28" tabindex="-1"></a><span class="do">## 3 2011 Q1   116      50230.  1948.</span></span>
+<span id="cb68-29"><a href="regression.html#cb68-29" tabindex="-1"></a><span class="do">## 4 2011 Q2   116      50230.  1948.</span></span>
+<span id="cb68-30"><a href="regression.html#cb68-30" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-31"><a href="regression.html#cb68-31" tabindex="-1"></a><span class="do">## attr(,&quot;names_to&quot;)</span></span>
+<span id="cb68-32"><a href="regression.html#cb68-32" tabindex="-1"></a><span class="do">## [1] &quot;.scenario&quot;</span></span>
+<span id="cb68-33"><a href="regression.html#cb68-33" tabindex="-1"></a></span>
+<span id="cb68-34"><a href="regression.html#cb68-34" tabindex="-1"></a>ausprod_fc <span class="ot">&lt;-</span> <span class="fu">forecast</span>(ausprod_lm, <span class="at">new_data =</span> future_dat)</span>
+<span id="cb68-35"><a href="regression.html#cb68-35" tabindex="-1"></a></span>
+<span id="cb68-36"><a href="regression.html#cb68-36" tabindex="-1"></a>ausprod_fc_2 <span class="ot">&lt;-</span> ausprod_fc <span class="sc">%&gt;%</span></span>
+<span id="cb68-37"><a href="regression.html#cb68-37" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">map_dbl</span>(Beer, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;mu&quot;</span>]),</span>
+<span id="cb68-38"><a href="regression.html#cb68-38" tabindex="-1"></a>         <span class="at">sigma =</span> <span class="fu">map_dbl</span>(Beer, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;sigma&quot;</span>]),</span>
+<span id="cb68-39"><a href="regression.html#cb68-39" tabindex="-1"></a>         <span class="at">ci_025 =</span> <span class="fu">qnorm</span>(.<span class="dv">025</span>, mu, sigma),</span>
+<span id="cb68-40"><a href="regression.html#cb68-40" tabindex="-1"></a>         <span class="at">ci_100 =</span> <span class="fu">qnorm</span>(.<span class="dv">100</span>, mu, sigma),</span>
+<span id="cb68-41"><a href="regression.html#cb68-41" tabindex="-1"></a>         <span class="at">ci_900 =</span> <span class="fu">qnorm</span>(.<span class="dv">900</span>, mu, sigma),</span>
+<span id="cb68-42"><a href="regression.html#cb68-42" tabindex="-1"></a>         <span class="at">ci_975 =</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>, mu, sigma)) <span class="sc">%&gt;%</span></span>
+<span id="cb68-43"><a href="regression.html#cb68-43" tabindex="-1"></a>  <span class="fu">select</span>(.scenario, Quarter, Beer, mu, sigma, ci_025<span class="sc">:</span>ci_975) </span>
+<span id="cb68-44"><a href="regression.html#cb68-44" tabindex="-1"></a></span>
+<span id="cb68-45"><a href="regression.html#cb68-45" tabindex="-1"></a>ausprod_gas <span class="sc">%&gt;%</span></span>
+<span id="cb68-46"><a href="regression.html#cb68-46" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
+<span id="cb68-47"><a href="regression.html#cb68-47" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-48"><a href="regression.html#cb68-48" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> ausprod_fc_2, <span class="fu">aes</span>(<span class="at">y =</span> mu, <span class="at">color =</span> .scenario), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb68-49"><a href="regression.html#cb68-49" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> ausprod_fc_2, </span>
+<span id="cb68-50"><a href="regression.html#cb68-50" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">ymin =</span> ci_100, <span class="at">ymax =</span> ci_900, <span class="at">fill =</span> .scenario), </span>
+<span id="cb68-51"><a href="regression.html#cb68-51" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb68-52"><a href="regression.html#cb68-52" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> ausprod_fc_2, </span>
+<span id="cb68-53"><a href="regression.html#cb68-53" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">ymin =</span> ci_025, <span class="at">ymax =</span> ci_975, <span class="at">fill =</span> .scenario), </span>
+<span id="cb68-54"><a href="regression.html#cb68-54" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb68-55"><a href="regression.html#cb68-55" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;High Gas&quot;</span> <span class="ot">=</span> <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;Low Gas&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkolivegreen&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb68-56"><a href="regression.html#cb68-56" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;High Gas&quot;</span> <span class="ot">=</span> <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;Low Gas&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkolivegreen&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb68-57"><a href="regression.html#cb68-57" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb68-58"><a href="regression.html#cb68-58" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-59"><a href="regression.html#cb68-59" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Four period linear model, high- and low-gas scenarios.&quot;</span>,</span>
+<span id="cb68-60"><a href="regression.html#cb68-60" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Shaded area is 80%- and 95% confidence interval.&quot;</span>,</span>
+<span id="cb68-61"><a href="regression.html#cb68-61" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Beer&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)</span>
+<span id="cb68-62"><a href="regression.html#cb68-62" tabindex="-1"></a><span class="do">## Warning: The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.</span></span>
+<span id="cb68-63"><a href="regression.html#cb68-63" tabindex="-1"></a><span class="do">## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</span></span>
+<span id="cb68-64"><a href="regression.html#cb68-64" tabindex="-1"></a><span class="do">## The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.</span></span>
+<span id="cb68-65"><a href="regression.html#cb68-65" tabindex="-1"></a><span class="do">## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</span></span>
+<span id="cb68-66"><a href="regression.html#cb68-66" tabindex="-1"></a><span class="do">## The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.</span></span>
+<span id="cb68-67"><a href="regression.html#cb68-67" tabindex="-1"></a><span class="do">## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</span></span>
+<span id="cb68-68"><a href="regression.html#cb68-68" tabindex="-1"></a><span class="do">## Warning: Removed 8 rows containing missing values (`geom_line()`).</span></span>
+<span id="cb68-69"><a href="regression.html#cb68-69" tabindex="-1"></a><span class="do">## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
+<span id="cb68-70"><a href="regression.html#cb68-70" tabindex="-1"></a><span class="do">## -Inf</span></span>
+<span id="cb68-71"><a href="regression.html#cb68-71" tabindex="-1"></a></span>
+<span id="cb68-72"><a href="regression.html#cb68-72" tabindex="-1"></a><span class="do">## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
+<span id="cb68-73"><a href="regression.html#cb68-73" tabindex="-1"></a><span class="do">## -Inf</span></span>
+<span id="cb68-74"><a href="regression.html#cb68-74" tabindex="-1"></a></span>
+<span id="cb68-75"><a href="regression.html#cb68-75" tabindex="-1"></a><span class="do">## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
+<span id="cb68-76"><a href="regression.html#cb68-76" tabindex="-1"></a><span class="do">## -Inf</span></span>
+<span id="cb68-77"><a href="regression.html#cb68-77" tabindex="-1"></a></span>
+<span id="cb68-78"><a href="regression.html#cb68-78" tabindex="-1"></a><span class="do">## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
+<span id="cb68-79"><a href="regression.html#cb68-79" tabindex="-1"></a><span class="do">## -Inf</span></span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+</div>
+<div id="nonlinear-regression" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Nonlinear Regression<a href="regression.html#nonlinear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If there are kinks in the response variable trend, you can use piecewise linear regression by defining the knots in the series.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="regression.html#cb69-1" tabindex="-1"></a>boston_dat <span class="ot">&lt;-</span> fpp3<span class="sc">::</span>boston_marathon <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="regression.html#cb69-2" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">1924</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="regression.html#cb69-3" tabindex="-1"></a>  <span class="fu">filter</span>(Event <span class="sc">==</span> <span class="st">&quot;Men&#39;s open division&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-4"><a href="regression.html#cb69-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Minutes =</span> <span class="fu">as.numeric</span>(Time)<span class="sc">/</span><span class="dv">60</span>)</span>
+<span id="cb69-5"><a href="regression.html#cb69-5" tabindex="-1"></a></span>
+<span id="cb69-6"><a href="regression.html#cb69-6" tabindex="-1"></a>boston_lm <span class="ot">&lt;-</span> boston_dat <span class="sc">%&gt;%</span></span>
+<span id="cb69-7"><a href="regression.html#cb69-7" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">piecewise =</span> <span class="fu">TSLM</span>(Minutes <span class="sc">~</span><span class="fu">trend</span>(<span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1950</span>, <span class="dv">1980</span>))))</span>
+<span id="cb69-8"><a href="regression.html#cb69-8" tabindex="-1"></a></span>
+<span id="cb69-9"><a href="regression.html#cb69-9" tabindex="-1"></a>boston_fc <span class="ot">&lt;-</span> boston_lm <span class="sc">%&gt;%</span></span>
+<span id="cb69-10"><a href="regression.html#cb69-10" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-11"><a href="regression.html#cb69-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">map_dbl</span>(Minutes, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;mu&quot;</span>]),</span>
+<span id="cb69-12"><a href="regression.html#cb69-12" tabindex="-1"></a>         <span class="at">sigma =</span> <span class="fu">map_dbl</span>(Minutes, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;sigma&quot;</span>]),</span>
+<span id="cb69-13"><a href="regression.html#cb69-13" tabindex="-1"></a>         <span class="at">ci_025 =</span> <span class="fu">qnorm</span>(.<span class="dv">025</span>, mu, sigma),</span>
+<span id="cb69-14"><a href="regression.html#cb69-14" tabindex="-1"></a>         <span class="at">ci_100 =</span> <span class="fu">qnorm</span>(.<span class="dv">100</span>, mu, sigma),</span>
+<span id="cb69-15"><a href="regression.html#cb69-15" tabindex="-1"></a>         <span class="at">ci_900 =</span> <span class="fu">qnorm</span>(.<span class="dv">900</span>, mu, sigma),</span>
+<span id="cb69-16"><a href="regression.html#cb69-16" tabindex="-1"></a>         <span class="at">ci_975 =</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>, mu, sigma)) <span class="sc">%&gt;%</span></span>
+<span id="cb69-17"><a href="regression.html#cb69-17" tabindex="-1"></a>  <span class="fu">select</span>(Year, Minutes, mu, sigma, ci_025<span class="sc">:</span>ci_975) </span>
+<span id="cb69-18"><a href="regression.html#cb69-18" tabindex="-1"></a></span>
+<span id="cb69-19"><a href="regression.html#cb69-19" tabindex="-1"></a><span class="fu">augment</span>(boston_lm) <span class="sc">%&gt;%</span></span>
+<span id="cb69-20"><a href="regression.html#cb69-20" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year)) <span class="sc">+</span></span>
+<span id="cb69-21"><a href="regression.html#cb69-21" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Minutes), <span class="at">color =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb69-22"><a href="regression.html#cb69-22" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb69-23"><a href="regression.html#cb69-23" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mu), <span class="at">data =</span> boston_fc, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb69-24"><a href="regression.html#cb69-24" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_100, <span class="at">ymax =</span> ci_900, <span class="at">fill =</span> .scenario), </span>
+<span id="cb69-25"><a href="regression.html#cb69-25" tabindex="-1"></a>              <span class="at">data =</span> boston_fc, <span class="at">fill =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb69-26"><a href="regression.html#cb69-26" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_025, <span class="at">ymax =</span> ci_975, <span class="at">fill =</span> .scenario), </span>
+<span id="cb69-27"><a href="regression.html#cb69-27" tabindex="-1"></a>              <span class="at">data =</span> boston_fc, <span class="at">fill =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb69-28"><a href="regression.html#cb69-28" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb69-29"><a href="regression.html#cb69-29" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>) <span class="sc">+</span></span>
+<span id="cb69-30"><a href="regression.html#cb69-30" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Piecewise linear regression with knots at 1950 and 1980.&quot;</span>,</span>
+<span id="cb69-31"><a href="regression.html#cb69-31" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Boston Marathon winning times, Minutes ~trend(knots = c(1950, 1980))&quot;</span>,</span>
+<span id="cb69-32"><a href="regression.html#cb69-32" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Shaded area is 80%- and 95% confidence interval.&quot;</span>,</span>
+<span id="cb69-33"><a href="regression.html#cb69-33" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Minutes&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<pre><code>## Warning: The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
+## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.
+## The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
+## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.
+## The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
+## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</code></pre>
+<pre><code>## Warning: Removed 10 rows containing missing values (`geom_line()`).</code></pre>
+<pre><code>## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf</code></pre>
+<p><img src="time-series_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>The residual standard error, <span class="math inline">\(\hat{\sigma}\)</span>, is actually the standard <em>deviation</em> of the residuals. See discussion on <a href="https://stats.stackexchange.com/questions/144433/why-do-we-say-residual-standard-error?noredirect=1&amp;lq=1">StackExchange</a>. Is the name related to the fact that <span class="math inline">\(\hat{\sigma}\)</span> is part of the formula for the standard error of the coefficient estimates, <span class="math inline">\(SE\left(\hat{\beta}\right) = \sqrt{\hat{\sigma}^2(X&#39;X)^{-1}}\)</span>? See <a href="https://bookdown.org/mpfoley1973/data-sci/parameter-estimation.html">my regression notes</a>.<a href="regression.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exporation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exponential.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["time-series.pdf", "time-series.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
