@@ -1,6 +1,0 @@
-"0",""
-"0","# If you don't care about the time index, convert the tsibble back to a tibble."
-"0","prison_tsibble %>% "
-"0","  as_tibble() %>%"
-"0","  group_by(State) %>%"
-"0","  summarize(sum_Count = sum(Count))"

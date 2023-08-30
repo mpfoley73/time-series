@@ -1,4 +1,0 @@
-"0","# Group by State retains the Qtr index column."
-"0","prison_tsibble %>%"
-"0","  group_by(State) %>%"
-"0","  summarize(sum_Count = sum(Count))"

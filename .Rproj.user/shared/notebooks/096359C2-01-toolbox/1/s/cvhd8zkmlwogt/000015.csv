@@ -1,5 +1,0 @@
-"0","# Or just this.  "
-"0","# autoplot(goog_fc, bind_rows(goog_train, goog_test), level = NULL)"
-"0",""
-"0","accuracy(goog_fc, goog) %>%"
-"0","  select(.model, RMSE, MAE, MAPE, MASE)"

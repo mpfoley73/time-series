@@ -1,8 +1,6 @@
 h1:toolbox Toolbox
-h2:r-structures R Structures
-h3:ts-zoo-and-xts ts, zoo, and xts
-h3:tsibble tsibble
+h2:common-frameworks Common Frameworks
 h2:fitting-models Fitting Models
-h2:evaluating-models Evaluating Models
+h2:evaluating-fit Evaluating Fit
 h2:evaluating-accuracy Evaluating Accuracy
 

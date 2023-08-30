@@ -1,12 +1,8 @@
-tab:unnamed-chunk-49
-tab:unnamed-chunk-53
-fig:elec
-fig:xform
-fig:boxcox
+tab:unnamed-chunk-3
 toolbox
-r-structures
+common-frameworks
 fitting-models
-evaluating-models
+evaluating-fit
 evaluating-accuracy
 exporation
 graphical-analysis
@@ -38,3 +34,8 @@ moving-average-models
 non-seasonal-arima
 dynamic
 tbats-model
+holts-linear
+additive-damped-trend
+additive-holt-winters
+multiplicative-holt-winters
+holt-linear

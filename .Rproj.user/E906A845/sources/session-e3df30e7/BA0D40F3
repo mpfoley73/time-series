@@ -1,0 +1,27 @@
+{
+    "id": "BA0D40F3",
+    "path": "~/GitHub/time-series/04-exponential-smoothing.Rmd",
+    "project_path": "04-exponential-smoothing.Rmd",
+    "type": "r_markdown",
+    "hash": "3161210320",
+    "contents": "",
+    "dirty": false,
+    "created": 1693384854597.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "252,12",
+        "scrollLine": "251",
+        "docOutlineVisible": "1"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1693396419,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1693396419204,
+    "read_only": false,
+    "read_only_alternatives": []
+}

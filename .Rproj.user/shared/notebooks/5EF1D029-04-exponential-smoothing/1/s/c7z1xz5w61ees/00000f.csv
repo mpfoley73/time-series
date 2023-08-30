@@ -1,0 +1,5 @@
+"0","tsibbledata::global_economy %>%"
+"0","  filter(Country == ""Australia"") %>%"
+"0","  ggplot(aes(x = Year, y = Population)) +"
+"0","  geom_line() +"
+"0","  labs(title = ""Australian Population."")"

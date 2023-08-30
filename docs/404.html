@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-08-28" />
+<meta name="date" content="2023-08-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,8 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="libs/tabwid-1.1.3/tabwid.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -169,13 +167,9 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="toolbox.html"><a href="toolbox.html"><i class="fa fa-check"></i><b>1</b> Toolbox</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#r-structures"><i class="fa fa-check"></i><b>1.1</b> R Structures</a>
-<ul>
-<li class="chapter" data-level="" data-path="toolbox.html"><a href="toolbox.html#ts-zoo-and-xts"><i class="fa fa-check"></i>ts, zoo, and xts</a></li>
-<li class="chapter" data-level="" data-path="toolbox.html"><a href="toolbox.html#tsibble"><i class="fa fa-check"></i>tsibble</a></li>
-</ul></li>
+<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
 <li class="chapter" data-level="1.2" data-path="toolbox.html"><a href="toolbox.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
-<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-models"><i class="fa fa-check"></i><b>1.3</b> Evaluating Models</a></li>
+<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
 <li class="chapter" data-level="1.4" data-path="toolbox.html"><a href="toolbox.html#evaluating-accuracy"><i class="fa fa-check"></i><b>1.4</b> Evaluating Accuracy</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="exporation.html"><a href="exporation.html"><i class="fa fa-check"></i><b>2</b> Exploratory Analysis</a>
@@ -204,15 +198,15 @@ div.csl-indent {
 <li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#predicting-values"><i class="fa fa-check"></i><b>3.5</b> Predicting Values</a></li>
 <li class="chapter" data-level="3.6" data-path="regression.html"><a href="regression.html#nonlinear-regression"><i class="fa fa-check"></i><b>3.6</b> Nonlinear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="exponential.html"><a href="exponential.html"><i class="fa fa-check"></i><b>4</b> Exponential Smoothing</a>
+<li class="chapter" data-level="4" data-path="exponential.html"><a href="exponential.html"><i class="fa fa-check"></i><b>4</b> Exponential Smoothing (ETS)</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="exponential.html"><a href="exponential.html#simple-exponential-smoothing-ses"><i class="fa fa-check"></i><b>4.1</b> Simple Exponential Smoothing (SES)</a></li>
-<li class="chapter" data-level="4.2" data-path="exponential.html"><a href="exponential.html#holts-linear-method"><i class="fa fa-check"></i><b>4.2</b> Holt’s Linear Method</a></li>
-<li class="chapter" data-level="4.3" data-path="exponential.html"><a href="exponential.html#additive-damped-trend-method"><i class="fa fa-check"></i><b>4.3</b> Additive Damped Trend Method</a></li>
+<li class="chapter" data-level="4.2" data-path="exponential.html"><a href="exponential.html#holt-linear"><i class="fa fa-check"></i><b>4.2</b> Holt Linear</a></li>
+<li class="chapter" data-level="4.3" data-path="exponential.html"><a href="exponential.html#additive-damped-trend"><i class="fa fa-check"></i><b>4.3</b> Additive Damped Trend</a></li>
 <li class="chapter" data-level="4.4" data-path="exponential.html"><a href="exponential.html#holt-winters"><i class="fa fa-check"></i><b>4.4</b> Holt-Winters</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="exponential.html"><a href="exponential.html#additive-holt-winters-method"><i class="fa fa-check"></i><b>4.4.1</b> Additive Holt-Winters Method</a></li>
-<li class="chapter" data-level="4.4.2" data-path="exponential.html"><a href="exponential.html#multiplicative-holt-winters-method"><i class="fa fa-check"></i><b>4.4.2</b> Multiplicative Holt-Winters Method</a></li>
+<li class="chapter" data-level="4.4.1" data-path="exponential.html"><a href="exponential.html#additive-holt-winters"><i class="fa fa-check"></i><b>4.4.1</b> Additive Holt-Winters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="exponential.html"><a href="exponential.html#multiplicative-holt-winters"><i class="fa fa-check"></i><b>4.4.2</b> Multiplicative Holt-Winters</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="exponential.html"><a href="exponential.html#model-selection-with-cv"><i class="fa fa-check"></i><b>4.5</b> Model Selection with CV</a></li>
 <li class="chapter" data-level="4.6" data-path="exponential.html"><a href="exponential.html#model-selection-via-maximum-likelihood"><i class="fa fa-check"></i><b>4.6</b> Model Selection via Maximum Likelihood</a></li>

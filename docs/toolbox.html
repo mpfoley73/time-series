@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-08-28" />
+<meta name="date" content="2023-08-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
-<script src="libs/tabwid-1.1.3/tabwid.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -169,13 +165,9 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="toolbox.html"><a href="toolbox.html"><i class="fa fa-check"></i><b>1</b> Toolbox</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#r-structures"><i class="fa fa-check"></i><b>1.1</b> R Structures</a>
-<ul>
-<li class="chapter" data-level="" data-path="toolbox.html"><a href="toolbox.html#ts-zoo-and-xts"><i class="fa fa-check"></i>ts, zoo, and xts</a></li>
-<li class="chapter" data-level="" data-path="toolbox.html"><a href="toolbox.html#tsibble"><i class="fa fa-check"></i>tsibble</a></li>
-</ul></li>
+<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
 <li class="chapter" data-level="1.2" data-path="toolbox.html"><a href="toolbox.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
-<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-models"><i class="fa fa-check"></i><b>1.3</b> Evaluating Models</a></li>
+<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
 <li class="chapter" data-level="1.4" data-path="toolbox.html"><a href="toolbox.html#evaluating-accuracy"><i class="fa fa-check"></i><b>1.4</b> Evaluating Accuracy</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="exporation.html"><a href="exporation.html"><i class="fa fa-check"></i><b>2</b> Exploratory Analysis</a>
@@ -251,354 +243,243 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="toolbox" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Toolbox<a href="toolbox.html#toolbox" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This section deals with fundamental concepts in time series analysis. Time series analysis typically uses different data structures than the standard <code>data.frame</code> and <code>tibble</code> of other analyses. The <code>fable</code> package provides a framework for piped “tidy” modeling that improves on the conventional <code>lm(formula, data)</code> framework. The subsequent modeling chapters make use of standard benchmarking methods, prediction intervals, and accuracy evaluation methods presented here.</p>
-<div id="r-structures" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> R Structures<a href="toolbox.html#r-structures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Use a <code>tsibble</code> object to work with time series data. A <code>tsibble</code>, from the package of the same name, is a time-series <code>tibble</code>. Unlike the older, more common <code>ts</code>, <code>zoo</code>, and <code>xts</code> objects, a <code>tsibble</code> preserves the time index, making heterogeneous data structures possible. For example, you can re-index a <code>tsibble</code> from monthly to yearly analysis, or include one or more features per time element. Since the <code>tsibble</code> is relatively new, you will encounter the other frameworks and should at least be familiar with them.</p>
-<p>Let’s work with the <code>prison_population.csv</code> file accompanying <a href="https://otexts.com/fpp3/tsibbles.html">Hyndman’s text</a> to create time series structures with each framework. The data set is quarterly prison population counts grouped by several features. In essence, it is several time series (<code>State</code> x <code>Gender</code> x <code>Legal</code> x <code>Indigenous</code>) within one file.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="toolbox.html#cb2-1" tabindex="-1"></a>prison <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://OTexts.com/fpp3/extrafiles/prison_population.csv&quot;</span>)</span>
-<span id="cb2-2"><a href="toolbox.html#cb2-2" tabindex="-1"></a><span class="fu">head</span>(prison)</span>
-<span id="cb2-3"><a href="toolbox.html#cb2-3" tabindex="-1"></a><span class="do">## # A tibble: 6 × 6</span></span>
-<span id="cb2-4"><a href="toolbox.html#cb2-4" tabindex="-1"></a><span class="do">##   Date       State Gender Legal     Indigenous Count</span></span>
-<span id="cb2-5"><a href="toolbox.html#cb2-5" tabindex="-1"></a><span class="do">##   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;</span></span>
-<span id="cb2-6"><a href="toolbox.html#cb2-6" tabindex="-1"></a><span class="do">## 1 2005-03-01 ACT   Female Remanded  ATSI           0</span></span>
-<span id="cb2-7"><a href="toolbox.html#cb2-7" tabindex="-1"></a><span class="do">## 2 2005-03-01 ACT   Female Remanded  Non-ATSI       2</span></span>
-<span id="cb2-8"><a href="toolbox.html#cb2-8" tabindex="-1"></a><span class="do">## 3 2005-03-01 ACT   Female Sentenced ATSI           0</span></span>
-<span id="cb2-9"><a href="toolbox.html#cb2-9" tabindex="-1"></a><span class="do">## 4 2005-03-01 ACT   Female Sentenced Non-ATSI       5</span></span>
-<span id="cb2-10"><a href="toolbox.html#cb2-10" tabindex="-1"></a><span class="do">## 5 2005-03-01 ACT   Male   Remanded  ATSI           7</span></span>
-<span id="cb2-11"><a href="toolbox.html#cb2-11" tabindex="-1"></a><span class="do">## 6 2005-03-01 ACT   Male   Remanded  Non-ATSI      58</span></span>
-<span id="cb2-12"><a href="toolbox.html#cb2-12" tabindex="-1"></a><span class="fu">dim</span>(prison)</span>
-<span id="cb2-13"><a href="toolbox.html#cb2-13" tabindex="-1"></a><span class="do">## [1] 3072    6</span></span></code></pre></div>
-<div id="ts-zoo-and-xts" class="section level3 unnumbered hasAnchor">
-<h3>ts, zoo, and xts<a href="toolbox.html#ts-zoo-and-xts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>ts</strong> is the base R time series package. The <code>ts</code> object is essentially a matrix of observations indexed by a chronological identifier. Because it is a matrix, any descriptive attributes need to enter as numeric, perhaps by one-hot encoding, or pivoting the data (yuck). But since there is only <em>one row per time observation</em>, the descriptive attributes cannot really act as grouping variables. Another limitation of a <code>ts</code> is that it does not recognize irregularly spaced time series.</p>
-<p>Define a <code>ts</code> object with <code>ts(x, start, frequency)</code> where <code>frequency</code> is the number of observations in the seasonal pattern: 7 for daily observations with a week cycle; 5 for weekday observations in a week cycle; 24 for hourly observations in a day cycle, 24x7 for hourly observations in a week cycle, etc. <code>prison</code> is quarterly observations starting with 2005 Q1. Had the series started at 2005 Q2, you’d specify <code>start = c(2005, 2)</code>. I’ll pull a single time series from the file with a <code>filter()</code> statement.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="toolbox.html#cb3-1" tabindex="-1"></a>prison_ts <span class="ot">&lt;-</span> prison <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="toolbox.html#cb3-2" tabindex="-1"></a>  <span class="fu">filter</span>(State <span class="sc">==</span> <span class="st">&quot;ACT&quot;</span> <span class="sc">&amp;</span> Gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span> <span class="sc">&amp;</span> Legal <span class="sc">==</span> <span class="st">&quot;Remanded&quot;</span> <span class="sc">&amp;</span> Indigenous <span class="sc">==</span> <span class="st">&quot;ATSI&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="toolbox.html#cb3-3" tabindex="-1"></a>  <span class="fu">arrange</span>(Date) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="toolbox.html#cb3-4" tabindex="-1"></a>  <span class="fu">select</span>(Count) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="toolbox.html#cb3-5" tabindex="-1"></a>  <span class="fu">ts</span>(<span class="at">start =</span> <span class="dv">2005</span>, <span class="at">frequency =</span> <span class="dv">4</span>)</span>
-<span id="cb3-6"><a href="toolbox.html#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="toolbox.html#cb3-7" tabindex="-1"></a><span class="fu">str</span>(prison_ts)</span></code></pre></div>
-<pre><code>##  Time-Series [1:48, 1] from 2005 to 2017: 7 7 9 9 12 9 8 7 6 11 ...
-##  - attr(*, &quot;dimnames&quot;)=List of 2
-##   ..$ : NULL
-##   ..$ : chr &quot;Count&quot;</code></pre>
-<p><strong>zoo</strong> (Zeileis’s ordered observations) provides methods similar to those in <strong>ts</strong>, but also supports irregular time series. A <code>zoo</code> object contains an array of data values and an index attribute to provide information about the data ordering. <strong>zoo</strong> was introduced in 2014.</p>
-<p><strong>xts</strong> (extensible time series) extends <strong>zoo</strong>. <code>xts</code> objects are more flexible than <code>ts</code> objects while imposing reasonable constraints to make them truly time-based. An <code>xts</code> object is essentially a matrix of observations indexed by a time <em>object</em>. Create an <code>xts</code> object with <code>xts(x, order.by)</code> where <code>order.by</code> is a vector of dates/times to index the data. You can also add metadata to the <code>xts</code> object by declaring name-value pairs such as <code>born = as.POSIXct("1899-05-08").</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="toolbox.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(xts)</span></code></pre></div>
-<pre><code>## Warning: package &#39;xts&#39; was built under R version 4.3.1</code></pre>
-<pre><code>## Warning: package &#39;zoo&#39; was built under R version 4.3.1</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="toolbox.html#cb8-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> prison <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="toolbox.html#cb8-2" tabindex="-1"></a>  <span class="fu">filter</span>(State <span class="sc">==</span> <span class="st">&quot;ACT&quot;</span> <span class="sc">&amp;</span> Gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span> <span class="sc">&amp;</span> Legal <span class="sc">==</span> <span class="st">&quot;Remanded&quot;</span> <span class="sc">&amp;</span> Indigenous <span class="sc">==</span> <span class="st">&quot;ATSI&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="toolbox.html#cb8-3" tabindex="-1"></a>  <span class="fu">arrange</span>(Date)</span>
-<span id="cb8-4"><a href="toolbox.html#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="toolbox.html#cb8-5" tabindex="-1"></a>prison_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(x<span class="sc">$</span>Count, <span class="at">order.by =</span> x<span class="sc">$</span>Date, </span>
-<span id="cb8-6"><a href="toolbox.html#cb8-6" tabindex="-1"></a>                  <span class="at">State =</span> <span class="st">&quot;ACT&quot;</span>, <span class="at">Gender =</span> <span class="st">&quot;Male&quot;</span>, <span class="at">Legal =</span> <span class="st">&quot;Remanded&quot;</span>, <span class="at">Indigenous =</span> <span class="st">&quot;ATSI&quot;</span>)</span>
-<span id="cb8-7"><a href="toolbox.html#cb8-7" tabindex="-1"></a><span class="fu">str</span>(prison_xts)</span></code></pre></div>
-<pre><code>## An xts object on 2005-03-01 / 2016-12-01 containing: 
-##   Data:    double [48, 1]
-##   Index:   Date [48] (TZ: &quot;UTC&quot;)
-##   xts Attributes:
-##     $ State     : chr &quot;ACT&quot;
-##     $ Gender    : chr &quot;Male&quot;
-##     $ Legal     : chr &quot;Remanded&quot;
-##     $ Indigenous: chr &quot;ATSI&quot;</code></pre>
-</div>
-<div id="tsibble" class="section level3 unnumbered hasAnchor">
-<h3>tsibble<a href="toolbox.html#tsibble" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A <code>tsibble</code> object is a tibble uniquely defined by <code>key</code> columns plus a date <code>index</code> column. This structure accommodates multiple series, and descriptive attribute columns. The date index can be a <code>Date</code>, <code>period</code>, etc. (<em>see</em> <code>tsibble() help file</code>). Express weekly time series with <code>yearweek()</code>, monthly time series with <code>yearmonth()</code>, or quarterly (like here) with <code>yearquarter()</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="toolbox.html#cb10-1" tabindex="-1"></a>prison_tsibble <span class="ot">&lt;-</span> prison <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="toolbox.html#cb10-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">yearquarter</span>(Date)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="toolbox.html#cb10-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Qtr =</span> Date) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="toolbox.html#cb10-4" tabindex="-1"></a>  <span class="fu">tsibble</span>(<span class="at">key =</span> <span class="fu">c</span>(State, Gender, Legal, Indigenous), <span class="at">index =</span> Qtr)</span>
-<span id="cb10-5"><a href="toolbox.html#cb10-5" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="toolbox.html#cb10-6" tabindex="-1"></a><span class="fu">head</span>(prison_tsibble)</span></code></pre></div>
-<pre><code>## # A tsibble: 6 x 6 [1Q]
-## # Key:       State, Gender, Legal, Indigenous [1]
-##       Qtr State Gender Legal    Indigenous Count
-##     &lt;qtr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
-## 1 2005 Q1 ACT   Female Remanded ATSI           0
-## 2 2005 Q2 ACT   Female Remanded ATSI           1
-## 3 2005 Q3 ACT   Female Remanded ATSI           0
-## 4 2005 Q4 ACT   Female Remanded ATSI           0
-## 5 2006 Q1 ACT   Female Remanded ATSI           1
-## 6 2006 Q2 ACT   Female Remanded ATSI           1</code></pre>
-<p>A <code>tsibble</code> behaves like a <code>tibble</code>, so you can use *tidyverse** verbs. The only thing that will trip you up is that <code>tsibble</code> objects are grouped by the index - <code>group_by()</code> operations only group non-index columns while retaining the index. Use <code>index_by()</code> if you need to summarize at a new time level (e.g., year).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="toolbox.html#cb12-1" tabindex="-1"></a><span class="co"># Group by State retains the Qtr index column.</span></span>
-<span id="cb12-2"><a href="toolbox.html#cb12-2" tabindex="-1"></a>prison_tsibble <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="toolbox.html#cb12-3" tabindex="-1"></a>  <span class="fu">group_by</span>(State) <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="toolbox.html#cb12-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum_Count =</span> <span class="fu">sum</span>(Count))</span>
-<span id="cb12-5"><a href="toolbox.html#cb12-5" tabindex="-1"></a><span class="do">## # A tsibble: 384 x 3 [1Q]</span></span>
-<span id="cb12-6"><a href="toolbox.html#cb12-6" tabindex="-1"></a><span class="do">## # Key:       State [8]</span></span>
-<span id="cb12-7"><a href="toolbox.html#cb12-7" tabindex="-1"></a><span class="do">##    State     Qtr sum_Count</span></span>
-<span id="cb12-8"><a href="toolbox.html#cb12-8" tabindex="-1"></a><span class="do">##    &lt;chr&gt;   &lt;qtr&gt;     &lt;dbl&gt;</span></span>
-<span id="cb12-9"><a href="toolbox.html#cb12-9" tabindex="-1"></a><span class="do">##  1 ACT   2005 Q1       178</span></span>
-<span id="cb12-10"><a href="toolbox.html#cb12-10" tabindex="-1"></a><span class="do">##  2 ACT   2005 Q2       183</span></span>
-<span id="cb12-11"><a href="toolbox.html#cb12-11" tabindex="-1"></a><span class="do">##  3 ACT   2005 Q3       187</span></span>
-<span id="cb12-12"><a href="toolbox.html#cb12-12" tabindex="-1"></a><span class="do">##  4 ACT   2005 Q4       204</span></span>
-<span id="cb12-13"><a href="toolbox.html#cb12-13" tabindex="-1"></a><span class="do">##  5 ACT   2006 Q1       190</span></span>
-<span id="cb12-14"><a href="toolbox.html#cb12-14" tabindex="-1"></a><span class="do">##  6 ACT   2006 Q2       190</span></span>
-<span id="cb12-15"><a href="toolbox.html#cb12-15" tabindex="-1"></a><span class="do">##  7 ACT   2006 Q3       165</span></span>
-<span id="cb12-16"><a href="toolbox.html#cb12-16" tabindex="-1"></a><span class="do">##  8 ACT   2006 Q4       179</span></span>
-<span id="cb12-17"><a href="toolbox.html#cb12-17" tabindex="-1"></a><span class="do">##  9 ACT   2007 Q1       172</span></span>
-<span id="cb12-18"><a href="toolbox.html#cb12-18" tabindex="-1"></a><span class="do">## 10 ACT   2007 Q2       160</span></span>
-<span id="cb12-19"><a href="toolbox.html#cb12-19" tabindex="-1"></a><span class="do">## # ℹ 374 more rows</span></span>
-<span id="cb12-20"><a href="toolbox.html#cb12-20" tabindex="-1"></a></span>
-<span id="cb12-21"><a href="toolbox.html#cb12-21" tabindex="-1"></a><span class="co"># But you can change the Qtr index aggregation level with index_by()</span></span>
-<span id="cb12-22"><a href="toolbox.html#cb12-22" tabindex="-1"></a>prison_tsibble <span class="sc">%&gt;%</span></span>
-<span id="cb12-23"><a href="toolbox.html#cb12-23" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">Year =</span> <span class="sc">~</span> <span class="fu">year</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-24"><a href="toolbox.html#cb12-24" tabindex="-1"></a>  <span class="fu">group_by</span>(State) <span class="sc">%&gt;%</span></span>
-<span id="cb12-25"><a href="toolbox.html#cb12-25" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum_Count =</span> <span class="fu">sum</span>(Count))</span>
-<span id="cb12-26"><a href="toolbox.html#cb12-26" tabindex="-1"></a><span class="do">## # A tsibble: 96 x 3 [1Y]</span></span>
-<span id="cb12-27"><a href="toolbox.html#cb12-27" tabindex="-1"></a><span class="do">## # Key:       State [8]</span></span>
-<span id="cb12-28"><a href="toolbox.html#cb12-28" tabindex="-1"></a><span class="do">##    State  Year sum_Count</span></span>
-<span id="cb12-29"><a href="toolbox.html#cb12-29" tabindex="-1"></a><span class="do">##    &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb12-30"><a href="toolbox.html#cb12-30" tabindex="-1"></a><span class="do">##  1 ACT    2005       752</span></span>
-<span id="cb12-31"><a href="toolbox.html#cb12-31" tabindex="-1"></a><span class="do">##  2 ACT    2006       724</span></span>
-<span id="cb12-32"><a href="toolbox.html#cb12-32" tabindex="-1"></a><span class="do">##  3 ACT    2007       673</span></span>
-<span id="cb12-33"><a href="toolbox.html#cb12-33" tabindex="-1"></a><span class="do">##  4 ACT    2008       697</span></span>
-<span id="cb12-34"><a href="toolbox.html#cb12-34" tabindex="-1"></a><span class="do">##  5 ACT    2009       668</span></span>
-<span id="cb12-35"><a href="toolbox.html#cb12-35" tabindex="-1"></a><span class="do">##  6 ACT    2010       842</span></span>
-<span id="cb12-36"><a href="toolbox.html#cb12-36" tabindex="-1"></a><span class="do">##  7 ACT    2011       946</span></span>
-<span id="cb12-37"><a href="toolbox.html#cb12-37" tabindex="-1"></a><span class="do">##  8 ACT    2012      1085</span></span>
-<span id="cb12-38"><a href="toolbox.html#cb12-38" tabindex="-1"></a><span class="do">##  9 ACT    2013      1146</span></span>
-<span id="cb12-39"><a href="toolbox.html#cb12-39" tabindex="-1"></a><span class="do">## 10 ACT    2014      1336</span></span>
-<span id="cb12-40"><a href="toolbox.html#cb12-40" tabindex="-1"></a><span class="do">## # ℹ 86 more rows</span></span>
-<span id="cb12-41"><a href="toolbox.html#cb12-41" tabindex="-1"></a></span>
-<span id="cb12-42"><a href="toolbox.html#cb12-42" tabindex="-1"></a><span class="co"># Add group_by_key() to retain the key</span></span>
-<span id="cb12-43"><a href="toolbox.html#cb12-43" tabindex="-1"></a>prison_tsibble <span class="sc">%&gt;%</span> </span>
-<span id="cb12-44"><a href="toolbox.html#cb12-44" tabindex="-1"></a>  <span class="fu">group_by_key</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-45"><a href="toolbox.html#cb12-45" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">Year =</span> <span class="sc">~</span> <span class="fu">year</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-46"><a href="toolbox.html#cb12-46" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum_Count =</span> <span class="fu">sum</span>(Count))</span>
-<span id="cb12-47"><a href="toolbox.html#cb12-47" tabindex="-1"></a><span class="do">## # A tsibble: 768 x 6 [1Y]</span></span>
-<span id="cb12-48"><a href="toolbox.html#cb12-48" tabindex="-1"></a><span class="do">## # Key:       State, Gender, Legal, Indigenous [64]</span></span>
-<span id="cb12-49"><a href="toolbox.html#cb12-49" tabindex="-1"></a><span class="do">## # Groups:    State, Gender, Legal [32]</span></span>
-<span id="cb12-50"><a href="toolbox.html#cb12-50" tabindex="-1"></a><span class="do">##    State Gender Legal    Indigenous  Year sum_Count</span></span>
-<span id="cb12-51"><a href="toolbox.html#cb12-51" tabindex="-1"></a><span class="do">##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb12-52"><a href="toolbox.html#cb12-52" tabindex="-1"></a><span class="do">##  1 ACT   Female Remanded ATSI        2005         1</span></span>
-<span id="cb12-53"><a href="toolbox.html#cb12-53" tabindex="-1"></a><span class="do">##  2 ACT   Female Remanded ATSI        2006         3</span></span>
-<span id="cb12-54"><a href="toolbox.html#cb12-54" tabindex="-1"></a><span class="do">##  3 ACT   Female Remanded ATSI        2007         3</span></span>
-<span id="cb12-55"><a href="toolbox.html#cb12-55" tabindex="-1"></a><span class="do">##  4 ACT   Female Remanded ATSI        2008         9</span></span>
-<span id="cb12-56"><a href="toolbox.html#cb12-56" tabindex="-1"></a><span class="do">##  5 ACT   Female Remanded ATSI        2009         6</span></span>
-<span id="cb12-57"><a href="toolbox.html#cb12-57" tabindex="-1"></a><span class="do">##  6 ACT   Female Remanded ATSI        2010         5</span></span>
-<span id="cb12-58"><a href="toolbox.html#cb12-58" tabindex="-1"></a><span class="do">##  7 ACT   Female Remanded ATSI        2011         6</span></span>
-<span id="cb12-59"><a href="toolbox.html#cb12-59" tabindex="-1"></a><span class="do">##  8 ACT   Female Remanded ATSI        2012         2</span></span>
-<span id="cb12-60"><a href="toolbox.html#cb12-60" tabindex="-1"></a><span class="do">##  9 ACT   Female Remanded ATSI        2013         4</span></span>
-<span id="cb12-61"><a href="toolbox.html#cb12-61" tabindex="-1"></a><span class="do">## 10 ACT   Female Remanded ATSI        2014         4</span></span>
-<span id="cb12-62"><a href="toolbox.html#cb12-62" tabindex="-1"></a><span class="do">## # ℹ 758 more rows</span></span>
-<span id="cb12-63"><a href="toolbox.html#cb12-63" tabindex="-1"></a></span>
-<span id="cb12-64"><a href="toolbox.html#cb12-64" tabindex="-1"></a><span class="co"># If you don&#39;t care about the time index, convert the tsibble back to a tibble.</span></span>
-<span id="cb12-65"><a href="toolbox.html#cb12-65" tabindex="-1"></a>prison_tsibble <span class="sc">%&gt;%</span> </span>
-<span id="cb12-66"><a href="toolbox.html#cb12-66" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb12-67"><a href="toolbox.html#cb12-67" tabindex="-1"></a>  <span class="fu">group_by</span>(State) <span class="sc">%&gt;%</span></span>
-<span id="cb12-68"><a href="toolbox.html#cb12-68" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum_Count =</span> <span class="fu">sum</span>(Count))</span>
-<span id="cb12-69"><a href="toolbox.html#cb12-69" tabindex="-1"></a><span class="do">## # A tibble: 8 × 2</span></span>
-<span id="cb12-70"><a href="toolbox.html#cb12-70" tabindex="-1"></a><span class="do">##   State sum_Count</span></span>
-<span id="cb12-71"><a href="toolbox.html#cb12-71" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;dbl&gt;</span></span>
-<span id="cb12-72"><a href="toolbox.html#cb12-72" tabindex="-1"></a><span class="do">## 1 ACT       12003</span></span>
-<span id="cb12-73"><a href="toolbox.html#cb12-73" tabindex="-1"></a><span class="do">## 2 NSW      491924</span></span>
-<span id="cb12-74"><a href="toolbox.html#cb12-74" tabindex="-1"></a><span class="do">## 3 NT        58193</span></span>
-<span id="cb12-75"><a href="toolbox.html#cb12-75" tabindex="-1"></a><span class="do">## 4 QLD      290794</span></span>
-<span id="cb12-76"><a href="toolbox.html#cb12-76" tabindex="-1"></a><span class="do">## 5 SA       101606</span></span>
-<span id="cb12-77"><a href="toolbox.html#cb12-77" tabindex="-1"></a><span class="do">## 6 TAS       24367</span></span>
-<span id="cb12-78"><a href="toolbox.html#cb12-78" tabindex="-1"></a><span class="do">## 7 VIC      234734</span></span>
-<span id="cb12-79"><a href="toolbox.html#cb12-79" tabindex="-1"></a><span class="do">## 8 WA       220256</span></span></code></pre></div>
-</div>
+<p>This section covers fundamental concepts in time series analysis. I will keep three paradigms in mind as I build models: i) base R <code>ts</code>, <code>zoo</code>, or <code>xts</code> objects used in the <code>forecast</code> base R framework, ii) <code>tsibbles</code> used in the <code>fables</code> tidyverse framework, and iii) <code>tibbles</code> used in the <code>timetk</code> tidymodeling framework.</p>
+<div id="common-frameworks" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Common Frameworks<a href="toolbox.html#common-frameworks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s work with the <code>fpp3::us_employment</code> data of US monthly employment data. There is one row per month (969 months) and data series (~150 series).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="toolbox.html#cb2-1" tabindex="-1"></a>us_employment_tibble <span class="ot">&lt;-</span> fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Month =</span> <span class="fu">ym</span>(Month))</span>
+<span id="cb2-2"><a href="toolbox.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="toolbox.html#cb2-3" tabindex="-1"></a><span class="fu">glimpse</span>(us_employment_tibble)</span>
+<span id="cb2-4"><a href="toolbox.html#cb2-4" tabindex="-1"></a><span class="do">## Rows: 143,412</span></span>
+<span id="cb2-5"><a href="toolbox.html#cb2-5" tabindex="-1"></a><span class="do">## Columns: 4</span></span>
+<span id="cb2-6"><a href="toolbox.html#cb2-6" tabindex="-1"></a><span class="do">## $ Month     &lt;date&gt; 1939-01-01, 1939-02-01, 1939-03-01, 1939-04-01, 1939-05-01,…</span></span>
+<span id="cb2-7"><a href="toolbox.html#cb2-7" tabindex="-1"></a><span class="do">## $ Series_ID &lt;chr&gt; &quot;CEU0500000001&quot;, &quot;CEU0500000001&quot;, &quot;CEU0500000001&quot;, &quot;CEU05000…</span></span>
+<span id="cb2-8"><a href="toolbox.html#cb2-8" tabindex="-1"></a><span class="do">## $ Title     &lt;chr&gt; &quot;Total Private&quot;, &quot;Total Private&quot;, &quot;Total Private&quot;, &quot;Total Pr…</span></span>
+<span id="cb2-9"><a href="toolbox.html#cb2-9" tabindex="-1"></a><span class="do">## $ Employed  &lt;dbl&gt; 25338, 25447, 25833, 25801, 26113, 26485, 26481, 26848, 2746…</span></span></code></pre></div>
+<p><strong>ts</strong> is the base R time series package. The <code>ts</code> object is essentially a matrix of observations indexed by a chronological identifier. Because it is a matrix, any descriptive attributes need to enter as numeric, perhaps by one-hot encoding, or pivoting the data (yuck). A <code>ts</code> can only have <em>one row per time observation</em>, and it assumes the time series is regularly spaced. Define a <code>ts</code> object with <code>ts(x, start, frequency)</code> where <code>frequency</code> is the number of observations in the seasonal pattern: 7 for daily observations with a week cycle; 5 for weekday observations in a week cycle; 24 for hourly in a day cycle, 24x7 for hourly in a week cycle, etc. <code>us_employment_tibble</code> is monthly observations starting with Jan 1939. Had it series started in Feb, you would specify <code>start = c(1939, 2)</code>. I’ll filter the data to comply with the one row per time observation rule.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="toolbox.html#cb3-1" tabindex="-1"></a>us_employment_ts <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="toolbox.html#cb3-2" tabindex="-1"></a>  us_employment_tibble <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="toolbox.html#cb3-3" tabindex="-1"></a>  <span class="fu">filter</span>(Title <span class="sc">==</span> <span class="st">&quot;Total Private&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="toolbox.html#cb3-4" tabindex="-1"></a>  <span class="fu">arrange</span>(Month) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="toolbox.html#cb3-5" tabindex="-1"></a>  <span class="fu">select</span>(Employed) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="toolbox.html#cb3-6" tabindex="-1"></a>  <span class="fu">ts</span>(<span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1939</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb3-7"><a href="toolbox.html#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="toolbox.html#cb3-8" tabindex="-1"></a><span class="fu">head</span>(us_employment_ts)</span>
+<span id="cb3-9"><a href="toolbox.html#cb3-9" tabindex="-1"></a><span class="do">##      Employed</span></span>
+<span id="cb3-10"><a href="toolbox.html#cb3-10" tabindex="-1"></a><span class="do">## [1,]    25338</span></span>
+<span id="cb3-11"><a href="toolbox.html#cb3-11" tabindex="-1"></a><span class="do">## [2,]    25447</span></span>
+<span id="cb3-12"><a href="toolbox.html#cb3-12" tabindex="-1"></a><span class="do">## [3,]    25833</span></span>
+<span id="cb3-13"><a href="toolbox.html#cb3-13" tabindex="-1"></a><span class="do">## [4,]    25801</span></span>
+<span id="cb3-14"><a href="toolbox.html#cb3-14" tabindex="-1"></a><span class="do">## [5,]    26113</span></span>
+<span id="cb3-15"><a href="toolbox.html#cb3-15" tabindex="-1"></a><span class="do">## [6,]    26485</span></span></code></pre></div>
+<p><strong>zoo</strong> (Zeileis’s ordered observations) has functions similar to those in <strong>ts</strong>, but also supports irregular time series. A <code>zoo</code> object contains an array of data values and an index attribute to provide information about the data ordering. <strong>zoo</strong> was introduced in 2014.</p>
+<p><strong>xts</strong> (extensible time series) extends <strong>zoo</strong>. <code>xts</code> objects are more flexible than <code>ts</code> objects while imposing reasonable constraints to make them truly time-based. An <code>xts</code> object is essentially a matrix of observations indexed by a time <em>object</em>. Create an <code>xts</code> object with <code>xts(x, order.by)</code> where <code>order.by</code> is a vector of dates/times to index the data. You can also add metadata to the <code>xts</code> object by declaring name-value pairs such as <code>Title</code> below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="toolbox.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb4-2"><a href="toolbox.html#cb4-2" tabindex="-1"></a><span class="do">## Loading required package: zoo</span></span>
+<span id="cb4-3"><a href="toolbox.html#cb4-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-4"><a href="toolbox.html#cb4-4" tabindex="-1"></a><span class="do">## Attaching package: &#39;zoo&#39;</span></span>
+<span id="cb4-5"><a href="toolbox.html#cb4-5" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:tsibble&#39;:</span></span>
+<span id="cb4-6"><a href="toolbox.html#cb4-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-7"><a href="toolbox.html#cb4-7" tabindex="-1"></a><span class="do">##     index</span></span>
+<span id="cb4-8"><a href="toolbox.html#cb4-8" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb4-9"><a href="toolbox.html#cb4-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-10"><a href="toolbox.html#cb4-10" tabindex="-1"></a><span class="do">##     as.Date, as.Date.numeric</span></span>
+<span id="cb4-11"><a href="toolbox.html#cb4-11" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-12"><a href="toolbox.html#cb4-12" tabindex="-1"></a><span class="do">## ######################### Warning from &#39;xts&#39; package ##########################</span></span>
+<span id="cb4-13"><a href="toolbox.html#cb4-13" tabindex="-1"></a><span class="do">## #                                                                             #</span></span>
+<span id="cb4-14"><a href="toolbox.html#cb4-14" tabindex="-1"></a><span class="do">## # The dplyr lag() function breaks how base R&#39;s lag() function is supposed to  #</span></span>
+<span id="cb4-15"><a href="toolbox.html#cb4-15" tabindex="-1"></a><span class="do">## # work, which breaks lag(my_xts). Calls to lag(my_xts) that you type or       #</span></span>
+<span id="cb4-16"><a href="toolbox.html#cb4-16" tabindex="-1"></a><span class="do">## # source() into this session won&#39;t work correctly.                            #</span></span>
+<span id="cb4-17"><a href="toolbox.html#cb4-17" tabindex="-1"></a><span class="do">## #                                                                             #</span></span>
+<span id="cb4-18"><a href="toolbox.html#cb4-18" tabindex="-1"></a><span class="do">## # Use stats::lag() to make sure you&#39;re not using dplyr::lag(), or you can add #</span></span>
+<span id="cb4-19"><a href="toolbox.html#cb4-19" tabindex="-1"></a><span class="do">## # conflictRules(&#39;dplyr&#39;, exclude = &#39;lag&#39;) to your .Rprofile to stop           #</span></span>
+<span id="cb4-20"><a href="toolbox.html#cb4-20" tabindex="-1"></a><span class="do">## # dplyr from breaking base R&#39;s lag() function.                                #</span></span>
+<span id="cb4-21"><a href="toolbox.html#cb4-21" tabindex="-1"></a><span class="do">## #                                                                             #</span></span>
+<span id="cb4-22"><a href="toolbox.html#cb4-22" tabindex="-1"></a><span class="do">## # Code in packages is not affected. It&#39;s protected by R&#39;s namespace mechanism #</span></span>
+<span id="cb4-23"><a href="toolbox.html#cb4-23" tabindex="-1"></a><span class="do">## # Set `options(xts.warn_dplyr_breaks_lag = FALSE)` to suppress this warning.  #</span></span>
+<span id="cb4-24"><a href="toolbox.html#cb4-24" tabindex="-1"></a><span class="do">## #                                                                             #</span></span>
+<span id="cb4-25"><a href="toolbox.html#cb4-25" tabindex="-1"></a><span class="do">## ###############################################################################</span></span>
+<span id="cb4-26"><a href="toolbox.html#cb4-26" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-27"><a href="toolbox.html#cb4-27" tabindex="-1"></a><span class="do">## Attaching package: &#39;xts&#39;</span></span>
+<span id="cb4-28"><a href="toolbox.html#cb4-28" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:dplyr&#39;:</span></span>
+<span id="cb4-29"><a href="toolbox.html#cb4-29" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-30"><a href="toolbox.html#cb4-30" tabindex="-1"></a><span class="do">##     first, last</span></span>
+<span id="cb4-31"><a href="toolbox.html#cb4-31" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="toolbox.html#cb4-32" tabindex="-1"></a>x <span class="ot">&lt;-</span> </span>
+<span id="cb4-33"><a href="toolbox.html#cb4-33" tabindex="-1"></a>  us_employment_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb4-34"><a href="toolbox.html#cb4-34" tabindex="-1"></a>  <span class="fu">filter</span>(Title <span class="sc">==</span> <span class="st">&quot;Total Private&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-35"><a href="toolbox.html#cb4-35" tabindex="-1"></a>  <span class="fu">arrange</span>(Month)</span>
+<span id="cb4-36"><a href="toolbox.html#cb4-36" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="toolbox.html#cb4-37" tabindex="-1"></a>us_employment_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(x<span class="sc">$</span>Employed, <span class="at">order.by =</span> x<span class="sc">$</span>Month, <span class="at">Title =</span> x<span class="sc">$</span>Title)</span>
+<span id="cb4-38"><a href="toolbox.html#cb4-38" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="toolbox.html#cb4-39" tabindex="-1"></a><span class="fu">str</span>(us_employment_xts)</span>
+<span id="cb4-40"><a href="toolbox.html#cb4-40" tabindex="-1"></a><span class="do">## An xts object on 1939-01-01 / 2019-09-01 containing: </span></span>
+<span id="cb4-41"><a href="toolbox.html#cb4-41" tabindex="-1"></a><span class="do">##   Data:    double [969, 1]</span></span>
+<span id="cb4-42"><a href="toolbox.html#cb4-42" tabindex="-1"></a><span class="do">##   Index:   Date [969] (TZ: &quot;UTC&quot;)</span></span>
+<span id="cb4-43"><a href="toolbox.html#cb4-43" tabindex="-1"></a><span class="do">##   xts Attributes:</span></span>
+<span id="cb4-44"><a href="toolbox.html#cb4-44" tabindex="-1"></a><span class="do">##     $ Title: chr [1:969] &quot;Total Private&quot; &quot;Total Private&quot; &quot;Total Private&quot; &quot;Total Private&quot; ...</span></span></code></pre></div>
+<p>A <code>tsibble</code>, from the package of the same name, is a time-series <code>tibble</code>. Unlike the <code>ts</code>, <code>zoo</code>, and <code>xts</code> objects, a <code>tsibble</code> preserves the time index, making heterogeneous data structures possible. For example, you can re-index a <code>tsibble</code> from monthly to yearly analysis, or include one or more features per time element.</p>
+<p>A <code>tsibble</code> object is a tibble uniquely defined by <code>key</code> columns plus a date <code>index</code> column. This structure accommodates multiple series, and descriptive attribute columns. The date index can be a <code>Date</code>, <code>period</code>, etc. Express weekly time series with <code>yearweek()</code>, monthly time series with <code>yearmonth()</code>, or quarterly with <code>yearquarter()</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="toolbox.html#cb5-1" tabindex="-1"></a>us_employment_tsibble <span class="ot">&lt;-</span> us_employment_tibble <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="toolbox.html#cb5-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Month =</span> <span class="fu">yearmonth</span>(Month)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="toolbox.html#cb5-3" tabindex="-1"></a>  <span class="fu">tsibble</span>(<span class="at">key =</span> <span class="fu">c</span>(Title), <span class="at">index =</span> Month)</span>
+<span id="cb5-4"><a href="toolbox.html#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="toolbox.html#cb5-5" tabindex="-1"></a>us_employment_tsibble <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Title <span class="sc">==</span> <span class="st">&quot;Total Private&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 969 x 4 [1M]
+## # Key:       Title [1]
+##       Month Series_ID     Title         Employed
+##       &lt;mth&gt; &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;
+##  1 1939 Jan CEU0500000001 Total Private    25338
+##  2 1939 Feb CEU0500000001 Total Private    25447
+##  3 1939 Mar CEU0500000001 Total Private    25833
+##  4 1939 Apr CEU0500000001 Total Private    25801
+##  5 1939 May CEU0500000001 Total Private    26113
+##  6 1939 Jun CEU0500000001 Total Private    26485
+##  7 1939 Jul CEU0500000001 Total Private    26481
+##  8 1939 Aug CEU0500000001 Total Private    26848
+##  9 1939 Sep CEU0500000001 Total Private    27468
+## 10 1939 Oct CEU0500000001 Total Private    27830
+## # ℹ 959 more rows</code></pre>
+<p>A <code>tsibble</code> behaves like a <code>tibble</code>, so you can use *tidyverse** verbs. The only thing that will trip you up is that <code>tsibble</code> objects are grouped by the index, so <code>group_by()</code> operations implicitly include the index. Use <code>index_by()</code> if you need to summarize at a new time level.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="toolbox.html#cb7-1" tabindex="-1"></a><span class="co"># Group by Title implicitly includes the Month index column.</span></span>
+<span id="cb7-2"><a href="toolbox.html#cb7-2" tabindex="-1"></a>us_employment_tsibble <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Title) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">S =</span> <span class="fu">sum</span>(Employed, <span class="at">na.rm =</span> T))</span>
+<span id="cb7-3"><a href="toolbox.html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="toolbox.html#cb7-4" tabindex="-1"></a><span class="co"># But you can change the index aggregation level with index_by()</span></span>
+<span id="cb7-5"><a href="toolbox.html#cb7-5" tabindex="-1"></a>us_employment_tsibble <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="toolbox.html#cb7-6" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">Q =</span> <span class="sc">~</span> <span class="fu">quarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="toolbox.html#cb7-7" tabindex="-1"></a>  <span class="fu">group_by</span>(Title) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="toolbox.html#cb7-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">S =</span> <span class="fu">sum</span>(Employed, <span class="at">na.rm =</span> T))</span>
+<span id="cb7-9"><a href="toolbox.html#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="toolbox.html#cb7-10" tabindex="-1"></a><span class="co"># Add group_by_key() to retain the key</span></span>
+<span id="cb7-11"><a href="toolbox.html#cb7-11" tabindex="-1"></a>us_employment_tsibble <span class="sc">%&gt;%</span> </span>
+<span id="cb7-12"><a href="toolbox.html#cb7-12" tabindex="-1"></a>  <span class="fu">group_by_key</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-13"><a href="toolbox.html#cb7-13" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">Q =</span> <span class="sc">~</span> <span class="fu">quarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="toolbox.html#cb7-14" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">S =</span> <span class="fu">sum</span>(Employed, <span class="at">na.rm =</span> T))</span></code></pre></div>
 </div>
 <div id="fitting-models" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Fitting Models<a href="toolbox.html#fitting-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Consider whether you are fitting a model for explanatory variable inference or for predictive purposes. If explanation is your goal, your workflow will be fitting a model, verifying the model assumptions related to inference, then summarizing the model parameters. If prediction is your goal, your workflow will be comparing multiple models by cross-validating the results against a hold-out data set, then making predictions.</p>
-<p>Fit a model using <code>fabletools::model()</code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> You can even fit multiple models at once. Let’s fit a simple model using the GAFA stock prices data set in <strong>tsibbledata</strong>. GAFA is daily stock prices from 2014-2018 for several companies. We’ll work with Google. The data is indexed by date, but we’ll re-index to “trading day” since the trading days are irregularly spaced.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="toolbox.html#cb13-1" tabindex="-1"></a>goog <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>gafa_stock <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="toolbox.html#cb13-2" tabindex="-1"></a>  <span class="fu">filter</span>(Symbol <span class="sc">==</span> <span class="st">&quot;GOOG&quot;</span>, <span class="fu">year</span>(Date) <span class="sc">&gt;=</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="toolbox.html#cb13-3" tabindex="-1"></a>  <span class="co"># re-index on trading day since markets not open on weekends, holidays</span></span>
-<span id="cb13-4"><a href="toolbox.html#cb13-4" tabindex="-1"></a>  <span class="fu">arrange</span>(Date) <span class="sc">%&gt;%</span></span>
-<span id="cb13-5"><a href="toolbox.html#cb13-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trading_day =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb13-6"><a href="toolbox.html#cb13-6" tabindex="-1"></a>  <span class="fu">update_tsibble</span>(<span class="at">index =</span> trading_day, <span class="at">regular =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-7"><a href="toolbox.html#cb13-7" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="toolbox.html#cb13-8" tabindex="-1"></a><span class="fu">head</span>(goog)</span>
-<span id="cb13-9"><a href="toolbox.html#cb13-9" tabindex="-1"></a><span class="do">## # A tsibble: 6 x 9 [1]</span></span>
-<span id="cb13-10"><a href="toolbox.html#cb13-10" tabindex="-1"></a><span class="do">## # Key:       Symbol [1]</span></span>
-<span id="cb13-11"><a href="toolbox.html#cb13-11" tabindex="-1"></a><span class="do">##   Symbol Date        Open  High   Low Close Adj_Close  Volume trading_day</span></span>
-<span id="cb13-12"><a href="toolbox.html#cb13-12" tabindex="-1"></a><span class="do">##   &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;       &lt;int&gt;</span></span>
-<span id="cb13-13"><a href="toolbox.html#cb13-13" tabindex="-1"></a><span class="do">## 1 GOOG   2015-01-02  526.  528.  521.  522.      522. 1447600           1</span></span>
-<span id="cb13-14"><a href="toolbox.html#cb13-14" tabindex="-1"></a><span class="do">## 2 GOOG   2015-01-05  520.  521.  510.  511.      511. 2059800           2</span></span>
-<span id="cb13-15"><a href="toolbox.html#cb13-15" tabindex="-1"></a><span class="do">## 3 GOOG   2015-01-06  512.  513.  498.  499.      499. 2899900           3</span></span>
-<span id="cb13-16"><a href="toolbox.html#cb13-16" tabindex="-1"></a><span class="do">## 4 GOOG   2015-01-07  504.  504.  497.  498.      498. 2065100           4</span></span>
-<span id="cb13-17"><a href="toolbox.html#cb13-17" tabindex="-1"></a><span class="do">## 5 GOOG   2015-01-08  495.  501.  488.  500.      500. 3353600           5</span></span>
-<span id="cb13-18"><a href="toolbox.html#cb13-18" tabindex="-1"></a><span class="do">## 6 GOOG   2015-01-09  502.  502.  492.  493.      493. 2069400           6</span></span>
-<span id="cb13-19"><a href="toolbox.html#cb13-19" tabindex="-1"></a><span class="fu">dim</span>(goog)</span>
-<span id="cb13-20"><a href="toolbox.html#cb13-20" tabindex="-1"></a><span class="do">## [1] 1006    9</span></span></code></pre></div>
-<p>Let’s fit a <em>naive</em> model (projection of last value) to Google’s <code>Close</code> from 2015, then predict values from Jan 2016. We’ll create an 80:20 train-test split (<code>test</code> should be ~20% or at least as long as the anticipated forecast.).</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="toolbox.html#cb14-1" tabindex="-1"></a><span class="co"># Segment with `filter()`, or `group_by()` + `slice()`.</span></span>
-<span id="cb14-2"><a href="toolbox.html#cb14-2" tabindex="-1"></a>goog_train <span class="ot">&lt;-</span> goog <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">==</span> <span class="dv">2015</span>)</span>
-<span id="cb14-3"><a href="toolbox.html#cb14-3" tabindex="-1"></a>goog_test <span class="ot">&lt;-</span> goog <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">yearmonth</span>(Date) <span class="sc">==</span> <span class="fu">yearmonth</span>(<span class="st">&quot;2016 Jan&quot;</span>))</span>
-<span id="cb14-4"><a href="toolbox.html#cb14-4" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="toolbox.html#cb14-5" tabindex="-1"></a><span class="co"># Train model</span></span>
-<span id="cb14-6"><a href="toolbox.html#cb14-6" tabindex="-1"></a>goog_mdl <span class="ot">&lt;-</span> goog_train <span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="toolbox.html#cb14-7" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">mdl_naive =</span> <span class="fu">NAIVE</span>(Close))</span>
-<span id="cb14-8"><a href="toolbox.html#cb14-8" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="toolbox.html#cb14-9" tabindex="-1"></a><span class="co"># Generate predictions (forecast)</span></span>
-<span id="cb14-10"><a href="toolbox.html#cb14-10" tabindex="-1"></a>goog_fc <span class="ot">&lt;-</span> goog_mdl <span class="sc">%&gt;%</span></span>
-<span id="cb14-11"><a href="toolbox.html#cb14-11" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">new_data =</span> goog_test)</span></code></pre></div>
+<p>If you are fitting an explanatory model, the workflow will be fitting, verifying assumptions, then summarizing the parameters. If your are fitting a predictive model, your workflow will be comparing models with cross-validation using a hold-out data set, then making predictions.</p>
+<p>Let’s continue working with the <code>us_employment</code> data set and use just the Total Private series. We’ll split the data into training and testing for predictive modeling.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="toolbox.html#cb8-1" tabindex="-1"></a>us_employment_full <span class="ot">&lt;-</span> us_employment_tsibble <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="toolbox.html#cb8-2" tabindex="-1"></a>  <span class="fu">filter</span>(Title <span class="sc">==</span> <span class="st">&quot;Total Private&quot;</span>, <span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">2000</span>)</span>
+<span id="cb8-3"><a href="toolbox.html#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="toolbox.html#cb8-4" tabindex="-1"></a>us_employment_train <span class="ot">&lt;-</span> us_employment_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&lt;=</span> <span class="dv">2015</span>)</span>
+<span id="cb8-5"><a href="toolbox.html#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="toolbox.html#cb8-6" tabindex="-1"></a>us_employment_test <span class="ot">&lt;-</span> us_employment_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;</span> <span class="dv">2015</span>)</span></code></pre></div>
+<p>Fit a <em>naive</em> model (projection of last value) to Google’s <code>Close</code> from 2015, then predict values from Jan 2016. We’ll create an 80:20 train-test split (<code>test</code> should be ~20% or at least as long as the anticipated forecast.).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="toolbox.html#cb9-1" tabindex="-1"></a>train_fit <span class="ot">&lt;-</span> </span>
+<span id="cb9-2"><a href="toolbox.html#cb9-2" tabindex="-1"></a>  us_employment_train <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="toolbox.html#cb9-3" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb9-4"><a href="toolbox.html#cb9-4" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">MEAN</span>(Employed),</span>
+<span id="cb9-5"><a href="toolbox.html#cb9-5" tabindex="-1"></a>    <span class="at">Naive =</span> <span class="fu">NAIVE</span>(Employed),</span>
+<span id="cb9-6"><a href="toolbox.html#cb9-6" tabindex="-1"></a>    <span class="at">SNaive =</span> <span class="fu">SNAIVE</span>(Employed),</span>
+<span id="cb9-7"><a href="toolbox.html#cb9-7" tabindex="-1"></a>    <span class="at">Drift =</span> <span class="fu">RW</span>(Employed <span class="sc">~</span> <span class="fu">drift</span>())</span>
+<span id="cb9-8"><a href="toolbox.html#cb9-8" tabindex="-1"></a>  )</span>
+<span id="cb9-9"><a href="toolbox.html#cb9-9" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="toolbox.html#cb9-10" tabindex="-1"></a>train_fcast <span class="ot">&lt;-</span></span>
+<span id="cb9-11"><a href="toolbox.html#cb9-11" tabindex="-1"></a>  train_fit <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="toolbox.html#cb9-12" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">new_data =</span> us_employment_test) <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="toolbox.html#cb9-13" tabindex="-1"></a>  <span class="co"># Make an 80% CI from the distribution. </span></span>
+<span id="cb9-14"><a href="toolbox.html#cb9-14" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-15"><a href="toolbox.html#cb9-15" tabindex="-1"></a>    <span class="at">mu =</span> <span class="fu">map_dbl</span>(Employed, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;mu&quot;</span>]),</span>
+<span id="cb9-16"><a href="toolbox.html#cb9-16" tabindex="-1"></a>    <span class="at">sigma =</span> <span class="fu">map_dbl</span>(Employed, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;sigma&quot;</span>]),</span>
+<span id="cb9-17"><a href="toolbox.html#cb9-17" tabindex="-1"></a>    <span class="at">lcl =</span> <span class="fu">qnorm</span>(.<span class="dv">10</span>, mu, sigma),</span>
+<span id="cb9-18"><a href="toolbox.html#cb9-18" tabindex="-1"></a>    <span class="at">ucl =</span> <span class="fu">qnorm</span>(.<span class="dv">90</span>, mu, sigma)</span>
+<span id="cb9-19"><a href="toolbox.html#cb9-19" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-20"><a href="toolbox.html#cb9-20" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div>
 <p>The <code>autoplot()</code> and <code>autolayer()</code> functions take a lot of the headache out of plotting the results, especially since <code>forecast()</code> tucks away the confidence intervals in a <code>distribution</code> list object.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="toolbox.html#cb15-1" tabindex="-1"></a><span class="co"># Consider using autoplot() + autolayer()...</span></span>
-<span id="cb15-2"><a href="toolbox.html#cb15-2" tabindex="-1"></a><span class="co"># goog_fc %&gt;%</span></span>
-<span id="cb15-3"><a href="toolbox.html#cb15-3" tabindex="-1"></a><span class="co">#   autoplot(color = &quot;goldenrod&quot;) +</span></span>
-<span id="cb15-4"><a href="toolbox.html#cb15-4" tabindex="-1"></a><span class="co">#   autolayer(goog_train, Close, color = &quot;goldenrod&quot;)</span></span>
-<span id="cb15-5"><a href="toolbox.html#cb15-5" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="toolbox.html#cb15-6" tabindex="-1"></a>goog_fc_2 <span class="ot">&lt;-</span> goog_fc <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a href="toolbox.html#cb15-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">map_dbl</span>(Close, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;mu&quot;</span>]),</span>
-<span id="cb15-8"><a href="toolbox.html#cb15-8" tabindex="-1"></a>         <span class="at">sigma =</span> <span class="fu">map_dbl</span>(Close, <span class="sc">~</span><span class="fu">unlist</span>(.) <span class="sc">%&gt;%</span> .[<span class="st">&quot;sigma&quot;</span>]),</span>
-<span id="cb15-9"><a href="toolbox.html#cb15-9" tabindex="-1"></a>         <span class="at">ci_025 =</span> <span class="fu">qnorm</span>(.<span class="dv">025</span>, mu, sigma),</span>
-<span id="cb15-10"><a href="toolbox.html#cb15-10" tabindex="-1"></a>         <span class="at">ci_100 =</span> <span class="fu">qnorm</span>(.<span class="dv">100</span>, mu, sigma),</span>
-<span id="cb15-11"><a href="toolbox.html#cb15-11" tabindex="-1"></a>         <span class="at">ci_900 =</span> <span class="fu">qnorm</span>(.<span class="dv">900</span>, mu, sigma),</span>
-<span id="cb15-12"><a href="toolbox.html#cb15-12" tabindex="-1"></a>         <span class="at">ci_975 =</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>, mu, sigma)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-13"><a href="toolbox.html#cb15-13" tabindex="-1"></a>  <span class="fu">select</span>(trading_day, Date, Close, mu, sigma, ci_025<span class="sc">:</span>ci_975) </span>
-<span id="cb15-14"><a href="toolbox.html#cb15-14" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="toolbox.html#cb15-15" tabindex="-1"></a><span class="fu">bind_rows</span>(goog_train, goog_test) <span class="sc">%&gt;%</span></span>
-<span id="cb15-16"><a href="toolbox.html#cb15-16" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date)) <span class="sc">+</span></span>
-<span id="cb15-17"><a href="toolbox.html#cb15-17" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Close), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb15-18"><a href="toolbox.html#cb15-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> goog_fc_2, <span class="fu">aes</span>(<span class="at">y =</span> mu), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb15-19"><a href="toolbox.html#cb15-19" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> goog_fc_2, </span>
-<span id="cb15-20"><a href="toolbox.html#cb15-20" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">ymin =</span> ci_025, <span class="at">ymax =</span> ci_975), </span>
-<span id="cb15-21"><a href="toolbox.html#cb15-21" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb15-22"><a href="toolbox.html#cb15-22" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> goog_fc_2, </span>
-<span id="cb15-23"><a href="toolbox.html#cb15-23" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">ymin =</span> ci_100, <span class="at">ymax =</span> ci_900), </span>
-<span id="cb15-24"><a href="toolbox.html#cb15-24" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb15-25"><a href="toolbox.html#cb15-25" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb15-26"><a href="toolbox.html#cb15-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb15-27"><a href="toolbox.html#cb15-27" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;20d naive forecast from model fit to CY-2015&quot;</span>,</span>
-<span id="cb15-28"><a href="toolbox.html#cb15-28" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Shaded area is 80%- and 95% confidence interval.&quot;</span>,</span>
-<span id="cb15-29"><a href="toolbox.html#cb15-29" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Trading Day&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Closing Price&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
-## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="toolbox.html#cb10-1" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb10-2"><a href="toolbox.html#cb10-2" tabindex="-1"></a>  us_employment_train, </span>
+<span id="cb10-3"><a href="toolbox.html#cb10-3" tabindex="-1"></a>  us_employment_test </span>
+<span id="cb10-4"><a href="toolbox.html#cb10-4" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="toolbox.html#cb10-5" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="toolbox.html#cb10-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="toolbox.html#cb10-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Employed), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="toolbox.html#cb10-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> train_fcast, <span class="fu">aes</span>(<span class="at">y =</span> mu, <span class="at">color =</span> .model), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="toolbox.html#cb10-9" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> train_fcast, </span>
+<span id="cb10-10"><a href="toolbox.html#cb10-10" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">ymin =</span> lcl, <span class="at">ymax =</span> ucl, <span class="at">fill =</span> .model, <span class="at">color =</span> .model), </span>
+<span id="cb10-11"><a href="toolbox.html#cb10-11" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="toolbox.html#cb10-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Forecast with 80% CI&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
-<pre><code>## Warning: The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
-## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.
-## The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
-## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</code></pre>
 <p><img src="time-series_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
-<div id="evaluating-models" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Evaluating Models<a href="toolbox.html#evaluating-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Evaluate the model fit with residuals diagnostics.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <code>broom::augment()</code> adds three columns to the model cols: <code>.fitted</code>, <code>.resid</code>, and <code>.innov</code>. <code>.innov</code> is the residual from the transformed data (if no transformation, it just equals <code>.resid</code>).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="toolbox.html#cb19-1" tabindex="-1"></a>goog_mdl_aug <span class="ot">&lt;-</span> goog_mdl <span class="sc">%&gt;%</span> broom<span class="sc">::</span><span class="fu">augment</span>()</span></code></pre></div>
+<div id="evaluating-fit" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Evaluating Fit<a href="toolbox.html#evaluating-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Evaluate the model fit with residuals diagnostics.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <code>broom::augment()</code> adds three columns to the model cols: <code>.fitted</code>, <code>.resid</code>, and <code>.innov</code>. <code>.innov</code> is the residual from the transformed data (if no transformation, it just equals <code>.resid</code>).</p>
 <p>Innovation residuals should be independent random variables normally distributed with mean zero and constant variance (the normality and variance conditions are only required for inference and prediction intervals). Happily, <code>feasts</code> has just what you need.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="toolbox.html#cb20-1" tabindex="-1"></a>goog_mdl <span class="sc">%&gt;%</span> <span class="fu">gg_tsresiduals</span>() <span class="sc">+</span></span>
-<span id="cb20-2"><a href="toolbox.html#cb20-2" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Residuals Analysis&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>The autocorrelation plot above supports the independence assumption. The histogram plot tests normality (it is pretty normal, but the right tail is long). The residuals plot tests mean zero and constant variance. You can carry out a <em>portmanteau</em> test test on the autocorrelation assumption. Two common tests are the Box-Pierce and the Ljung-Box. These tests check the likelihood of a combination of autocorrelations at once, without testing any one correlation - kind of like an ANOVA test. The Ljung-Box test statistic is a sum of squared <span class="math inline">\(k\)</span>-lagged autocorrelations, <span class="math inline">\(r_k^2\)</span>,</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="toolbox.html#cb12-1" tabindex="-1"></a>train_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="toolbox.html#cb12-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Naive&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="toolbox.html#cb12-3" tabindex="-1"></a>  <span class="fu">gg_tsresiduals</span>() <span class="sc">+</span></span>
+<span id="cb12-4"><a href="toolbox.html#cb12-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Residuals Analysis&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>The autocorrelation plot violates the independence assumption. The histogram plot tests normality. The residuals plot tests mean zero and constant variance. You can carry out a <em>portmanteau</em> test on the autocorrelation assumption. Two common tests are the Box-Pierce and the Ljung-Box. These tests check the likelihood of a combination of autocorrelations at once, without testing any one correlation, kind of like an ANOVA test. The Ljung-Box test statistic is a sum of squared <span class="math inline">\(k\)</span>-lagged autocorrelations, <span class="math inline">\(r_k^2\)</span>,</p>
 <p><span class="math display">\[Q^* = T(T+2) \sum_{k=1}^l(T-k)^{-1}r_k^2.\]</span></p>
-<p>The test statistic has a <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(l - K\)</span> degrees of freedom (where <span class="math inline">\(K\)</span> is the number of parameters in the model). Use <span class="math inline">\(l = 10\)</span> for non-seasonal data and <span class="math inline">\(l = 2m\)</span> for seasonal data. If your model has no explanatory variables, <span class="math inline">\(K = 0.\)</span></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="toolbox.html#cb21-1" tabindex="-1"></a>goog_mdl_aug <span class="sc">%&gt;%</span> <span class="fu">features</span>(<span class="at">.var =</span> .innov, <span class="at">features =</span> ljung_box, <span class="at">lag =</span> <span class="dv">10</span>, <span class="at">dof =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 4
-##   Symbol .model    lb_stat lb_pvalue
-##   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-## 1 GOOG   mdl_naive    7.91     0.637</code></pre>
-<p>The <em>p</em>-value is not under .05, so do <em>not</em> reject the assumption of no autocorrelation - i.e., the assumption of white noise.</p>
+<p>The test statistic has a <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(l - K\)</span> degrees of freedom (where <span class="math inline">\(K\)</span> is the number of parameters in the model). Use <span class="math inline">\(l = 10\)</span> for non-seasonal data and <span class="math inline">\(l = 2m\)</span> for seasonal data. If your model has no explanatory variables, <span class="math inline">\(K = 0.\)</span> Reject the no-autocorrelation (i.e., white noise) assumption if <em>p</em> &lt; .05.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="toolbox.html#cb13-1" tabindex="-1"></a>train_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="toolbox.html#cb13-2" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">augment</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="toolbox.html#cb13-3" tabindex="-1"></a>  <span class="fu">features</span>(<span class="at">.var =</span> .innov, <span class="at">features =</span> ljung_box, <span class="at">lag =</span> <span class="dv">10</span>, <span class="at">dof =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 4
+##   Title         .model lb_stat  lb_pvalue
+##   &lt;chr&gt;         &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Total Private Drift     44.1 0.00000311
+## 2 Total Private Mean    1128.  0         
+## 3 Total Private Naive     44.1 0.00000311
+## 4 Total Private SNaive  1278.  0</code></pre>
 </div>
 <div id="evaluating-accuracy" class="section level2 hasAnchor" number="1.4">
 <h2><span class="header-section-number">1.4</span> Evaluating Accuracy<a href="toolbox.html#evaluating-accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Some forecasting methods are extremely simple and surprisingly effective. The <strong>mean</strong> method projects the historical average, <span class="math inline">\(\hat{y}_{T+h|T} = \bar{y}.\)</span> The <strong>naive</strong> method projects the last observation, <span class="math inline">\(\hat{y}_{T+h|T} = y_T.\)</span> The <strong>seasonal naive</strong> method projects the last seasonal observation, <span class="math inline">\(\hat{y}_{T+h|T} = y_{T+h-m(k+1)}.\)</span> The <strong>drift</strong> method projects the straight line from the first and last observation, <span class="math inline">\(\hat{y}_{T+h|T} = y_T + h\left(\frac{y_T - y_1}{T-1}\right).\)</span> The plot below of <code>tsibbledata::aus_production</code> shows the four forecast benchmarks.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="toolbox.html#cb23-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="toolbox.html#cb23-2" tabindex="-1"></a>  <span class="co"># same thing as</span></span>
-<span id="cb23-3"><a href="toolbox.html#cb23-3" tabindex="-1"></a>  <span class="co"># filter(Quarter &gt;= yearquarter(&quot;1970 Q1&quot;) &amp; Quarter &lt;= yearquarter(&quot;2004 Q4&quot;)) %&gt;%</span></span>
-<span id="cb23-4"><a href="toolbox.html#cb23-4" tabindex="-1"></a>  <span class="fu">filter_index</span>(<span class="st">&quot;1995 Q1&quot;</span> <span class="sc">~</span> <span class="st">&quot;2007 Q4&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-5"><a href="toolbox.html#cb23-5" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">Mean =</span> <span class="fu">MEAN</span>(Beer),</span>
-<span id="cb23-6"><a href="toolbox.html#cb23-6" tabindex="-1"></a>        <span class="at">Naive =</span> <span class="fu">NAIVE</span>(Beer),</span>
-<span id="cb23-7"><a href="toolbox.html#cb23-7" tabindex="-1"></a>        <span class="at">SNaive =</span> <span class="fu">SNAIVE</span>(Beer),</span>
-<span id="cb23-8"><a href="toolbox.html#cb23-8" tabindex="-1"></a>        <span class="at">Drift =</span> <span class="fu">RW</span>(Beer <span class="sc">~</span> <span class="fu">drift</span>())) <span class="sc">%&gt;%</span></span>
-<span id="cb23-9"><a href="toolbox.html#cb23-9" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-10"><a href="toolbox.html#cb23-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
-<span id="cb23-11"><a href="toolbox.html#cb23-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .mean, <span class="at">color =</span> .model), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb23-12"><a href="toolbox.html#cb23-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span> <span class="fu">filter_index</span>(<span class="st">&quot;1995 Q1&quot;</span> <span class="sc">~</span> <span class="st">&quot;2009 Q4&quot;</span>),</span>
-<span id="cb23-13"><a href="toolbox.html#cb23-13" tabindex="-1"></a>         <span class="fu">aes</span>(<span class="at">y =</span> Beer),</span>
-<span id="cb23-14"><a href="toolbox.html#cb23-14" tabindex="-1"></a>         <span class="at">color =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb23-15"><a href="toolbox.html#cb23-15" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb23-16"><a href="toolbox.html#cb23-16" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">&quot;Forecast&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb23-17"><a href="toolbox.html#cb23-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Simple forecast methods are useful benchmarks.&quot;</span>,</span>
-<span id="cb23-18"><a href="toolbox.html#cb23-18" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb23-19"><a href="toolbox.html#cb23-19" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Source: Quarterly beer production (ML) from tsibbledata::aus_production.&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
-## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</code></pre>
-<p><img src="time-series_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>Evaluate the forecast accuracy with the test data (aka, “hold-out set”, and “out-of-sample data”). The <strong>forecast error</strong> is the difference between the observed and forecast value, <span class="math inline">\(e_{T+h} = y_{T+h} - \hat{y}_{t+h|T}.\)</span> Forecast errors differ from model residuals in the data (train vs test) and because forecast values are (usually) multi-step forecasts which include prior forecast values as inputs.</p>
-<p>There are a few benchmark metrics to evaluate a fit based on the errors.</p>
+<p>Some forecasting methods are extremely simple and surprisingly effective. The <strong>mean</strong> method projects the historical average, <span class="math inline">\(\hat{y}_{T+h|T} = \bar{y}.\)</span> The <strong>naive</strong> method projects the last observation, <span class="math inline">\(\hat{y}_{T+h|T} = y_T.\)</span> The <strong>seasonal naive</strong> method projects the last seasonal observation, <span class="math inline">\(\hat{y}_{T+h|T} = y_{T+h-m(k+1)}.\)</span> The <strong>drift</strong> method projects the straight line from the first and last observation, <span class="math inline">\(\hat{y}_{T+h|T} = y_T + h\left(\frac{y_T - y_1}{T-1}\right).\)</span></p>
+<p>Evaluate the forecast accuracy with the test data (aka, “hold-out set”, and “out-of-sample data”). The <strong>forecast error</strong> is the difference between the observed and forecast value, <span class="math inline">\(e_{T+h} = y_{T+h} - \hat{y}_{t+h|T}.\)</span> Forecast errors differ from model residuals in that they come from the test data set and because forecast values are usually multi-step forecasts which include prior forecast values as inputs.</p>
+<p>The major accuracy benchmarks are:</p>
 <ul>
 <li><strong>MAE</strong>. Mean absolute error, <span class="math inline">\(mean(|e_t|)\)</span></li>
 <li><strong>RMSE</strong>. Root mean squared error, <span class="math inline">\(\sqrt{mean(e_t^2)}\)</span></li>
 <li><strong>MAPE</strong>. Mean absolute percentage error, <span class="math inline">\(mean(|e_t / y_t|) \times 100\)</span></li>
 <li><strong>MASE</strong>. Mean absolute scaled error, <span class="math inline">\(MAE/Q\)</span> where <span class="math inline">\(Q\)</span> is a scaling constant calculated as the average one-period change in the outcome variable (error from a one-step naive forecast).</li>
 </ul>
-<p>The MAE and RMSE are on the same scale as the data, so they are only useful for comparing models fitted to the same series. MAPE is unitless, but does not work for <span class="math inline">\(y_t = 0\)</span>, and it assumes a meaningful zero (ratio data). The MASE is most useful for comparing data sets of different units.</p>
-<p>Use <code>accuracy()</code> to evaluate a model. Comparing the naive, drift, and mean methods for forecasting the Google stock price, the naive model wins on all measures.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="toolbox.html#cb25-1" tabindex="-1"></a>goog_mdl <span class="ot">&lt;-</span> goog_train <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="toolbox.html#cb25-2" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">Naive =</span> <span class="fu">NAIVE</span>(Close),</span>
-<span id="cb25-3"><a href="toolbox.html#cb25-3" tabindex="-1"></a>        <span class="at">Drift =</span> <span class="fu">RW</span>(Close <span class="sc">~</span> <span class="fu">drift</span>()),</span>
-<span id="cb25-4"><a href="toolbox.html#cb25-4" tabindex="-1"></a>        <span class="at">Mean =</span> <span class="fu">MEAN</span>(Close))</span>
-<span id="cb25-5"><a href="toolbox.html#cb25-5" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="toolbox.html#cb25-6" tabindex="-1"></a>goog_fc <span class="ot">&lt;-</span> goog_mdl <span class="sc">%&gt;%</span></span>
-<span id="cb25-7"><a href="toolbox.html#cb25-7" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">new_data =</span> goog_test)</span>
-<span id="cb25-8"><a href="toolbox.html#cb25-8" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="toolbox.html#cb25-9" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb25-10"><a href="toolbox.html#cb25-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> goog_fc, <span class="fu">aes</span>(<span class="at">x =</span> trading_day, <span class="at">y =</span> .mean, <span class="at">color =</span> .model)) <span class="sc">+</span></span>
-<span id="cb25-11"><a href="toolbox.html#cb25-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">bind_rows</span>(goog_train, goog_test), <span class="fu">aes</span>(<span class="at">x =</span> trading_day, <span class="at">y =</span> Close)) <span class="sc">+</span></span>
-<span id="cb25-12"><a href="toolbox.html#cb25-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb25-13"><a href="toolbox.html#cb25-13" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) <span class="sc">+</span></span>
-<span id="cb25-14"><a href="toolbox.html#cb25-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Comparison of three models.&quot;</span>,</span>
-<span id="cb25-15"><a href="toolbox.html#cb25-15" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Google stock price predicted over 19 days.&quot;</span>,</span>
-<span id="cb25-16"><a href="toolbox.html#cb25-16" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Trading Day&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Closing Price&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Forecast&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: The output of `fortify(&lt;fable&gt;)` has changed to better suit usage with the ggdist package.
-## If you&#39;re using it to extract intervals, consider using `hilo()` to compute intervals, and `unpack_hilo()` to obtain values.</code></pre>
-<p><img src="time-series_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="toolbox.html#cb27-1" tabindex="-1"></a><span class="co"># Or just this.  </span></span>
-<span id="cb27-2"><a href="toolbox.html#cb27-2" tabindex="-1"></a><span class="co"># autoplot(goog_fc, bind_rows(goog_train, goog_test), level = NULL)</span></span>
-<span id="cb27-3"><a href="toolbox.html#cb27-3" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="toolbox.html#cb27-4" tabindex="-1"></a><span class="fu">accuracy</span>(goog_fc, goog) <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a href="toolbox.html#cb27-5" tabindex="-1"></a>  <span class="fu">select</span>(.model, RMSE, MAE, MAPE, MASE)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 5
-##   .model  RMSE   MAE  MAPE  MASE
-##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Drift   53.1  49.8  6.99  6.99
-## 2 Mean   118.  117.  16.2  16.4 
-## 3 Naive   43.4  40.4  5.67  5.67</code></pre>
-<p>There is a better way of evaluating a model than with a single test set. Time series <em>cross-validation</em> breaks the dataset into multiple training sets by setting the cutoff at varying points and then setting the test set to be a single steps ahead of the horizon. Function <code>stretch_tsibble()</code> creates a tsibble of initial size <code>.init</code> then appends additional data sets of increasing size <code>.step</code>.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="toolbox.html#cb29-1" tabindex="-1"></a>goog_train_cv <span class="ot">&lt;-</span> goog <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="toolbox.html#cb29-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="toolbox.html#cb29-3" tabindex="-1"></a>  <span class="fu">stretch_tsibble</span>(<span class="at">.init =</span> <span class="dv">3</span>, <span class="at">.step =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-4"><a href="toolbox.html#cb29-4" tabindex="-1"></a>  <span class="co"># move .id next to the other key col</span></span>
-<span id="cb29-5"><a href="toolbox.html#cb29-5" tabindex="-1"></a>  <span class="fu">relocate</span>(Date, Symbol, .id)</span>
-<span id="cb29-6"><a href="toolbox.html#cb29-6" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="toolbox.html#cb29-7" tabindex="-1"></a><span class="co"># 250 keys!</span></span>
-<span id="cb29-8"><a href="toolbox.html#cb29-8" tabindex="-1"></a>goog_train_cv</span>
-<span id="cb29-9"><a href="toolbox.html#cb29-9" tabindex="-1"></a></span>
-<span id="cb29-10"><a href="toolbox.html#cb29-10" tabindex="-1"></a>goog_fc <span class="ot">&lt;-</span> goog_train_cv <span class="sc">%&gt;%</span></span>
-<span id="cb29-11"><a href="toolbox.html#cb29-11" tabindex="-1"></a>  <span class="co"># Fit a model for each key</span></span>
-<span id="cb29-12"><a href="toolbox.html#cb29-12" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">RW</span>(Close <span class="sc">~</span> <span class="fu">drift</span>())) <span class="sc">%&gt;%</span></span>
-<span id="cb29-13"><a href="toolbox.html#cb29-13" tabindex="-1"></a>  <span class="co"># 8 forecast rows per model = 250 * 8 = 2,000 rows</span></span>
-<span id="cb29-14"><a href="toolbox.html#cb29-14" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-15"><a href="toolbox.html#cb29-15" tabindex="-1"></a>  <span class="co"># Capture the forecast period for comparison</span></span>
-<span id="cb29-16"><a href="toolbox.html#cb29-16" tabindex="-1"></a>  <span class="fu">group_by</span>(.id) <span class="sc">%&gt;%</span></span>
-<span id="cb29-17"><a href="toolbox.html#cb29-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">h =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb29-18"><a href="toolbox.html#cb29-18" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb29-19"><a href="toolbox.html#cb29-19" tabindex="-1"></a></span>
-<span id="cb29-20"><a href="toolbox.html#cb29-20" tabindex="-1"></a>goog_fc <span class="sc">%&gt;%</span></span>
-<span id="cb29-21"><a href="toolbox.html#cb29-21" tabindex="-1"></a>  <span class="fu">accuracy</span>(<span class="at">data =</span> goog <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">==</span> <span class="dv">2015</span>), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;.model&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb29-22"><a href="toolbox.html#cb29-22" tabindex="-1"></a>  <span class="fu">select</span>(h, RMSE)</span></code></pre></div>
+<p>The MAE and RMSE are on the same scale as the data, so they are only useful for comparing models fitted to the same series. MAPE is unitless, but does not work for <span class="math inline">\(y_t = 0\)</span>, and it assumes a meaningful zero (ratio data). MASE is most useful for comparing data sets of different units.</p>
+<p>Use <code>accuracy()</code> to evaluate a model.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="toolbox.html#cb15-1" tabindex="-1"></a>train_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="toolbox.html#cb15-2" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">new_data =</span> us_employment_test) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="toolbox.html#cb15-3" tabindex="-1"></a>  fabletools<span class="sc">::</span><span class="fu">accuracy</span>(<span class="at">data =</span> us_employment_test) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="toolbox.html#cb15-4" tabindex="-1"></a>  <span class="fu">select</span>(.model, RMSE, MAE, MAPE, MASE)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 5
+##   .model   RMSE    MAE  MAPE  MASE
+##   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Drift   2809.  2374.  1.88   NaN
+## 2 Mean   13091. 12787. 10.2    NaN
+## 3 Naive   4514.  3831.  3.02   NaN
+## 4 SNaive  5961.  5435.  4.31   NaN</code></pre>
+<p>Time series <em>cross-validation</em> is a better way to evaluating a model. It breaks the dataset into multiple training sets by setting a cutoff at varying points and setting the test set to a single step ahead of the horizon. Function <code>stretch_tsibble()</code> creates a tsibble of initial size <code>.init</code> and appends additional data sets of increasing size <code>.step</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="toolbox.html#cb17-1" tabindex="-1"></a>us_employment_full <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="toolbox.html#cb17-2" tabindex="-1"></a>  <span class="fu">stretch_tsibble</span>(<span class="at">.init =</span> <span class="dv">3</span>, <span class="at">.step =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="toolbox.html#cb17-3" tabindex="-1"></a>  <span class="co"># Fit a model for each key</span></span>
+<span id="cb17-4"><a href="toolbox.html#cb17-4" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb17-5"><a href="toolbox.html#cb17-5" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">MEAN</span>(Employed),</span>
+<span id="cb17-6"><a href="toolbox.html#cb17-6" tabindex="-1"></a>    <span class="at">Naive =</span> <span class="fu">NAIVE</span>(Employed),</span>
+<span id="cb17-7"><a href="toolbox.html#cb17-7" tabindex="-1"></a>    <span class="at">SNaive =</span> <span class="fu">SNAIVE</span>(Employed),</span>
+<span id="cb17-8"><a href="toolbox.html#cb17-8" tabindex="-1"></a>    <span class="at">Drift =</span> <span class="fu">RW</span>(Employed <span class="sc">~</span> <span class="fu">drift</span>())</span>
+<span id="cb17-9"><a href="toolbox.html#cb17-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="toolbox.html#cb17-10" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="toolbox.html#cb17-11" tabindex="-1"></a>  fabletools<span class="sc">::</span><span class="fu">accuracy</span>(<span class="at">data =</span> us_employment_test)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 11
+##   .model Title         .type     ME   RMSE    MAE   MPE  MAPE  MASE RMSSE  ACF1
+##   &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Drift  Total Private Test    694.  1738.  1410. 0.546  1.13 0.627 0.770 0.826
+## 2 Mean   Total Private Test  11961. 12162. 11961. 9.52   9.52 5.32  5.39  0.825
+## 3 Naive  Total Private Test   1169.  2023.  1685. 0.925  1.34 0.749 0.896 0.795
+## 4 SNaive Total Private Test   2267.  2274.  2267. 1.81   1.81 1.01  1.01  0.641</code></pre>
 
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>Loading the <strong>fable</strong> package automatically loads <strong>fabletools</strong> as well.<a href="toolbox.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Residuals and errors are <em>not</em> the same thing. The <em>residual</em> is the difference between the observed and fitted value in the <em>training</em> data set. The <em>error</em> is the difference between the observed and fitted value in the <em>test</em> data set.<a href="toolbox.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Residuals and errors are <em>not</em> the same thing. The <em>residual</em> is the difference between the observed and fitted value in the <em>training</em> data set. The <em>error</em> is the difference between the observed and fitted value in the <em>test</em> data set.<a href="toolbox.html#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

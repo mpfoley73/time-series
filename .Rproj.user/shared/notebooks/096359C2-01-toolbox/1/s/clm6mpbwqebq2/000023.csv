@@ -1,6 +1,0 @@
-"0",""
-"0","# Add group_by_key() to retain the key"
-"0","prison_tsibble %>% "
-"0","  group_by_key() %>% "
-"0","  index_by(Year = ~ year(.)) %>%"
-"0","  summarize(sum_Count = sum(Count))"

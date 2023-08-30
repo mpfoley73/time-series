@@ -1,6 +1,0 @@
-"0",""
-"0","# But you can change the Qtr index aggregation level with index_by()"
-"0","prison_tsibble %>%"
-"0","  index_by(Year = ~ year(.)) %>%"
-"0","  group_by(State) %>%"
-"0","  summarise(sum_Count = sum(Count))"
