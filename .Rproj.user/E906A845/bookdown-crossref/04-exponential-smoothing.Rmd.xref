@@ -6,8 +6,6 @@ h4:example-1 Example
 h2:additive-damped-trend Additive Damped Trend
 h4:example-2 Example
 h2:holt-winters Holt-Winters
-h3:additive-holt-winters Additive Holt-Winters
-h3:multiplicative-holt-winters Multiplicative Holt-Winters
 h4:example-3 Example
 h2:model-selection-with-cv Model Selection with CV
 h2:model-selection-via-maximum-likelihood Model Selection via Maximum Likelihood

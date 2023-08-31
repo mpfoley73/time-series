@@ -21,7 +21,11 @@ flextable::set_flextable_defaults(
 )
 
 ggplot2::theme_set(
-  theme_light()
+  theme_light() +
+    theme(
+      strip.background = element_rect(fill = "gray90", color = "gray60"),
+      strip.text = element_text(color = "gray20", margin = margin(5, 5, 5, 5))
+    )
 )
 ```
 
@@ -64,7 +68,7 @@ ETS(y ~ error(c("A", "M")) + trend(c("N", "A", "Ad")) + season(c("N", "A", "M"))
 
 ## Simple Exponential Smoothing (SES)
 
-Simple exponential smoothing models have no seasonal or trend components. Simple exponential smoothing models are of the form $\hat{y}_{T+h|T} = \alpha(1-\alpha)^0 y_{T-0} + \alpha(1-\alpha)^1y_{T-1} + \alpha(1-\alpha)^2y_{T-2} \dots$ where $0 < \alpha < 1$ is a weighting parameter. On the one extreme, $\alpha$ = 1 is the same as a naive model. On the other extreme $\alpha \approx$ 0 is the average model. 
+Simple exponential smoothing models (SES) have no seasonal or trend components. They are of the form $\hat{y}_{T+h|T} = \alpha(1-\alpha)^0 y_{T-0} + \alpha(1-\alpha)^1y_{T-1} + \alpha(1-\alpha)^2y_{T-2} \dots$ where $0 < \alpha < 1$ is a weighting parameter. On the one extreme, $\alpha$ = 1 is the same as a naive model. On the other extreme $\alpha \approx$ 0 is the average model. 
 
 ETS models are commonly expressed in component form as a recursive model. The component form of SES is
 
@@ -75,11 +79,11 @@ l_t &= \alpha y_t + (1 - \alpha)l_{t-1}
 \end{align}
 $$
 
-The first component, $\hat{y}_{t+h|t}$, is the forecast. It equals the last value of the estimated level, kind of like a y-intercept. The second component, $l_t$ is the level (or smoothed value) of the series at time $t$. It describes how the level changes over time, kind of like a slope. ETS uses nonlinear optimization to estimate two parameters for SES, $\alpha$ and $l_0$.
+The first component, $\hat{y}_{t+h|t}$, is the forecast. It equals the last value of the estimated level. The second component, $l_t$, is the level (or smoothed value) of the series at time $t$. It describes how the level changes over time, kind of like a slope. ETS uses nonlinear optimization to estimate two parameters for SES, $\alpha$ and $l_0$.
 
 #### Example {-}
 
-Data set `tsibbledata::global_economy` contains annual country-level economic indicators, including `Exports`. This time series has no trend or seasonality, so it is a good candidate for an SES model.
+Data set `tsibbledata::global_economy` contains annual country-level economic indicators, including `Exports`. This time series has no trend or seasonality, so it is a good candidate for SES.
 
 ```{r}
 tsibbledata::global_economy %>%
@@ -99,15 +103,15 @@ ses_fit <- tsibbledata::global_economy %>%
 ses_fit %>% report()
 ```
 
-The fit estimates $\hat{l}_0$ = `r ses_fit %>% tidy() %>% filter(term == "l[0]") %>% pull(estimate) %>% scales::number(accuracy = .001)` percent of GDP are exports at period 0 (1960), and $\hat{\alpha}$ = `r ses_fit %>% tidy() %>% filter(term == "alpha") %>% pull(estimate) %>% scales::number(accuracy = .001)`, a high weight on the prior value. Check the model assumptions with residuals plots. 
+Exports were $\hat{l}_0$ = `r ses_fit %>% tidy() %>% filter(term == "l[0]") %>% pull(estimate) %>% scales::number(accuracy = .1)`% of GDP at period 0 (1960). $\hat{\alpha}$ = `r ses_fit %>% tidy() %>% filter(term == "alpha") %>% pull(estimate) %>% scales::number(accuracy = .001)`, a high weight on recent values. Check the model assumptions with residuals plots. 
 
 ```{r}
 gg_tsresiduals(ses_fit)
 ```
 
-Residual heteroscedasticity compromises prediction intervals. The innovation residuals vs time plot does not show heteroscedasticity.^[Innovation residuals are residuals on the transformed scale if the outcome variable was transformed.] It does show a potential outlier around 1962 which might be a concern. Autocorrelation increases prediction intervals. The autocorrelation function plot shows a barely significant negative spike at lag 12 years. Non-normal residuals also compromise prediction intervals. The residual distribution in the histogram is slightly left-skewed. 
+Residual heteroscedasticity compromises prediction intervals. The innovation residuals vs time plot shows no heteroscedasticity.^[Innovation residuals are residuals on the transformed scale if the outcome variable was transformed.] It does show a potential outlier around 1962 which might be a concern. Autocorrelation increases prediction intervals. The autocorrelation function plot shows a barely significant negative spike at lag 12 years. Non-normal residuals also compromise prediction intervals. The residual distribution in the histogram is slightly left-skewed. 
 
-Use the fitted model to forecast the response variable for five periods.
+Use the fitted model to forecast the response variable for five periods. `hilo()` attaches a prediction interval to the tsibble.
 
 ```{r}
 ses_fc <- ses_fit %>%
@@ -140,7 +144,7 @@ b_t &= \beta^*(l_t - l_{t-1}) + (1 - \beta^*)b_{t-1}
 \end{align}
 $$
 
-The level equation, $l_t$ is the same except for a trend adjustment. The trend equation, $b_t$, describes how the slope changes over time. The parameter $\beta^*$ describes how quickly the slope can change. Now there are four parameter to estimate, $\alpha$, $l_0$, $\beta^*$, and $b_0$.
+The level equation, $l_t$, is like SES except for a trend adjustment. The trend equation, $b_t$, describes how the slope changes over time. The parameter $\beta^*$ describes how quickly the slope can change. Now there are four parameter to estimate, $\alpha$, $l_0$, $\beta^*$, and $b_0$.
 
 #### Example {-}
 
@@ -154,7 +158,7 @@ tsibbledata::global_economy %>%
   labs(title = "Australian Population.")
 ```
 
-Fit the model with `ETS()` again, but this time specify an additive trend, ETS(A, A, N).
+Fit the model with `ETS()` specifying an additive trend, ETS(A, A, N).
 
 ```{r}
 holt_fit <- tsibbledata::global_economy %>%
@@ -164,9 +168,9 @@ holt_fit <- tsibbledata::global_economy %>%
 holt_fit %>% report()
 ```
 
-`ETS()` estimates an $\hat{l}_0$ of `r holt_fit %>% tidy() %>% filter(term == "l[0]") %>% pull(estimate) %>% scales::comma()` people at period 0 (1960) with a very high weighting on recent values $\hat{\alpha}$ of `r holt_fit %>% tidy() %>% filter(term == "alpha") %>% pull(estimate) %>% scales::number(accuracy = .0001)`. $\alpha$ is high when the trend increases rapidly. $\beta_0$ is `r holt_fit %>% tidy() %>% filter(term == "b[0]") %>% pull(estimate) %>% scales::comma()` with a $\hat{\beta}$ of `r holt_fit %>% tidy() %>% filter(term == "beta") %>% pull(estimate) %>% scales::number(accuracy = .001)`. This is a fairly large $\hat{\beta}$, meaning the trend changes often. 
+$\hat{l}_0$ = `r holt_fit %>% tidy() %>% filter(term == "l[0]") %>% pull(estimate) %>% scales::comma(1)` people at period 0 (1960). $\alpha$ is high when the trend increases rapidly, assigning more weight to recent values. $\hat{\alpha}$ = `r holt_fit %>% tidy() %>% filter(term == "alpha") %>% pull(estimate) %>% scales::number(accuracy = .0001)`, a very high weighting. Population initially grows at $\beta_0$ = `r holt_fit %>% tidy() %>% filter(term == "b[0]") %>% pull(estimate) %>% scales::comma()` people per year. $\hat{\beta}$ = `r holt_fit %>% tidy() %>% filter(term == "beta") %>% pull(estimate) %>% scales::number(accuracy = .001)`, a fairly large value, meaning the trend changes often. 
 
-Check the model assumptions with residuals plots. No heteroscedasticity in the residuals vs time plot and no skew in the residual distribution plot, so the prediction intervals are reliable. The autocorrelation plot has no significant spikes, so the prediction intervals will not be unduly large.
+Check the model assumptions with residuals plots. There is no heteroscedasticity in the residuals vs time plot and no skew in the residual distribution plot, so the prediction intervals are reliable. The autocorrelation plot has no significant spikes, so the prediction intervals will not be unduly large.
 
 ```{r}
 gg_tsresiduals(holt_fit)
@@ -195,7 +199,7 @@ holt_fit %>%
 
 ## Additive Damped Trend
 
-Holt's linear trend produces a sloped, but straight line. Research shows that constant trends tend to overshoot. The additive damped trend model introduces a damping parameter, $\phi$, to reduce the forecasted trend to a flat line over time. The forecast equation replaces $h$ with the series $\phi^1 + \phi^2 + \cdots + \phi^h$. The trend equation adds $\phi$ as a multiplier to the second term.
+Holt's linear trend produces a sloped, but straight, line. Research shows that constant trends tend to overshoot. The additive damped trend model introduces a damping parameter, $\phi$, to reduce the forecasted trend to a flat line over time. The forecast equation replaces $h$ with the series $\phi^1 + \phi^2 + \cdots + \phi^h$. The trend equation adds $\phi$ as a multiplier to the second term.
 
 $$
 \begin{align}
@@ -209,7 +213,7 @@ Now there are five parameters to estimate, $\alpha$, $\beta^*$, $l_0$, $b_0$, an
 
 #### Example {-}
 
-Return to the Australian population data. You can fit the original model and the additive damped trend model in a single statement. The new model is an ETS(A, A<sub>d</sub>, N). 
+Return to the Australian population data and include an additive damped trend model in a fit. The new model is an ETS(A, A<sub>d</sub>, N). 
 
 ```{r}
 dholt_fit <- tsibbledata::global_economy %>%
@@ -219,10 +223,11 @@ dholt_fit <- tsibbledata::global_economy %>%
     `Damped Holt's Linear` = ETS(Population ~ error("A") + trend("Ad") + season("N"))
   )
 
+# Just report on the new model.
 dholt_fit %>% select(`Damped Holt's Linear`) %>% report()
 ```
 
-`ETS()` estimates $\hat{\phi}$ = `r dholt_fit %>% tidy() %>% filter(term == "phi") %>% pull(estimate) %>% scales::number(accuracy = .001)` - just a small amount of damping. 
+$\hat{\phi}$ = `r dholt_fit %>% tidy() %>% filter(term == "phi") %>% pull(estimate) %>% scales::number(accuracy = .001)`, a modest amount of damping. $\hat{\beta}$ increased from `r holt_fit %>% tidy() %>% filter(term == "beta") %>% pull(estimate) %>% scales::number(accuracy = .001)` in the linear model to `r dholt_fit %>% tidy() %>% filter(.model == "Damped Holt's Linear", term == "beta") %>% pull(estimate) %>% scales::number(accuracy = .001)` here, so the slope is changing more frequently.
 
 ```{r}
 dholt_fc <- dholt_fit %>%
@@ -254,9 +259,7 @@ dholt_fit %>%
 
 The Holt-Winters method extends Holt's method with a seasonality component, $s_t$, for $m$ seasons per period. There are two versions of this model, the *additive* and the *multiplicative*. The additive method assumes the error variance is constant, and the seasonal component sums to approximately zero over the course of the year. The multiplicative version assumes the error variance scales with the level, and the seasonal component sums to approximately $m$ over the course of the year. 
 
-### Additive Holt-Winters
-
-The additive method introduces the seasonality component as an additive element. 
+**Additive Holt-Winters** introduces the seasonality component as an additive element. 
 
 $$
 \begin{align}
@@ -267,13 +270,9 @@ s_t &= \gamma(y_t - l_{t-1} - b_{t-1}) + (1 - \gamma)s_{t-m}
 \end{align}
 $$
 
-$k$ is the modulus of $(h - 1) / m$, so $s_{t+h-m(k+1)}$ is always based on the prior seasonal period. $l_t$ is a weighted average ($alpha$ weighting) between the seasonally adjusted observation and the non-seasonal forecast. The trend component is unchanged. The seasonal component is a weighted average ($\gamma$ weighting) between the current seasonal index and the same season of the prior season period.  
+$k$ is the modulus of $(h - 1) / m$, so $s_{t+h-m(k+1)}$ is always based on the prior seasonal period. $l_t$ is a weighted average ($\alpha$ weighting) between the seasonally adjusted observation and the non-seasonal forecast. The trend component is unchanged. The seasonal component is a weighted average ($\gamma$ weighting) between the current seasonal index and the same season of the prior season period.  
 
-Now there are five smoothing parameters to estimate: $\alpha$, $l_0$, $\beta^*$, $b_0$, and $\gamma$, plus an initial value for each season of the seasonal period.
-
-### Multiplicative Holt-Winters
-
-In the multiplicative version, the seasonality averages to one. Use the multiplicative method if the seasonal variation increases with the level.
+The seasonality averages to one in **multiplicative Holt-Winters**. Use the multiplicative method if the seasonal variation increases with the level.
 
 $$
 \begin{align}
@@ -284,95 +283,99 @@ s_t &= \gamma\frac{y_t}{(l_{t-1} - b_{t-1})} + (1 - \gamma)s_{t-m} \\
 \end{align}
 $$
 
+Now there are five smoothing parameters to estimate: $\alpha$, $l_0$, $\beta^*$, $b_0$, and $\gamma$, plus an initial value for each season of the seasonal period.
+
 #### Example {-}
 
-Data set `tsibble::tourism` contains quarterly domestic tourist visit-nights in Australia. The plot below is extended with forecasts using the Holt-Winters additive method and the Holt-Winters seasonal method. It's not obvious whether the error variance increases with the series level, so either the additive or the multiplicative method may be appropriate. The RMSE from the multiplicative model 
-
-```{r message=FALSE}
-tour <- tsibble::tourism %>%
-  filter(Purpose == "Holiday") %>%
-  summarize(Trips = sum(Trips) / 1000)
-
-tour_fit <- tour %>%
-  model(
-    Additive = ETS(Trips ~ error("A") + trend("A") + season("A")),
-    Multiplicative = ETS(Trips ~ error("M") + trend("A") + season("M"))
-  )
-
-tour_fit %>% report()
-```
+Data set `tsibble::tourism` contains quarterly domestic tourist visit-nights in Australia. It's not clear whether the error variance increases with the series level, so either the additive or the multiplicative method may be appropriate. 
 
 ```{r}
-tour_fit_fc <- tour_fit %>%
+tsibble::tourism %>%
+  filter(Purpose == "Holiday") %>%
+  summarize(Trips = sum(Trips) / 1000) %>%
+  ggplot(aes(x = Quarter, y = Trips)) +
+  geom_line() +
+  labs(title = "Australian Domestic Tourist Visit-Nights")
+```
+
+Fit the model with `ETS()` specifying additive and multiplicative seasonality and error, ETS(A, A, A) and ETS(M, A, M).
+
+```{r}
+hw_fit <- tsibble::tourism %>%
+  filter(Purpose == "Holiday") %>%
+  summarize(Trips = sum(Trips) / 1000) %>%
+  model(
+    `Additive Holt-Winters` = ETS(Trips ~ error("A") + trend("A") + season("A")),
+    `Multiplicative Holt-Winters` = ETS(Trips ~ error("M") + trend("A") + season("M"))
+  )
+
+hw_fit %>% tidy() %>% pivot_wider(names_from = .model, values_from = estimate)
+```
+
+Notice that the seasonal component estimates, `s[0]` to `s[-3]`, sum to ~0 for the additive model and ~4 for the multiplicative model, the number of seasons in the seasonal period. The small $\hat{\gamma}$ values mean the seasonal component hardly changes over time. The small $\hat{\beta}$ values mean the slope component hardly changes over time. You can see this more clearly in the fit decomposition (note the differing vertical scales for the slope and level components).
+
+```{r warning=FALSE}
+hw_fit %>% 
+  components() %>%
+  pivot_longer(cols = Trips:remainder) %>%
+  mutate(name = factor(name, levels = c("Trips", "level", "slope", "season", "remainder"))) %>%
+  ggplot(aes(x = Quarter, y = value)) +
+  geom_line() +
+  facet_grid(rows = vars(name), cols = vars(.model), scales = "free_y") +
+  labs(x = NULL, y = NULL, title = "Holt-Winters Fit Decomposition")
+```
+
+The model fit metrics suggest Multiplicative Holt-Winters is the better model. It has lower AIC and MSE.
+
+```{r}
+hw_fit %>% glance()
+```
+
+Check the model assumptions of the multiplicative model. The residuals plot shows some heteroscedasticity in the middle periods, and higher variance the latter years. The histogram shows a normal distribution. The autocorrelation function (ACF) plot shows a single significant spike at t14. The Ljung-Box test fails to reject the null hypothesis of no autocorrelation of the residuals (*p* = 0.504).
+
+```{r}
+# Can't use an object containing multiple fits, so re-fit just the multiplicative model.
+hwm_fit <- tsibble::tourism %>%
+  filter(Purpose == "Holiday") %>%
+  summarize(Trips = sum(Trips) / 1000) %>%
+  model(ETS(Trips ~ error("M") + trend("A") + season("M")))
+
+hwm_fit %>% 
+  gg_tsresiduals()
+```
+```{r}
+hwm_fit %>%
+  augment() %>% 
+  features(.var = .innov, features = ljung_box, lag = 14)
+```
+
+Use the fitted model to forecast the response variable for ten periods.
+
+```{r}
+hw_fc <- hw_fit %>%
   forecast(h = 10) %>%
-  mutate(sigma = map_dbl(Trips, ~unlist(.) %>% .["mu"]),
-         ci_025 = qnorm(.025, .mean, sigma),
-         ci_975 = qnorm(.975, .mean, sigma))
+  hilo(80) %>%
+  mutate(
+    lpi = map_dbl(`80%`, ~.$lower),
+    upi = map_dbl(`80%`, ~.$upper)
+  )
 
-tour_fit_aug <- tour_fit %>%
-  augment()
+palette_hw <- c(`Additive Holt-Winters` = "goldenrod", 
+                `Multiplicative Holt-Winters` = "seagreen")
 
-tour_fit_aug %>% 
-  # filter(.model == "Additive") %>%
+hw_fit %>%
+  augment() %>%
   ggplot(aes(x = Quarter)) +
   geom_line(aes(y = Trips)) +
   geom_line(aes(y = .fitted, color = .model)) +
-  geom_line(data = tour_fit_fc, aes(y = .mean, color = .model)) +
-  geom_ribbon(data = tour_fit_fc, 
-              aes(ymin = ci_025, ymax = ci_975, fill = .model),
+  geom_line(data = hw_fc, aes(y = .mean, color = .model)) +
+  geom_ribbon(data = hw_fc, aes(ymin = lpi, ymax = upi, color = .model, fill = .model), 
               alpha = 0.2) +
-  scale_color_manual(values = c("Additive" = "goldenrod", "Multiplicative" = "slategray")) +
-  scale_fill_manual(values = c("Additive" = "goldenrod", "Multiplicative" = "slategray")) +
-  theme_light() +
-  labs(title = "Australian Domestic Tourism with Holt-Winters Models.",
-       y = "Trips (millions)", fill = "Model", color = "Model")
-```
-
-Notice below that the additive seasonal component estimates (`s[0]` to `s[-3]`) sum to approximately zero.
-
-```{r}
-tour_fit %>% select(Additive) %>% report()
-```
-
-And the multiplicative seasonal component estimates (`s[0]` to `s[-3]`) sum to approximately 4 - the number of seasons in the seasonal period.
-
-```{r}
-tour_fit %>% select(Multiplicative) %>% report()
-```
-Check the model assumptions with `checkresiduals`. The residuals plot shows some long-term autocorrelation (a long hump), and the variance increases in the latter years. The histogram shows a normal distribution. The autocorrelation function (ACF) plot shows many spikes outside the insignificance band, and the Ljung-Box test rejects the null hypothesis of no autocorrelation of the residuals (p < 0.0001).
-
-```{r}
-# checkresiduals(a10.hw)
-```
-
-Here is a four-week Holt-Winters forecast of the `hyndsight` dataset of daily pageviews on the Hyndsight blog for one year starting April 30, 2014. Create a training dataset consisting of all obserations minus the last four weeks.  Then forecast those four weeks with Holt-Winters.  Use the `additive` method because the variance is not scaling with page volume.  Creae a second forecast with the seasonal naive method as a benchmark.
-
-
-
-Notice that the Ljung-Box test rejects the null hypothesis of no autocorrelation of the residuals.  The forecast might still provide useful information even with residuals that fail the white noise test.
-
-```{r}
-# hyndsight.train <- subset(hyndsight, end = length(hyndsight) - 4*7)
-# 
-# hyndsight.hw <- hw(hyndsight.train, seasonal = "additive", h = 4*7)
-# 
-# hyndsight.sn <- snaive(hyndsight.train, h = 4*7)
-# 
-# checkresiduals(hyndsight.hw)
-```
-
-Compare Holt-Winters to the seasonal naive forecast.  The RMSE of Holt-Winters (201.7656) is smaller than the RMSE of seasonal naive (202.7610), so it is the more accurate forecast.
-
-```{r}
-# accuracy(hyndsight.hw, hyndsight)
-# accuracy(hyndsight.sn, hyndsight)
-```
-
-Here finally is a plot of the forecasted page views.
-
-```{r}
-# autoplot(hyndsight) +
-#   autolayer(hyndsight.hw$mean)
+  scale_fill_manual(values = palette_hw) +
+  scale_color_manual(values = palette_hw) +
+  theme(legend.position = "top") +
+  labs(color = NULL, fill = NULL, 
+       title = "Holt Winters Additive, ETS(A, A, A), and Multiplicative, ETS(M, A, M)")
 ```
 
 ## Model Selection with CV
