@@ -3,7 +3,7 @@
     "path": "~/GitHub/time-series/02-exploratory-analysis.Rmd",
     "project_path": "02-exploratory-analysis.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "4232585030",
     "contents": "",
     "dirty": false,
     "created": 1693476039449.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "24,17",
+        "cursorPosition": "0,0",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1680740842,
+    "lastKnownWriteTime": 1693569283,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1680740842,
+    "last_content_update": 1693569283816,
     "read_only": false,
     "read_only_alternatives": []
 }

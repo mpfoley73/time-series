@@ -378,94 +378,25 @@ hw_fit %>%
        title = "Holt Winters Additive, ETS(A, A, A), and Multiplicative, ETS(M, A, M)")
 ```
 
-## Model Selection with CV
+## Auto-fitting
 
-Let's compare the performance of a few candidate models for the base R datasets::WWWusage data set of internet usage.
-
-```{r}
-datasets::WWWusage %>%
-  as_tsibble() %>%
-  ggplot(aes(x = index, y = value)) +
-  geom_line() +
-  theme_light() +
-  labs(title = "Internet usage by minute", x = NULL, y = "Users")
-```
-
-We will use time-series cross-validation. The data set has `r length(datasets::WWWusage)` rows. Function `stretch_tsibble(.init, .step)` takes a tsibble and creates a new tsibble for cross validation. First `stretch_tsibble()` takes the first `.init` rows from the tsibble and adds a new column `.id` with value 1. Then it takes the first `.init` + `.step` rows from the tsibble and assigns `.id` value 2. It continues like this, creating longer and longer tsibbles until it cannot create a longer one from the original tsibble. Finally, it appends these together into one long tsibble with `.id` added to the index. Nofmal cross-validation repeatedly fits a model to data set with one of the rows left out. Since `model()` fits a separate model per index value, creating this long tsibble effectively accomplishes the same thing. Note the fundamental difference here though: time seris CV does not leave out single values from points along in the time series. It leaves out *all* points after a particular point along the time series - each sub-data set starts at the beginning and is uninterrupted until reaching the varying end points. Let's take a look at the CV data set before using it to fit the models.
-
-```{r collapse=TRUE}
-www_cv <- datasets::WWWusage %>%
-  as_tsibble() %>%
-  stretch_tsibble(.init = 10, .step = 1)
-
-# 10 rows + 11 rows + ... + 100 rows = 5,005 rows:
-nrow(www_cv)
-
-# .id added to index
-head(www_cv)
-
-# 91 index values
-summary(www_cv$.id)
-```
-
-Fit four models to the 91 data sets to compare the accuracy. Here's the full code.
+If you specify an ETS model with no parameters, it will use maximum likelihood to select the model with the minimum AIC<sub>c</sub>. 
 
 ```{r}
-datasets::WWWusage %>%
-  as_tsibble() %>%
-  stretch_tsibble(.init = 10, .step = 1) %>%
-  model(
-    OLS = TSLM(value ~ index),
-    `Simple Exponential Smoothing` = ETS(value ~ error("A") + trend("N") + season("N")),
-    `Holt's method` = ETS(value ~ error("A") + trend("A") + season("N")),
-    `Holt's method (damped)` = ETS(value ~ error("A") + trend("Ad") + season("N"))
-  ) %>%
-  forecast(h = 1) %>%
-  accuracy(data = as_tsibble(datasets::WWWusage))
+auto_fit <- tsibble::tourism %>%
+  filter(Purpose == "Holiday") %>%
+  summarize(Trips = sum(Trips) / 1000) %>%
+  model(ETS(Trips))
+
+auto_fit %>% report()
 ```
 
-The best model as measured by RMSE was Holt's method with damping. OLS was pretty bad. Let's fit it to the whole data set and forecast future periods.
+ETS chose a multiplicative error, non-trended, additive error model. Compare this model fit with the two Holt-Winters fits from the previous section. The autofit had the largest MSE, but lowest AICc.
 
 ```{r}
-www_fit <- datasets::WWWusage %>%
-  as_tsibble() %>%
-  model(holt_d = ETS(value ~ error("A") + trend("Ad") + season("N")))
-
-www_fit %>% report()
+bind_rows(
+  hw_fit %>% glance(),
+  auto_fit %>% glance()
+)
 ```
 
-This time the damping parameter is very small (`r www_fit %>% tidy() %>% filter(term == "phi") %>% pull("estimate") %>% scales::number(accuracy = .001)`), resulting in a quick return to the horizontal.
-
-```{r}
-www_fc <- www_fit %>%
-  forecast(h = 10) %>%
-  mutate(sigma = map_dbl(value, ~unlist(.) %>% .["mu"]),
-         ci_025 = qnorm(.025, .mean, sigma),
-         ci_975 = qnorm(.975, .mean, sigma))
-
-www_fit %>%
-  augment() %>%
-  ggplot(aes(x = index)) +
-  geom_line(aes(y = value)) +
-  geom_line(aes(y = .fitted), color = "goldenrod") +
-  geom_line(data = www_fc, aes(y = .mean), color = "goldenrod") +
-  geom_ribbon(data = www_fc, aes(ymin = ci_025, ymax = ci_975), alpha = 0.2, fill = "goldenrod") +
-  theme_light() +
-  labs(title = "Internet usage by Minute.", 
-       subtitle = "Holt's method with damping. Shaded are is 95% prediction interval.",
-       x = NULL)
-```
-
-## Model Selection via Maximum Likelihood
-
-If you specify an ETS model with no parameters, it will use maximum likelihood to select the model with the minimum AIC<sub>c</sub>. Try it with the internet usage data set.
-
-```{r}
-ets_mdl <- datasets::WWWusage %>%
-  as_tsibble() %>%
-  model(ETS(value))
-
-ets_mdl %>% report()
-```
-
-ETS chose an additive damped trend model, the same as we found using cross validation. 

@@ -1,0 +1,4 @@
+"0","train_fit %>% "
+"0","  select(""Naive"") %>% "
+"0","  gg_tsresiduals() +"
+"0","  labs(title = ""Residuals Analysis"")"

@@ -1,0 +1,29 @@
+"0","glimpse(us_employment_xts)
+"
+"1","An xts object on 1939-01-01 / 2019-09-01 containing:"
+"1"," "
+"1","
+"
+"1","  Data:    character [969, 4]
+"
+"1","  Columns: Month, Series_ID, Title, Employed
+"
+"1","  Index:   Date [969] (TZ: ""UTC"")
+"
+"1","  xts Attributes:
+"
+"1"," "
+"1",""
+"1","   $ "
+"1",""
+"1","Title"
+"1",""
+"1",":"
+"1"," chr [1:969] "
+"1",""
+"1","""Total Private"" ""Total Private"" ""Total Private"" ""Total Private"""
+"1",""
+"1"," ..."
+"1",""
+"1","
+"

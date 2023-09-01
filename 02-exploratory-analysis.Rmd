@@ -1,4 +1,4 @@
-# Exploratory Analysis {#exporation}
+# Exploratory Analysis {#exploration}
 
 ```{r include=FALSE}
 library(tidyverse)

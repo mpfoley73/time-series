@@ -1,19 +1,19 @@
-# Toolbox {#toolbox}
+# Basics {#toolbox}
 
-```{r include=FALSE}
+This section covers fundamental concepts in time series analysis. There seems to be three modeling paradigms: i) the base R framework using native `ts`, `zoo`, and `xts` objects to model with the `forecast` package, ii) the tidyverse framework using `tsibble` objects to model with the `fable` package, and iii) the tidymodels framework using `tibble` objects with the `timetk` package. The base R framework is clunky, so I avoid it. The tidymodels seems to be geared toward machine-learning workflows which are still unfamiliar to me. So most of these notes focus on framework ii, `tsibbles` with `fable`.
+
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(tidymodels)
 library(tsibble)   # extends tibble to time-series data.
 library(feasts)    # feature extraction and statistics
 library(fable)     # forecasting tsibbles.
-library(modeltime) # new time series forecasting framework.
+# library(modeltime) # new time series forecasting framework.
+# library(tidymodels)
 ```
-
-This section covers fundamental concepts in time series analysis. I will keep three paradigms in mind as I build models: i) `ts`, `zoo`, and `xts` objects used in the `forecast` base R framework, ii) `tsibbles` used in the `fables` tidyverse framework, and iii) `tibbles` used in the `timetk` tidymodeling framework.
 
 ## Common Frameworks
 
-Let's work with the `fpp3::us_employment` data of US monthly employment data. There is one row per month (969 months) and data series (~150 series).
+Let's review those three frameworks briefly. I'll work with the `fpp3::us_employment` data of US monthly employment data. There is one row per month and series (969 months x 150 series).
 
 ```{r message=FALSE, collapse=TRUE}
 us_employment_tibble <- fpp3::us_employment %>% as_tibble() %>% mutate(Month = ym(Month))
@@ -21,7 +21,11 @@ us_employment_tibble <- fpp3::us_employment %>% as_tibble() %>% mutate(Month = y
 glimpse(us_employment_tibble)
 ```
 
-**ts** is the base R time series package. The `ts` object is essentially a matrix of observations indexed by a chronological identifier. Because it is a matrix, any descriptive attributes need to enter as numeric, perhaps by one-hot encoding, or pivoting the data (yuck). A `ts` can only have *one row per time observation*, and it assumes the time series is regularly spaced. Define a `ts` object with `ts(x, start, frequency)` where `frequency` is the number of observations in the seasonal pattern: 7 for daily observations with a week cycle; 5 for weekday observations in a week cycle; 24 for hourly in a day cycle, 24x7 for hourly in a week cycle, etc. `us_employment_tibble` is monthly observations starting with Jan 1939. Had it series started in Feb, you would specify `start = c(1939, 2)`. I'll filter the data to comply with the one row per time observation rule.
+#### Base R {-}
+
+**ts** is the base R time series package. The `ts` object is essentially a matrix of observations indexed by a chronological identifier. Because it is a matrix, any descriptive attributes need to enter as numeric, perhaps by one-hot encoding. A `ts` can only have *one row per time observation*, and the time series must be regularly spaced (no data gaps). 
+
+Define a `ts` object with `ts(x, start, frequency)` where `frequency` is the number of observations in the seasonal pattern: 7 for daily observations with a week cycle; 5 for weekday observations in a week cycle; 24 for hourly in a day cycle, 24x7 for hourly in a week cycle, etc. `us_employment_tibble` is monthly observations starting with Jan 1939. Had the series started in Feb, you would specify `start = c(1939, 2)`. I filtered the data to the *Total Private* series to get one row per time observation.
 
 ```{r collapse=TRUE}
 us_employment_ts <- 
@@ -31,8 +35,10 @@ us_employment_ts <-
   select(Employed) %>%
   ts(start = c(1939, 1), frequency = 12)
 
-head(us_employment_ts)
+glimpse(us_employment_ts)
 ```
+
+#### zoo and xts {-}
 
 **zoo** (Zeileis's ordered observations) has functions similar to those in **ts**, but also supports irregular time series. A `zoo` object contains an array of data values and an index attribute to provide information about the data ordering. **zoo** was introduced in 2014.
 
@@ -41,45 +47,45 @@ head(us_employment_ts)
 ```{r collapse=TRUE, warning=FALSE, message=FALSE}
 library(xts)
 
-x <- 
+us_employment_xts <-
   us_employment_tibble %>%
   filter(Title == "Total Private") %>%
-  arrange(Month)
+  arrange(Month) %>%
+  xts(.$Employed, order.by = .$Month, Title = .$Title)
 
-us_employment_xts <- xts(x$Employed, order.by = x$Month, Title = x$Title)
-
-str(us_employment_xts)
+glimpse(us_employment_xts)
 ```
 
-A `tsibble`, from the package of the same name, is a time-series `tibble`. Unlike the `ts`, `zoo`, and `xts` objects, a `tsibble` preserves the time index, making heterogeneous data structures possible. For example, you can re-index a `tsibble` from monthly to yearly analysis, or include one or more features per time element. 
+#### tsibble {-}
 
-A `tsibble` object is a tibble uniquely defined by `key` columns plus a date `index` column. This structure accommodates multiple series, and descriptive attribute columns. The date index can be a `Date`, `period`, etc. Express weekly time series with `yearweek()`, monthly time series with `yearmonth()`, or quarterly with `yearquarter()`. 
+A `tsibble`, from the package of the same name, is a time-series `tibble`. Unlike the `ts`, `zoo`, and `xts` objects, a `tsibble` preserves the time index, making heterogeneous data structures possible. For example, you can re-index a `tsibble` from monthly to yearly analysis, or include one or more features per time element and fit a linear regression. 
+
+A `tsibble` object is a tibble uniquely defined by `key` columns plus a date `index` column. This structure accommodates multiple series, and attribute columns. The date index can be a `Date`, `period`, etc. Express weekly time series with `yearweek()`, monthly time series with `yearmonth()`, or quarterly with `yearquarter()`. 
 
 ```{r}
 us_employment_tsibble <- us_employment_tibble %>% 
   mutate(Month = yearmonth(Month)) %>%
   tsibble(key = c(Title), index = Month)
 
-us_employment_tsibble %>% filter(Title == "Total Private")
+us_employment_tsibble %>% filter(Title == "Total Private") %>% glimpse()
 ```
 
-A `tsibble` behaves like a `tibble`, so you can use *tidyverse** verbs. The only thing that will trip you up is that `tsibble` objects are grouped by the index, so `group_by()` operations implicitly include the index. Use `index_by()` if you need to summarize at a new time level. 
+A `tsibble` behaves like a `tibble`, so you can use **tidyverse** verbs. The only thing that will trip you up is that `tsibble` objects are grouped by the index, so `group_by()` operations implicitly include the index. Use `index_by()` if you need to summarize at a new time level. 
 
 ```{r collapse=TRUE, eval=FALSE}
-# Group by Title implicitly includes the Month index column.
-us_employment_tsibble %>% group_by(Title) %>% summarize(S = sum(Employed, na.rm = T))
-
-# But you can change the index aggregation level with index_by()
-us_employment_tsibble %>%
-  index_by(Q = ~ quarter(.)) %>%
-  group_by(Title) %>%
-  summarise(S = sum(Employed, na.rm = T))
-
-# Add group_by_key() to retain the key
+# Group by Quarter implicitly includes the Month index column. Don't do this.
 us_employment_tsibble %>% 
-  group_by_key() %>% 
-  index_by(Q = ~ quarter(.)) %>%
-  summarize(S = sum(Employed, na.rm = T))
+  group_by(Quarter = quarter(Month), Title) %>% 
+  summarize(Employed = sum(Employed, na.rm = TRUE)) %>%
+  tail(3)
+
+# Instead, change the index aggregation level with index_by() and group with
+# either group_by() or group_by_key()
+us_employment_tsibble %>%
+  index_by(Quarter = ~ quarter(.)) %>%
+  group_by_key(Title) %>%
+  summarise(Employed = sum(Employed, na.rm = TRUE)) %>%
+  tail(3)
 ```
 
 ## Fitting Models
@@ -203,3 +209,82 @@ us_employment_full %>%
   forecast(h = 12) %>%
   fabletools::accuracy(data = us_employment_test)
 ```
+
+## Model Selection 
+
+Let's compare the performance of a few candidate models for the base R datasets::WWWusage data set of internet usage.
+
+```{r}
+datasets::WWWusage %>%
+  as_tsibble() %>%
+  ggplot(aes(x = index, y = value)) +
+  geom_line() +
+  theme_light() +
+  labs(title = "Internet usage by minute", x = NULL, y = "Users")
+```
+
+We will use time-series cross-validation. The data set has `r length(datasets::WWWusage)` rows. Function `stretch_tsibble(.init, .step)` takes a tsibble and creates a new tsibble for cross validation. First `stretch_tsibble()` takes the first `.init` rows from the tsibble and adds a new column `.id` with value 1. Then it takes the first `.init` + `.step` rows from the tsibble and assigns `.id` value 2. It continues like this, creating longer and longer tsibbles until it cannot create a longer one from the original tsibble. Finally, it appends these together into one long tsibble with `.id` added to the index. Normal cross-validation repeatedly fits a model to the data set with one of the rows left out. Since `model()` fits a separate model per index value, creating this long tsibble effectively accomplishes the same thing. Note the fundamental difference here though: time series CV does not leave out single values from points along in the time series. It leaves out *all* points after a particular point along the time series - each sub-data set starts at the beginning and is uninterrupted until reaching the varying end points. Let's take a look at the CV data set before using it to fit the models.
+
+```{r collapse=TRUE}
+www_cv <- datasets::WWWusage %>%
+  as_tsibble() %>%
+  stretch_tsibble(.init = 10, .step = 1)
+
+# 10 rows + 11 rows + ... + 100 rows = 5,005 rows:
+nrow(www_cv)
+
+# .id added to index
+head(www_cv)
+
+# 91 index values
+summary(www_cv$.id)
+```
+
+Fit four models to the 91 data sets to compare the accuracy. Here's the full code.
+
+```{r}
+datasets::WWWusage %>%
+  as_tsibble() %>%
+  stretch_tsibble(.init = 10, .step = 1) %>%
+  model(
+    OLS = TSLM(value ~ index),
+    `Simple Exponential Smoothing` = ETS(value ~ error("A") + trend("N") + season("N")),
+    `Holt's method` = ETS(value ~ error("A") + trend("A") + season("N")),
+    `Holt's method (damped)` = ETS(value ~ error("A") + trend("Ad") + season("N"))
+  ) %>%
+  forecast(h = 1) %>%
+  accuracy(data = as_tsibble(datasets::WWWusage))
+```
+
+The best model as measured by RMSE was Holt's method with damping. OLS was pretty bad. Let's fit it to the whole data set and forecast future periods.
+
+```{r}
+www_fit <- datasets::WWWusage %>%
+  as_tsibble() %>%
+  model(holt_d = ETS(value ~ error("A") + trend("Ad") + season("N")))
+
+www_fit %>% report()
+```
+
+This time the damping parameter is very small (`r www_fit %>% tidy() %>% filter(term == "phi") %>% pull("estimate") %>% scales::number(accuracy = .001)`), resulting in a quick return to the horizontal.
+
+```{r}
+www_fc <- www_fit %>%
+  forecast(h = 10) %>%
+  mutate(sigma = map_dbl(value, ~unlist(.) %>% .["mu"]),
+         ci_025 = qnorm(.025, .mean, sigma),
+         ci_975 = qnorm(.975, .mean, sigma))
+
+www_fit %>%
+  augment() %>%
+  ggplot(aes(x = index)) +
+  geom_line(aes(y = value)) +
+  geom_line(aes(y = .fitted), color = "goldenrod") +
+  geom_line(data = www_fc, aes(y = .mean), color = "goldenrod") +
+  geom_ribbon(data = www_fc, aes(ymin = ci_025, ymax = ci_975), alpha = 0.2, fill = "goldenrod") +
+  theme_light() +
+  labs(title = "Internet usage by Minute.", 
+       subtitle = "Holt's method with damping. Shaded are is 95% prediction interval.",
+       x = NULL)
+```
+

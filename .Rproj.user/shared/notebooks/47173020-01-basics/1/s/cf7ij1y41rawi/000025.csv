@@ -1,0 +1,5 @@
+"0","# Group by Quarter implicitly includes the Month index column. Don't do this."
+"0","us_employment_tsibble %>% "
+"0","  group_by(Quarter = quarter(Month), Title) %>% "
+"0","  summarize(Employed = sum(Employed, na.rm = TRUE)) %>%"
+"0","  tail(3)"

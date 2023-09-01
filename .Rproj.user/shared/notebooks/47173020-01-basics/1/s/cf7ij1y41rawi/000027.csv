@@ -1,0 +1,8 @@
+"0",""
+"0","# Instead, change the index aggregation level with index_by() and group with"
+"0","# either group_by() or group_by_key()"
+"0","us_employment_tsibble %>%"
+"0","  index_by(Quarter = ~ quarter(.)) %>%"
+"0","  group_by_key(Title) %>%"
+"0","  summarise(Employed = sum(Employed, na.rm = TRUE)) %>%"
+"0","  tail(3)"

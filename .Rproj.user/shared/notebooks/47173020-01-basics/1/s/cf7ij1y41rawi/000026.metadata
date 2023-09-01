@@ -1,0 +1,1 @@
+{"classes":["grouped_ts","grouped_df","tbl_ts","tbl_df","tbl","data.frame"],"nrow":3,"ncol":4,"summary":{"A tsibble":["3 x 4 [1M]"],"Key":["Quarter, Title [1]"],"Groups":["Quarter [1]"]}}
