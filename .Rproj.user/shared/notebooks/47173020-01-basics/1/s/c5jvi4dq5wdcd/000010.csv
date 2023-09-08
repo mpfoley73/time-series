@@ -1,0 +1,3 @@
+"0","tv_fit %>% "
+"0","  broom::augment() %>% "
+"0","  features(.var = .innov, features = ljung_box, lag = 10, dof = 0)"

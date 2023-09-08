@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-01" />
+<meta name="date" content="2023-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,13 +165,12 @@ div.csl-indent {
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="toolbox.html"><a href="toolbox.html"><i class="fa fa-check"></i><b>1</b> Basics</a>
+<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
-<li class="chapter" data-level="1.2" data-path="toolbox.html"><a href="toolbox.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
-<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
-<li class="chapter" data-level="1.4" data-path="toolbox.html"><a href="toolbox.html#evaluating-accuracy"><i class="fa fa-check"></i><b>1.4</b> Evaluating Accuracy</a></li>
-<li class="chapter" data-level="1.5" data-path="toolbox.html"><a href="toolbox.html#model-selection"><i class="fa fa-check"></i><b>1.5</b> Model Selection</a></li>
+<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
+<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
+<li class="chapter" data-level="1.3" data-path="basics.html"><a href="basics.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
+<li class="chapter" data-level="1.4" data-path="basics.html"><a href="basics.html#model-selection"><i class="fa fa-check"></i><b>1.4</b> Model Selection</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i><b>2</b> Exploratory Analysis</a>
 <ul>
@@ -209,10 +208,12 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5" data-path="arima.html"><a href="arima.html"><i class="fa fa-check"></i><b>5</b> ARIMA</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#tranformations-and-differencing"><i class="fa fa-check"></i><b>5.1</b> Tranformations and Differencing</a></li>
-<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-models"><i class="fa fa-check"></i><b>5.2</b> Autoregressive Models</a></li>
-<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-models"><i class="fa fa-check"></i><b>5.3</b> Moving Average Models</a></li>
-<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arima"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal ARIMA</a></li>
+<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#stationary-time-series"><i class="fa fa-check"></i><b>5.1</b> Stationary Time Series</a></li>
+<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-arp"><i class="fa fa-check"></i><b>5.2</b> Autoregressive: AR(<em>p</em>)</a></li>
+<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-maq"><i class="fa fa-check"></i><b>5.3</b> Moving Average: MA(<em>q</em>)</a></li>
+<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arimap-d-q"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)</a></li>
+<li class="chapter" data-level="5.5" data-path="arima.html"><a href="arima.html#seasonal-arimap-d-qp-d-qm"><i class="fa fa-check"></i><b>5.5</b> Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)(<em>P</em>, <em>D</em>, <em>Q</em>)m</a></li>
+<li class="chapter" data-level="5.6" data-path="arima.html"><a href="arima.html#fitting-an-arima-model"><i class="fa fa-check"></i><b>5.6</b> Fitting an ARIMA Model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="dynamic.html"><a href="dynamic.html"><i class="fa fa-check"></i><b>6</b> Dynamic Harmonic Regression</a>
 <ul>
@@ -241,120 +242,267 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="arima" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> ARIMA<a href="arima.html#arima" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Whereas exponential smoothing models describe the trend and seasonality, ARIMA models describe the autocorrelations.</p>
-<p>An <strong>autoregressive</strong> (AR(<em>p</em>)) model is a multiple regression with <em>p</em> <em>lagged observations</em> as predictors.</p>
+<p>Whereas exponential smoothing models describe trend and seasonality, ARIMA models describe autocorrelations.</p>
+<p>An <strong>autoregressive</strong>, AR(<em>p</em>), model is a multiple regression with <em>p</em> <em>lagged observations</em> as predictors.</p>
 <p><span class="math display">\[y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_p y_{t-p} + \epsilon_t\]</span></p>
-<p>A <strong>moving average</strong> (MA(<em>q</em>)) model is a multiple regression with <em>q</em> <em>lagged errors</em> as predictors.</p>
+<p>A <strong>moving average</strong>, MA(<em>q</em>), model is a multiple regression with <em>q</em> <em>lagged errors</em> as predictors.</p>
 <p><span class="math display">\[y_t = c + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_p \epsilon_{t-q}\]</span></p>
-<p>An <strong>autoregressive moving average</strong> (ARMA(<em>p</em>, <em>q</em>)) model is a multiple regression with <em>p</em> <em>lagged observations and q lagged errors</em> as predictors.</p>
+<p>An <strong>autoregressive moving average</strong>, ARMA(<em>p</em>, <em>q</em>), model is a multiple regression with <em>p</em> <em>lagged observations and q lagged errors</em> as predictors.</p>
 <p><span class="math display">\[y_t = c + \phi_1 y_{t-1} + \dots + \phi_p y_{t-p} + \theta_1 y_{t-1} + \dots + \theta_p y_{t-q} + \epsilon_t\]</span></p>
-<p>An <strong>ARMA model with differencing</strong> (ARIMA(<em>p,d,q</em>)) model is an ARMA model with <em>d</em> levels of differencing.</p>
-<p>Whereas exponential smoothing models can handle non-constant variance with multiplicative errors and seasonality, autoregressive models require that you explicitly transform the data into a <em>stationary</em> time series with constant variance. A stationary time series is one in whose statistical properties do not depend on the time at which the series is observed. Stationary time series can have patterns, but no regular long term patterns.</p>
-<div id="tranformations-and-differencing" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Tranformations and Differencing<a href="arima.html#tranformations-and-differencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The first step in any modeling exercise is plotting the data to identify unusual observations and non-constant variance. Let’s work through the process with the <code>fpp::usmelec</code> data set of us monthly electricity generation. You can see in Figure <a href="arima.html#fig:elec">5.1</a> that this data has non-constant variance.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="arima.html#cb98-1" tabindex="-1"></a>elec <span class="ot">&lt;-</span> fpp<span class="sc">::</span>usmelec <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="arima.html#cb98-2" tabindex="-1"></a>  <span class="fu">as_tsibble</span>() </span></code></pre></div>
+<p>An <strong>ARMA model with differencing</strong>, ARIMA(<em>p,d,q</em>), model is an ARMA model with <em>d</em> levels of differencing.</p>
+<p>Whereas exponential smoothing models can handle non-constant variance with multiplicative errors and seasonality, autoregressive models require that you explicitly transform the data into a <em>stationary</em> time series. A stationary time series is one in whose statistical properties do not depend on the time at which the series is observed: it has no trend, is homoscedastic, and has no seasonality. Stationary time series can have cyclical patterns, but no regular long term patterns. ARIMA analyses consists of making the data stationary, fitting the model(s), reversing the stationarity, then generating forecasts.</p>
+<div id="stationary-time-series" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Stationary Time Series<a href="arima.html#stationary-time-series" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first step is to create a stationary time series. This typically involves a transformation of the response variable to remove heteroscedasticity, seasonal differencing to remove seasonality, and one-period differencing to remove trend.</p>
+<p>Let’s work with the <code>fpp::usmelec</code> data set of us monthly electricity generation. Fig. <a href="arima.html#fig:elec">5.1</a> shows that this data has trend and non-constant variance.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="arima.html#cb91-1" tabindex="-1"></a>elec <span class="ot">&lt;-</span> fpp<span class="sc">::</span>usmelec <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="arima.html#cb91-2" tabindex="-1"></a>  <span class="fu">as_tsibble</span>()</span>
+<span id="cb91-3"><a href="arima.html#cb91-3" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="arima.html#cb91-4" tabindex="-1"></a>elec <span class="sc">%&gt;%</span></span>
+<span id="cb91-5"><a href="arima.html#cb91-5" tabindex="-1"></a>  <span class="fu">as_tsibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb91-6"><a href="arima.html#cb91-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb91-7"><a href="arima.html#cb91-7" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb91-8"><a href="arima.html#cb91-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;US Electricity Generation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;billion kWh&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Month&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:elec"></span>
-<img src="time-series_files/figure-html/elec-1.png" alt="This data series has non-constant variance." width="672" />
+<img src="time-series_files/figure-html/elec-1.png" alt="Data series with trend and non-constant variance." width="672" />
 <p class="caption">
-Figure 5.1: This data series has non-constant variance.
+Figure 5.1: Data series with trend and non-constant variance.
 </p>
 </div>
-<p>There are an infinite number of transformations, but the common ones (in increasing strength) are: square root, cube root, log, and inverse. In Figure <a href="arima.html#fig:xform">5.2</a>, the square root, cube root, and log transformations are not quite strong enough to even out the error variance, but the inverse transformation is a little too large. We need a transformation somewhere in between.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="arima.html#cb99-1" tabindex="-1"></a>elec <span class="sc">%&gt;%</span></span>
-<span id="cb99-2"><a href="arima.html#cb99-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sqrt =</span> <span class="fu">sqrt</span>(value), <span class="at">cubert =</span> value<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), <span class="at">log =</span> <span class="fu">log</span>(value), <span class="at">inverse =</span> <span class="dv">1</span><span class="sc">/</span>value) <span class="sc">%&gt;%</span></span>
-<span id="cb99-3"><a href="arima.html#cb99-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>index) <span class="sc">%&gt;%</span></span>
-<span id="cb99-4"><a href="arima.html#cb99-4" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb99-5"><a href="arima.html#cb99-5" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">factor</span>(</span>
-<span id="cb99-6"><a href="arima.html#cb99-6" tabindex="-1"></a>      name, </span>
-<span id="cb99-7"><a href="arima.html#cb99-7" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;value&quot;</span>, <span class="st">&quot;sqrt&quot;</span>, <span class="st">&quot;cubert&quot;</span>, <span class="st">&quot;log&quot;</span>, <span class="st">&quot;inverse&quot;</span>),</span>
-<span id="cb99-8"><a href="arima.html#cb99-8" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;sqrt(y)&quot;</span>, <span class="st">&quot;cubrt(y)&quot;</span>, <span class="st">&quot;log(y)&quot;</span>, <span class="st">&quot;1 / y&quot;</span>)</span>
-<span id="cb99-9"><a href="arima.html#cb99-9" tabindex="-1"></a>    )</span>
-<span id="cb99-10"><a href="arima.html#cb99-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb99-11"><a href="arima.html#cb99-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb99-12"><a href="arima.html#cb99-12" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb99-13"><a href="arima.html#cb99-13" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb99-14"><a href="arima.html#cb99-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb99-15"><a href="arima.html#cb99-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb99-16"><a href="arima.html#cb99-16" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;US monthly electricity generation with standard transformations.&quot;</span>, </span>
-<span id="cb99-17"><a href="arima.html#cb99-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>There are an infinite number of transformations, but the common ones (in increasing strength) are: square root, cube root, log, and inverse. Fig. <a href="arima.html#fig:xform">5.2</a> shows several transformations of the <code>elec</code> data set. <a href="https://otexts.com/fpp3/stationarity.html">Hyndman</a> seems to stick with the log and that seems to work here.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="arima.html#cb92-1" tabindex="-1"></a>elec <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="arima.html#cb92-2" tabindex="-1"></a>  <span class="fu">as_tsibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="arima.html#cb92-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sqrt =</span> value<span class="sc">^</span>.<span class="dv">5</span>, <span class="at">cubert =</span> value<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), <span class="at">log =</span> <span class="fu">log</span>(value), <span class="at">inv =</span> <span class="dv">1</span><span class="sc">/</span>value) <span class="sc">%&gt;%</span></span>
+<span id="cb92-4"><a href="arima.html#cb92-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">y =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb92-5"><a href="arima.html#cb92-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>index) <span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="arima.html#cb92-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb92-7"><a href="arima.html#cb92-7" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb92-8"><a href="arima.html#cb92-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb92-9"><a href="arima.html#cb92-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Common Transformations to Remove Heterscedasticity&quot;</span>,</span>
+<span id="cb92-10"><a href="arima.html#cb92-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;billion kWh transformed&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:xform"></span>
-<img src="time-series_files/figure-html/xform-1.png" alt="Standard transformations under- or over-shoot constant variance." width="672" />
+<img src="time-series_files/figure-html/xform-1.png" alt="Standard transformations may under- or over-shoot constant variance." width="672" />
 <p class="caption">
-Figure 5.2: Standard transformations under- or over-shoot constant variance.
+Figure 5.2: Standard transformations may under- or over-shoot constant variance.
 </p>
 </div>
-<p>The Box-Cox transformation can find the optimal transformation (Figure <a href="arima.html#fig:boxcox">5.3</a>).</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="arima.html#cb100-1" tabindex="-1"></a>(lambda <span class="ot">&lt;-</span> elec <span class="sc">%&gt;%</span> </span>
-<span id="cb100-2"><a href="arima.html#cb100-2" tabindex="-1"></a>   <span class="fu">features</span>(value, <span class="at">features =</span> guerrero) <span class="sc">%&gt;%</span></span>
-<span id="cb100-3"><a href="arima.html#cb100-3" tabindex="-1"></a>  <span class="fu">pull</span>(lambda_guerrero))</span>
-<span id="cb100-4"><a href="arima.html#cb100-4" tabindex="-1"></a><span class="do">## [1] -0.4772531</span></span>
-<span id="cb100-5"><a href="arima.html#cb100-5" tabindex="-1"></a></span>
-<span id="cb100-6"><a href="arima.html#cb100-6" tabindex="-1"></a>elec2 <span class="ot">&lt;-</span> elec <span class="sc">%&gt;%</span></span>
-<span id="cb100-7"><a href="arima.html#cb100-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">box_cox</span>(value, lambda))</span></code></pre></div>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="arima.html#cb101-1" tabindex="-1"></a>elec2 <span class="sc">%&gt;%</span></span>
-<span id="cb101-2"><a href="arima.html#cb101-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb101-3"><a href="arima.html#cb101-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb101-4"><a href="arima.html#cb101-4" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb101-5"><a href="arima.html#cb101-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;US monthly electricity generation with lambda = {scales::number(lambda, accuracy = .001)} Box-Cox transformation.&quot;</span>), <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>The Box-Cox transformation can find the optimal transformation (Fig. <a href="arima.html#fig:boxcox">5.3</a>).</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="arima.html#cb93-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">features</span>(elec, value, <span class="at">features =</span> guerrero) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(lambda_guerrero)</span>
+<span id="cb93-2"><a href="arima.html#cb93-2" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="arima.html#cb93-3" tabindex="-1"></a>elec2 <span class="ot">&lt;-</span> elec <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">box_cox</span>(value, lambda))</span>
+<span id="cb93-4"><a href="arima.html#cb93-4" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="arima.html#cb93-5" tabindex="-1"></a>elec2 <span class="sc">%&gt;%</span></span>
+<span id="cb93-6"><a href="arima.html#cb93-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb93-7"><a href="arima.html#cb93-7" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb93-8"><a href="arima.html#cb93-8" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb93-9"><a href="arima.html#cb93-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;Box-Cox Transformation, lambda = {number(lambda, .001)}.&quot;</span>), </span>
+<span id="cb93-10"><a href="arima.html#cb93-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;billion kWh transformed&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:boxcox"></span>
 <img src="time-series_files/figure-html/boxcox-1.png" alt="Box-Cox transformation produces constant variance." width="672" />
 <p class="caption">
 Figure 5.3: Box-Cox transformation produces constant variance.
 </p>
 </div>
-<p>After transforming the response variable, use differencing of successive observations to stabilize the level. In the case of seasonal data, take a seasonal difference (for monthly data, that means take the 12 observation difference), then possibly take a second one-observation difference (Figure <a href="#fig:differencing"><strong>??</strong></a>).</p>
-<p><img src="time-series_files/figure-html/differencing-1.png" width="672" /></p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="arima.html#cb102-1" tabindex="-1"></a>elec3 <span class="ot">&lt;-</span> elec2 <span class="sc">%&gt;%</span></span>
-<span id="cb102-2"><a href="arima.html#cb102-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">difference</span>(value, <span class="dv">12</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb102-3"><a href="arima.html#cb102-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">difference</span>(value, <span class="dv">1</span>))</span>
-<span id="cb102-4"><a href="arima.html#cb102-4" tabindex="-1"></a></span>
-<span id="cb102-5"><a href="arima.html#cb102-5" tabindex="-1"></a>(elec_jung <span class="ot">&lt;-</span> elec3 <span class="sc">%&gt;%</span> <span class="fu">features</span>(value, ljung_box, <span class="at">lag =</span> <span class="dv">10</span>))</span></code></pre></div>
+<p>After transforming the response variable, use differencing of successive observations to stabilize the level. In the case of seasonal data, take a seasonal difference (12 observation difference for monthly data), then possibly take a second one-observation difference (Fig. <a href="arima.html#fig:differencing">5.4</a>).</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="arima.html#cb94-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span></span>
+<span id="cb94-2"><a href="arima.html#cb94-2" tabindex="-1"></a>  elec2 <span class="sc">%&gt;%</span></span>
+<span id="cb94-3"><a href="arima.html#cb94-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Non-Transformed</span><span class="st">`</span> <span class="ot">=</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb94-4"><a href="arima.html#cb94-4" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb94-5"><a href="arima.html#cb94-5" tabindex="-1"></a>    <span class="st">`</span><span class="at">Seasonal Difference</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">difference</span>(<span class="st">`</span><span class="at">Non-Transformed</span><span class="st">`</span>, <span class="dv">12</span>),</span>
+<span id="cb94-6"><a href="arima.html#cb94-6" tabindex="-1"></a>    <span class="st">`</span><span class="at">1-period Difference</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">difference</span>(<span class="st">`</span><span class="at">Seasonal Difference</span><span class="st">`</span>, <span class="dv">1</span>)</span>
+<span id="cb94-7"><a href="arima.html#cb94-7" tabindex="-1"></a>  )</span>
+<span id="cb94-8"><a href="arima.html#cb94-8" tabindex="-1"></a>  </span>
+<span id="cb94-9"><a href="arima.html#cb94-9" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> </span>
+<span id="cb94-10"><a href="arima.html#cb94-10" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb94-11"><a href="arima.html#cb94-11" tabindex="-1"></a>    <span class="st">`</span><span class="at">Non-Transformed</span><span class="st">`</span> <span class="ot">=</span> x1 <span class="sc">%&gt;%</span> feasts<span class="sc">::</span><span class="fu">ACF</span>(<span class="st">`</span><span class="at">Non-Transformed</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(),</span>
+<span id="cb94-12"><a href="arima.html#cb94-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">Seasonal Difference</span><span class="st">`</span> <span class="ot">=</span> x1 <span class="sc">%&gt;%</span> feasts<span class="sc">::</span><span class="fu">ACF</span>(<span class="st">`</span><span class="at">Seasonal Difference</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(),</span>
+<span id="cb94-13"><a href="arima.html#cb94-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">1-period Difference</span><span class="st">`</span> <span class="ot">=</span> x1 <span class="sc">%&gt;%</span> feasts<span class="sc">::</span><span class="fu">ACF</span>(<span class="st">`</span><span class="at">1-period Difference</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(),</span>
+<span id="cb94-14"><a href="arima.html#cb94-14" tabindex="-1"></a>    <span class="at">.id =</span> <span class="st">&quot;transformation&quot;</span></span>
+<span id="cb94-15"><a href="arima.html#cb94-15" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb94-16"><a href="arima.html#cb94-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transformation =</span> <span class="fu">fct_inorder</span>(transformation))</span>
+<span id="cb94-17"><a href="arima.html#cb94-17" tabindex="-1"></a></span>
+<span id="cb94-18"><a href="arima.html#cb94-18" tabindex="-1"></a>series_n <span class="ot">&lt;-</span> </span>
+<span id="cb94-19"><a href="arima.html#cb94-19" tabindex="-1"></a>  x1 <span class="sc">%&gt;%</span> </span>
+<span id="cb94-20"><a href="arima.html#cb94-20" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb94-21"><a href="arima.html#cb94-21" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>index, <span class="at">names_to =</span> <span class="st">&quot;transformation&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb94-22"><a href="arima.html#cb94-22" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb94-23"><a href="arima.html#cb94-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transformation =</span> <span class="fu">factor</span>(transformation, <span class="at">levels =</span> <span class="fu">levels</span>(x2<span class="sc">$</span>transformation))) <span class="sc">%&gt;%</span></span>
+<span id="cb94-24"><a href="arima.html#cb94-24" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.by =</span> transformation, <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb94-25"><a href="arima.html#cb94-25" tabindex="-1"></a></span>
+<span id="cb94-26"><a href="arima.html#cb94-26" tabindex="-1"></a>x2 <span class="sc">%&gt;%</span></span>
+<span id="cb94-27"><a href="arima.html#cb94-27" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb94-28"><a href="arima.html#cb94-28" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag, <span class="at">xend =</span> lag, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> acf), <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-29"><a href="arima.html#cb94-29" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag, <span class="at">y =</span> acf), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-30"><a href="arima.html#cb94-30" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;gray20&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-31"><a href="arima.html#cb94-31" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">data =</span> series_n, <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n)), </span>
+<span id="cb94-32"><a href="arima.html#cb94-32" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-33"><a href="arima.html#cb94-33" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">data =</span> series_n, <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">qnorm</span>(.<span class="dv">025</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n)), </span>
+<span id="cb94-34"><a href="arima.html#cb94-34" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-35"><a href="arima.html#cb94-35" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">2</span>, <span class="fl">1.0</span>)) <span class="sc">+</span></span>
+<span id="cb94-36"><a href="arima.html#cb94-36" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb94-37"><a href="arima.html#cb94-37" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;ACF&quot;</span>, <span class="at">title =</span> <span class="st">&quot;ACF before and after differencing.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-38"><a href="arima.html#cb94-38" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(transformation), <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:differencing"></span>
+<img src="time-series_files/figure-html/differencing-1.png" alt="ACF before and after differencing." width="672" />
+<p class="caption">
+Figure 5.4: ACF before and after differencing.
+</p>
+</div>
+<p>perform a Ljung-Box test on the transformed data.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="arima.html#cb95-1" tabindex="-1"></a>elec3 <span class="ot">&lt;-</span> elec2 <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="arima.html#cb95-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb95-3"><a href="arima.html#cb95-3" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">difference</span>(value, <span class="dv">12</span>),</span>
+<span id="cb95-4"><a href="arima.html#cb95-4" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">difference</span>(value, <span class="dv">1</span>)</span>
+<span id="cb95-5"><a href="arima.html#cb95-5" tabindex="-1"></a>  )</span>
+<span id="cb95-6"><a href="arima.html#cb95-6" tabindex="-1"></a></span>
+<span id="cb95-7"><a href="arima.html#cb95-7" tabindex="-1"></a>(elec_jung <span class="ot">&lt;-</span> elec3 <span class="sc">%&gt;%</span> <span class="fu">features</span>(value, ljung_box, <span class="at">lag =</span> <span class="dv">10</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   lb_stat lb_pvalue
 ##     &lt;dbl&gt;     &lt;dbl&gt;
 ## 1    72.9  1.20e-11</code></pre>
-<p>The ACF of the twice-differenced values is white noise (Ljung-Box Q = 72.94, <em>p</em> = 0.000).</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="arima.html#cb104-1" tabindex="-1"></a>elec3 <span class="sc">%&gt;%</span></span>
-<span id="cb104-2"><a href="arima.html#cb104-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb104-3"><a href="arima.html#cb104-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb104-4"><a href="arima.html#cb104-4" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb104-5"><a href="arima.html#cb104-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;US monthly electricity generation with Box-Cox and differencing.&quot;</span>), <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 13 rows containing missing values (`geom_line()`).</code></pre>
-<div class="figure">
-<img src="time-series_files/figure-html/xform_and_diff-1.png" alt="Box-Cox transformation plus double-differencing produces stationary time series with constant variance." width="672" />
+<p>The ACF of the twice-differenced values is white noise (Ljung-Box Q = 72.94, <em>p</em> = 0.000, Fig. <a href="arima.html#fig:stationary">5.5</a>).</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="arima.html#cb97-1" tabindex="-1"></a>elec3 <span class="sc">%&gt;%</span></span>
+<span id="cb97-2"><a href="arima.html#cb97-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb97-3"><a href="arima.html#cb97-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb97-4"><a href="arima.html#cb97-4" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb97-5"><a href="arima.html#cb97-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;US Electricity Generation, Stationary.&quot;</span>), </span>
+<span id="cb97-6"><a href="arima.html#cb97-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;billion kWh&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:stationary"></span>
+<img src="time-series_files/figure-html/stationary-1.png" alt="Box-Cox transformation plus double-differencing produces stationary time series with constant variance." width="672" />
 <p class="caption">
-(#fig:xform_and_diff)Box-Cox transformation plus double-differencing produces stationary time series with constant variance.
+Figure 5.5: Box-Cox transformation plus double-differencing produces stationary time series with constant variance.
 </p>
 </div>
+</div>
+<div id="autoregressive-arp" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Autoregressive: AR(<em>p</em>)<a href="arima.html#autoregressive-arp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Autoregressive models, AR(<em>p</em>), forecast the response variable as a linear combination of past observations.</p>
+<p><span class="math display">\[y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_p y_{t-p} + \epsilon_t\]</span></p>
+<p>where <em>p</em> is the order of regression and <span class="math inline">\(\epsilon_t\)</span> is white noise. <span class="math inline">\(\phi_k\)</span> is the correlation between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t-k}\)</span> after removing the effects of lags <span class="math inline">\(1, \ldots, k-1\)</span>. If <span class="math inline">\(\phi_1\)</span> = 0 and <em>c</em> = 0, <span class="math inline">\(y_t\)</span> is white noise. If <span class="math inline">\(\phi_1\)</span> = 1 and <em>c</em> = 0, <span class="math inline">\(y_t\)</span> is a random walk. If <span class="math inline">\(\phi_1\)</span> = 1 and <em>c</em> != 0, <span class="math inline">\(y_t\)</span> is a random walk with drift. If <span class="math inline">\(\phi_1\)</span> &lt; 0, <span class="math inline">\(y_t\)</span> oscillates around the mean.</p>
+</div>
+<div id="moving-average-maq" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Moving Average: MA(<em>q</em>)<a href="arima.html#moving-average-maq" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Moving average models, MA(<em>q</em>), forecast the response variable as a linear combination of <em>q</em> <em>lagged errors</em>.</p>
+<p><span class="math display">\[y_t = c + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_p \epsilon_{t-q}\]</span></p>
+<p>where <span class="math inline">\(\epsilon_t\)</span> is white noise and <em>q</em> is the order of the regression. The model is denoted AR(<em>q</em>).</p>
+</div>
+<div id="non-seasonal-arimap-d-q" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Non-Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)<a href="arima.html#non-seasonal-arimap-d-q" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>An autoregressive integrated moving average (ARIMA) model combines differencing with the AR and MA model. In this context integration is the opposite of differencing.</p>
+<p><span class="math display">\[y&#39;_t = c + \phi_1 y&#39;_{t-1} + \dots + \phi_p y&#39;_{t-p} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_p \epsilon_{t-q} + \epsilon_t\]</span></p>
+<p>where <span class="math inline">\(y&#39;_t\)</span> is the differenced series (possibly multiple differences) and <em>d</em> is the order of differencing. The model is denoted ARIMA(<em>p</em>, <em>d</em>, <em>q</em>).</p>
+</div>
+<div id="seasonal-arimap-d-qp-d-qm" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)(<em>P</em>, <em>D</em>, <em>Q</em>)m<a href="arima.html#seasonal-arimap-d-qp-d-qm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A seasonal ARIMA model is formed by including additional seasonal components.</p>
+</div>
+<div id="fitting-an-arima-model" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Fitting an ARIMA Model<a href="arima.html#fitting-an-arima-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Fit an ARIMA model to non-seasonal time series data with the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Plot the data. Identify unusual observations, seasonality, and/or heteroscedasticity.</li>
+<li>Transform the data with a Box-Cox transformation to stabilize the variance (if necessary).</li>
+<li>Take one (or at most two) first differences to make the data stationary (if necessary).</li>
+<li>Plot the ACF/PACF to decide whether an ARIMA(<em>p</em>, <em>d</em>, 0) (autoregressive) or ARIMA(0, <em>d</em>, <em>q</em>) (moving average) model is appropriate.</li>
+<li>Use the AICc to search for the best model.</li>
+<li>Verify the residuals are white noise by plotting the ACF of the residuals and performing a portmanteau test of the residuals.</li>
+<li>Forecast future values.</li>
+</ol>
+<p><code>ARIMA()</code> does steps 3-5 automatically. Use the model with the minimum Akaike’s Information Criterion (AIC or AICc) or Bayesian Information Criterion (BIC) to choose the order of an ARIMA model (p and q).</p>
+<p><span class="math display">\[AIC = −2 \log(L) + 2(p + q + k + 1)\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the likelihood of the data, <span class="math inline">\(k = 1\)</span> if <span class="math inline">\(c \ne 0\)</span> and 0 if <span class="math inline">\(c = 0\)</span>.</p>
+<p><span class="math display">\[AICc = AIC + \frac{2(p + q + k + 1)(p + q + k + 2)}{T - p - q - k - 2}\]</span>
+<span class="math display">\[BIC = AIC + (\log(T) - 2)(p + q + k + 1)\]</span></p>
+<p><code>fable</code> uses maximum likelihood estimation (MLE) to find model parameter values which maximize the probability of obtaining the observed data. In practice, <code>fable</code> maximizes the log likelihood.</p>
+<p>Returning to the <code>fpp::usmelec</code> data set, recall from Fig. <a href="arima.html#fig:elec">5.1</a> that the data was non-stationary: it had heteroscedasticity, seasonality, and trending. A Box-Cox transformation corrected the heteroscedasticity. A seasonal difference and one-period difference corrected the seasonality and trending. We can assess the differencing portion with a diagnostic plot. I’ll repeat the Box-Cox part below for completeness.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="arima.html#cb98-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">features</span>(elec, value, <span class="at">features =</span> guerrero) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(lambda_guerrero)</span>
+<span id="cb98-2"><a href="arima.html#cb98-2" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="arima.html#cb98-3" tabindex="-1"></a>elec2 <span class="ot">&lt;-</span> elec <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">box_cox</span>(value, lambda))</span>
+<span id="cb98-4"><a href="arima.html#cb98-4" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="arima.html#cb98-5" tabindex="-1"></a>elec2 <span class="sc">%&gt;%</span></span>
+<span id="cb98-6"><a href="arima.html#cb98-6" tabindex="-1"></a>  <span class="fu">gg_tsdisplay</span>(<span class="fu">difference</span>(value, <span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">difference</span>(), <span class="at">plot_type =</span> <span class="st">&quot;partial&quot;</span>, <span class="at">lag =</span> <span class="dv">36</span>) <span class="sc">+</span></span>
+<span id="cb98-7"><a href="arima.html#cb98-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Double-Differenced&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:arima-ex"></span>
+<img src="time-series_files/figure-html/arima-ex-1.png" alt="Double-differenced fpp::usmelec data with ACF and PACF plots." width="672" />
+<p class="caption">
+Figure 5.6: Double-differenced fpp::usmelec data with ACF and PACF plots.
+</p>
+</div>
+<p>The seasonal part of an AR or MA model is revealed in the seasonal lags of the PACF and ACF. There is a spike in the ACF at lag 12. The PACF has decaying spikes at 12, 24, and 36.</p>
+<p>The significant spike at lag 2 in the ACF suggests a non-seasonal MA(2) component. The significant spike at lag 12 suggests a seasonal MA(1). Model this as ARIMA(0,1,2)(0,1,1)<sub>12</sub>.</p>
+<p>The significant spike at lag 2 in the PACF suggests a non-seasonal AR(2) component. Model this as ARIMA(2,1,0)(0,1,1)<sub>12</sub>.</p>
+<p>Let’s try them both. By not specifying <em>p</em>, <em>d</em>, and <em>q</em>, <code>ARIMA()</code> will automatically perform steps 3-5 above to find the best values. If you want a more complete models space, specify <code>stepwise = FALSE</code>.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="arima.html#cb99-1" tabindex="-1"></a>arima_fit <span class="ot">&lt;-</span></span>
+<span id="cb99-2"><a href="arima.html#cb99-2" tabindex="-1"></a>  elec2 <span class="sc">%&gt;%</span></span>
+<span id="cb99-3"><a href="arima.html#cb99-3" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb99-4"><a href="arima.html#cb99-4" tabindex="-1"></a>    <span class="at">arima_012_011 =</span> <span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)),</span>
+<span id="cb99-5"><a href="arima.html#cb99-5" tabindex="-1"></a>    <span class="at">arima_210_011 =</span> <span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)),</span>
+<span id="cb99-6"><a href="arima.html#cb99-6" tabindex="-1"></a>    <span class="at">arima_stepwise =</span> <span class="fu">ARIMA</span>(value),</span>
+<span id="cb99-7"><a href="arima.html#cb99-7" tabindex="-1"></a>    <span class="at">arima_gridsearch =</span> <span class="fu">ARIMA</span>(value, <span class="at">stepwise =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb99-8"><a href="arima.html#cb99-8" tabindex="-1"></a>  )</span>
+<span id="cb99-9"><a href="arima.html#cb99-9" tabindex="-1"></a></span>
+<span id="cb99-10"><a href="arima.html#cb99-10" tabindex="-1"></a>arima_fit <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="fu">everything</span>())</span></code></pre></div>
+<pre><code>## # A mable: 4 x 2
+## # Key:     name [4]
+##   name                                 value
+##   &lt;chr&gt;                              &lt;model&gt;
+## 1 arima_012_011    &lt;ARIMA(0,1,2)(0,1,1)[12]&gt;
+## 2 arima_210_011    &lt;ARIMA(2,1,0)(0,1,1)[12]&gt;
+## 3 arima_stepwise   &lt;ARIMA(1,1,1)(2,1,1)[12]&gt;
+## 4 arima_gridsearch &lt;ARIMA(1,1,1)(2,1,1)[12]&gt;</code></pre>
+<p><code>ARIMA()</code> optimized to ARIMA(1,1,1)(2,1,1)<sub>12</sub>. The AICc measures are close, but the stepwise/gridsearch model have lower values.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="arima.html#cb101-1" tabindex="-1"></a>arima_fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 8
+##   .model               sigma2 log_lik    AIC   AICc    BIC ar_roots   ma_roots  
+##   &lt;chr&gt;                 &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;list&gt;     &lt;list&gt;    
+## 1 arima_012_011    0.00000369   2133. -4257. -4257. -4241. &lt;cpl [0]&gt;  &lt;cpl [14]&gt;
+## 2 arima_210_011    0.00000394   2118. -4228. -4227. -4211. &lt;cpl [2]&gt;  &lt;cpl [12]&gt;
+## 3 arima_stepwise   0.00000365   2135. -4259. -4259. -4234. &lt;cpl [25]&gt; &lt;cpl [13]&gt;
+## 4 arima_gridsearch 0.00000365   2135. -4259. -4259. -4234. &lt;cpl [25]&gt; &lt;cpl [13]&gt;</code></pre>
+<p>The ACF plot for the stepwise/gridsearch model shows that all autocorrelations up to lag 12 are within the threshold limits.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="arima.html#cb103-1" tabindex="-1"></a>arima_fit <span class="sc">%&gt;%</span></span>
+<span id="cb103-2"><a href="arima.html#cb103-2" tabindex="-1"></a>  <span class="fu">select</span>(arima_stepwise) <span class="sc">%&gt;%</span></span>
+<span id="cb103-3"><a href="arima.html#cb103-3" tabindex="-1"></a>  <span class="fu">gg_tsresiduals</span>()</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p>A portmanteau test suggests the residuals are indeed white noise.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="arima.html#cb104-1" tabindex="-1"></a>arima_fit <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="arima.html#cb104-2" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb104-3"><a href="arima.html#cb104-3" tabindex="-1"></a>  <span class="fu">filter</span>(.model <span class="sc">==</span> <span class="st">&quot;arima_stepwise&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-4"><a href="arima.html#cb104-4" tabindex="-1"></a>  <span class="fu">features</span>(.innov, ljung_box, <span class="at">lag =</span> <span class="dv">36</span>, <span class="at">dof =</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   .model         lb_stat lb_pvalue
+##   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;
+## 1 arima_stepwise    35.8     0.213</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="arima.html#cb106-1" tabindex="-1"></a>arima_111_211_fc <span class="ot">&lt;-</span></span>
+<span id="cb106-2"><a href="arima.html#cb106-2" tabindex="-1"></a>  arima_fit <span class="sc">%&gt;%</span></span>
+<span id="cb106-3"><a href="arima.html#cb106-3" tabindex="-1"></a>  <span class="fu">select</span>(arima_stepwise) <span class="sc">%&gt;%</span></span>
+<span id="cb106-4"><a href="arima.html#cb106-4" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-5"><a href="arima.html#cb106-5" tabindex="-1"></a>  <span class="fu">hilo</span>(<span class="dv">80</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-6"><a href="arima.html#cb106-6" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb106-7"><a href="arima.html#cb106-7" tabindex="-1"></a>    <span class="at">lpi =</span> <span class="fu">map_dbl</span>(<span class="st">`</span><span class="at">80%</span><span class="st">`</span>, <span class="sc">~</span>.<span class="sc">$</span>lower),</span>
+<span id="cb106-8"><a href="arima.html#cb106-8" tabindex="-1"></a>    <span class="at">upi =</span> <span class="fu">map_dbl</span>(<span class="st">`</span><span class="at">80%</span><span class="st">`</span>, <span class="sc">~</span>.<span class="sc">$</span>upper)</span>
+<span id="cb106-9"><a href="arima.html#cb106-9" tabindex="-1"></a>  )</span>
+<span id="cb106-10"><a href="arima.html#cb106-10" tabindex="-1"></a></span>
+<span id="cb106-11"><a href="arima.html#cb106-11" tabindex="-1"></a>arima_fit <span class="sc">%&gt;%</span></span>
+<span id="cb106-12"><a href="arima.html#cb106-12" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-13"><a href="arima.html#cb106-13" tabindex="-1"></a>  <span class="fu">filter</span>(.model <span class="sc">==</span> <span class="st">&quot;arima_stepwise&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-14"><a href="arima.html#cb106-14" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index)) <span class="sc">+</span></span>
+<span id="cb106-15"><a href="arima.html#cb106-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb106-16"><a href="arima.html#cb106-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> arima_111_211_fc, <span class="fu">aes</span>(<span class="at">y =</span> .mean)) <span class="sc">+</span></span>
+<span id="cb106-17"><a href="arima.html#cb106-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> arima_111_211_fc, <span class="fu">aes</span>(<span class="at">ymin =</span> lpi, <span class="at">ymax =</span> upi), </span>
+<span id="cb106-18"><a href="arima.html#cb106-18" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;lightgoldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb106-19"><a href="arima.html#cb106-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span>, </span>
+<span id="cb106-20"><a href="arima.html#cb106-20" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;ARIMA(1,1,1)(2,1,1)_12&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>R function <code>auto.arima()</code> from the <code>forecast</code> package chooses the optimal ARIMA model parameters using the Akaike criterion.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 <p>Use a unit root test to verify stationarity.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="arima.html#cb106-1" tabindex="-1"></a>(elec3_unitroot <span class="ot">&lt;-</span> elec3 <span class="sc">%&gt;%</span></span>
-<span id="cb106-2"><a href="arima.html#cb106-2" tabindex="-1"></a>  <span class="fu">features</span>(value, unitroot_kpss))</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="arima.html#cb107-1" tabindex="-1"></a>(elec3_unitroot <span class="ot">&lt;-</span> elec3 <span class="sc">%&gt;%</span></span>
+<span id="cb107-2"><a href="arima.html#cb107-2" tabindex="-1"></a>  <span class="fu">features</span>(value, unitroot_kpss))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   kpss_stat kpss_pvalue
 ##       &lt;dbl&gt;       &lt;dbl&gt;
 ## 1    0.0159         0.1</code></pre>
 <p>The <em>p</em>-value is reported as .1 if it is greater than .1. In this case the test statistic of 0.0159 is smaller than the 1% critical value so the <em>p</em>-value is greater than .1. The null hypothesis is not rejected, meaning the data is assumed stationary.</p>
-</div>
-<div id="autoregressive-models" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Autoregressive Models<a href="arima.html#autoregressive-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Autoregressive models forecast the response variable as a function of past observations.</p>
-<p><span class="math display">\[y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_p y_{t-p} + \epsilon_t\]</span></p>
-<p>where <em>p</em> is the order of regression. The model is denoted AR(<em>p</em>). For an AR(1) model, a <span class="math inline">\(\phi_1\)</span> = 0 and <em>c</em> = 0 would be the equivalent to white noise. If <span class="math inline">\(\phi_1\)</span> was 1, then the model would be a random walk. If <span class="math inline">\(phi_1\)</span> was 1 and <em>c</em> was non-zero then the model would be random walk with drift.</p>
-</div>
-<div id="moving-average-models" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Moving Average Models<a href="arima.html#moving-average-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A <strong>moving average</strong> (MA(<em>q</em>)) model is a multiple regression with <em>q</em> <em>lagged errors</em> as predictors.</p>
-<p><span class="math display">\[y_t = c + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_p \epsilon_{t-q}\]</span></p>
-<p>where <span class="math inline">\(\epsilon_t\)</span> is white noise and <em>q</em> is the order of the regression. The model is denoted AR(<em>q</em>).</p>
-</div>
-<div id="non-seasonal-arima" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> Non-Seasonal ARIMA<a href="arima.html#non-seasonal-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If you combine differencing with the AR and MA model, you get a non-seasonal ARIMA model (autoregressive integrated moving average) (in this context integration is the opposite of differencing).</p>
-<p><span class="math display">\[y&#39;_t = c + \phi_1 y&#39;_{t-1} + \dots + \phi_p y&#39;_{t-p} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_p \epsilon_{t-q} + \epsilon_t\]</span></p>
-<p>where <span class="math inline">\(y&#39;_t\)</span> is the differenced series (possibly multiple differences) and <em>d</em> is the order of differencing. The model is denoted ARIMA(<em>p</em>, <em>d</em>, <em>q</em>).</p>
 
 </div>
 </div>

@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-01" />
+<meta name="date" content="2023-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,13 +165,12 @@ div.csl-indent {
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="toolbox.html"><a href="toolbox.html"><i class="fa fa-check"></i><b>1</b> Basics</a>
+<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
-<li class="chapter" data-level="1.2" data-path="toolbox.html"><a href="toolbox.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
-<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
-<li class="chapter" data-level="1.4" data-path="toolbox.html"><a href="toolbox.html#evaluating-accuracy"><i class="fa fa-check"></i><b>1.4</b> Evaluating Accuracy</a></li>
-<li class="chapter" data-level="1.5" data-path="toolbox.html"><a href="toolbox.html#model-selection"><i class="fa fa-check"></i><b>1.5</b> Model Selection</a></li>
+<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
+<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
+<li class="chapter" data-level="1.3" data-path="basics.html"><a href="basics.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
+<li class="chapter" data-level="1.4" data-path="basics.html"><a href="basics.html#model-selection"><i class="fa fa-check"></i><b>1.4</b> Model Selection</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i><b>2</b> Exploratory Analysis</a>
 <ul>
@@ -209,10 +208,12 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5" data-path="arima.html"><a href="arima.html"><i class="fa fa-check"></i><b>5</b> ARIMA</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#tranformations-and-differencing"><i class="fa fa-check"></i><b>5.1</b> Tranformations and Differencing</a></li>
-<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-models"><i class="fa fa-check"></i><b>5.2</b> Autoregressive Models</a></li>
-<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-models"><i class="fa fa-check"></i><b>5.3</b> Moving Average Models</a></li>
-<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arima"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal ARIMA</a></li>
+<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#stationary-time-series"><i class="fa fa-check"></i><b>5.1</b> Stationary Time Series</a></li>
+<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-arp"><i class="fa fa-check"></i><b>5.2</b> Autoregressive: AR(<em>p</em>)</a></li>
+<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-maq"><i class="fa fa-check"></i><b>5.3</b> Moving Average: MA(<em>q</em>)</a></li>
+<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arimap-d-q"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)</a></li>
+<li class="chapter" data-level="5.5" data-path="arima.html"><a href="arima.html#seasonal-arimap-d-qp-d-qm"><i class="fa fa-check"></i><b>5.5</b> Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)(<em>P</em>, <em>D</em>, <em>Q</em>)m</a></li>
+<li class="chapter" data-level="5.6" data-path="arima.html"><a href="arima.html#fitting-an-arima-model"><i class="fa fa-check"></i><b>5.6</b> Fitting an ARIMA Model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="dynamic.html"><a href="dynamic.html"><i class="fa fa-check"></i><b>6</b> Dynamic Harmonic Regression</a>
 <ul>
@@ -247,51 +248,51 @@ div.csl-indent {
 <p>The optimal model has the lowest <em>AICc</em>, so start with <em>K=1</em> and increase until the <em>AICc</em> is no longer decreasing. <em>K</em> cannot be greater than <span class="math inline">\(m/2\)</span>.</p>
 <p>With weekly data, it is difficult to handle seasonality using ETS or ARIMA models as the seasonal length is too large (approximately 52). Instead, you can use harmonic regression which uses sines and cosines to model the seasonality.</p>
 <p>The fourier() function makes it easy to generate the required harmonics. The higher the order (<em>K</em>), the more “wiggly” the seasonal pattern is allowed to be. With <em>K=1</em>, it is a simple sine curve. You can select the value of <em>K</em> by minimizing the AICc value. Function <code>fourier()</code> takes in a required time series, required number of Fourier terms to generate, and optional number of rows it needs to forecast.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="dynamic.html#cb108-1" tabindex="-1"></a><span class="co"># # Set up harmonic regressors of order 13</span></span>
-<span id="cb108-2"><a href="dynamic.html#cb108-2" tabindex="-1"></a><span class="co"># harmonics &lt;- fourier(gasoline, K = 13)</span></span>
-<span id="cb108-3"><a href="dynamic.html#cb108-3" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb108-4"><a href="dynamic.html#cb108-4" tabindex="-1"></a><span class="co"># # Fit a dynamic regression model to fit. Set xreg equal to harmonics and seasonal to FALSE because seasonality is handled by the regressors.</span></span>
-<span id="cb108-5"><a href="dynamic.html#cb108-5" tabindex="-1"></a><span class="co"># fit &lt;- auto.arima(gasoline, xreg = harmonics, seasonal = FALSE)</span></span>
-<span id="cb108-6"><a href="dynamic.html#cb108-6" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb108-7"><a href="dynamic.html#cb108-7" tabindex="-1"></a><span class="co"># # Forecasts next 3 years</span></span>
-<span id="cb108-8"><a href="dynamic.html#cb108-8" tabindex="-1"></a><span class="co"># newharmonics &lt;- fourier(gasoline, K = 13, h = 3*52)</span></span>
-<span id="cb108-9"><a href="dynamic.html#cb108-9" tabindex="-1"></a><span class="co"># fc &lt;- forecast(fit, xreg = newharmonics)</span></span>
-<span id="cb108-10"><a href="dynamic.html#cb108-10" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb108-11"><a href="dynamic.html#cb108-11" tabindex="-1"></a><span class="co"># # Plot forecasts fc</span></span>
-<span id="cb108-12"><a href="dynamic.html#cb108-12" tabindex="-1"></a><span class="co"># autoplot(fc)</span></span></code></pre></div>
-<p>Harmonic regressions are also useful when time series have multiple seasonal patterns. For example, taylor contains half-hourly electricity demand in England and Wales over a few months in the year 2000. The seasonal periods are 48 (daily seasonality) and 7 x 48 = 336 (weekly seasonality). There is not enough data to consider annual seasonality.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="dynamic.html#cb109-1" tabindex="-1"></a><span class="co"># # Fit a harmonic regression using order 10 for each type of seasonality</span></span>
-<span id="cb109-2"><a href="dynamic.html#cb109-2" tabindex="-1"></a><span class="co"># fit &lt;- tslm(taylor ~ fourier(taylor, K = c(10, 10)))</span></span>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="dynamic.html#cb109-1" tabindex="-1"></a><span class="co"># # Set up harmonic regressors of order 13</span></span>
+<span id="cb109-2"><a href="dynamic.html#cb109-2" tabindex="-1"></a><span class="co"># harmonics &lt;- fourier(gasoline, K = 13)</span></span>
 <span id="cb109-3"><a href="dynamic.html#cb109-3" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb109-4"><a href="dynamic.html#cb109-4" tabindex="-1"></a><span class="co"># # Forecast 20 working days ahead</span></span>
-<span id="cb109-5"><a href="dynamic.html#cb109-5" tabindex="-1"></a><span class="co"># fc &lt;- forecast(fit, newdata = data.frame(fourier(taylor, K = c(10, 10), h = 20*48)))</span></span>
+<span id="cb109-4"><a href="dynamic.html#cb109-4" tabindex="-1"></a><span class="co"># # Fit a dynamic regression model to fit. Set xreg equal to harmonics and seasonal to FALSE because seasonality is handled by the regressors.</span></span>
+<span id="cb109-5"><a href="dynamic.html#cb109-5" tabindex="-1"></a><span class="co"># fit &lt;- auto.arima(gasoline, xreg = harmonics, seasonal = FALSE)</span></span>
 <span id="cb109-6"><a href="dynamic.html#cb109-6" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb109-7"><a href="dynamic.html#cb109-7" tabindex="-1"></a><span class="co"># # Plot the forecasts</span></span>
-<span id="cb109-8"><a href="dynamic.html#cb109-8" tabindex="-1"></a><span class="co"># autoplot(fc)</span></span>
-<span id="cb109-9"><a href="dynamic.html#cb109-9" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb109-10"><a href="dynamic.html#cb109-10" tabindex="-1"></a><span class="co"># # Check the residuals of fit</span></span>
-<span id="cb109-11"><a href="dynamic.html#cb109-11" tabindex="-1"></a><span class="co"># checkresiduals(fit)</span></span></code></pre></div>
+<span id="cb109-7"><a href="dynamic.html#cb109-7" tabindex="-1"></a><span class="co"># # Forecasts next 3 years</span></span>
+<span id="cb109-8"><a href="dynamic.html#cb109-8" tabindex="-1"></a><span class="co"># newharmonics &lt;- fourier(gasoline, K = 13, h = 3*52)</span></span>
+<span id="cb109-9"><a href="dynamic.html#cb109-9" tabindex="-1"></a><span class="co"># fc &lt;- forecast(fit, xreg = newharmonics)</span></span>
+<span id="cb109-10"><a href="dynamic.html#cb109-10" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb109-11"><a href="dynamic.html#cb109-11" tabindex="-1"></a><span class="co"># # Plot forecasts fc</span></span>
+<span id="cb109-12"><a href="dynamic.html#cb109-12" tabindex="-1"></a><span class="co"># autoplot(fc)</span></span></code></pre></div>
+<p>Harmonic regressions are also useful when time series have multiple seasonal patterns. For example, taylor contains half-hourly electricity demand in England and Wales over a few months in the year 2000. The seasonal periods are 48 (daily seasonality) and 7 x 48 = 336 (weekly seasonality). There is not enough data to consider annual seasonality.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="dynamic.html#cb110-1" tabindex="-1"></a><span class="co"># # Fit a harmonic regression using order 10 for each type of seasonality</span></span>
+<span id="cb110-2"><a href="dynamic.html#cb110-2" tabindex="-1"></a><span class="co"># fit &lt;- tslm(taylor ~ fourier(taylor, K = c(10, 10)))</span></span>
+<span id="cb110-3"><a href="dynamic.html#cb110-3" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb110-4"><a href="dynamic.html#cb110-4" tabindex="-1"></a><span class="co"># # Forecast 20 working days ahead</span></span>
+<span id="cb110-5"><a href="dynamic.html#cb110-5" tabindex="-1"></a><span class="co"># fc &lt;- forecast(fit, newdata = data.frame(fourier(taylor, K = c(10, 10), h = 20*48)))</span></span>
+<span id="cb110-6"><a href="dynamic.html#cb110-6" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb110-7"><a href="dynamic.html#cb110-7" tabindex="-1"></a><span class="co"># # Plot the forecasts</span></span>
+<span id="cb110-8"><a href="dynamic.html#cb110-8" tabindex="-1"></a><span class="co"># autoplot(fc)</span></span>
+<span id="cb110-9"><a href="dynamic.html#cb110-9" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb110-10"><a href="dynamic.html#cb110-10" tabindex="-1"></a><span class="co"># # Check the residuals of fit</span></span>
+<span id="cb110-11"><a href="dynamic.html#cb110-11" tabindex="-1"></a><span class="co"># checkresiduals(fit)</span></span></code></pre></div>
 <p>Another time series with multiple seasonal periods is calls, which contains 20 consecutive days of 5-minute call volume data for a large North American bank. There are 169 5-minute periods in a working day, and so the weekly seasonal frequency is 5 x 169 = 845. The weekly seasonality is relatively weak, so here you will just model daily seasonality.</p>
 <p>The residuals in this case still fail the white noise tests, but their autocorrelations are tiny, even though they are significant. This is because the series is so long. It is often unrealistic to have residuals that pass the tests for such long series. The effect of the remaining correlations on the forecasts will be negligible.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="dynamic.html#cb110-1" tabindex="-1"></a><span class="co"># # Plot the calls data</span></span>
-<span id="cb110-2"><a href="dynamic.html#cb110-2" tabindex="-1"></a><span class="co"># autoplot(calls)</span></span>
-<span id="cb110-3"><a href="dynamic.html#cb110-3" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb110-4"><a href="dynamic.html#cb110-4" tabindex="-1"></a><span class="co"># # Set up the xreg matrix</span></span>
-<span id="cb110-5"><a href="dynamic.html#cb110-5" tabindex="-1"></a><span class="co"># xreg &lt;- fourier(calls, K = c(10, 0))</span></span>
-<span id="cb110-6"><a href="dynamic.html#cb110-6" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb110-7"><a href="dynamic.html#cb110-7" tabindex="-1"></a><span class="co"># # Fit a dynamic regression model</span></span>
-<span id="cb110-8"><a href="dynamic.html#cb110-8" tabindex="-1"></a><span class="co"># fit &lt;- auto.arima(calls, xreg = xreg, seasonal = FALSE, stationary = TRUE)</span></span>
-<span id="cb110-9"><a href="dynamic.html#cb110-9" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb110-10"><a href="dynamic.html#cb110-10" tabindex="-1"></a><span class="co"># # Check the residuals</span></span>
-<span id="cb110-11"><a href="dynamic.html#cb110-11" tabindex="-1"></a><span class="co"># checkresiduals(fit)</span></span>
-<span id="cb110-12"><a href="dynamic.html#cb110-12" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb110-13"><a href="dynamic.html#cb110-13" tabindex="-1"></a><span class="co"># # Plot forecasts for 10 working days ahead</span></span>
-<span id="cb110-14"><a href="dynamic.html#cb110-14" tabindex="-1"></a><span class="co"># fc &lt;- forecast(fit, xreg =  fourier(calls, c(10, 0), h = 169*8))</span></span>
-<span id="cb110-15"><a href="dynamic.html#cb110-15" tabindex="-1"></a><span class="co"># autoplot(fc)</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="dynamic.html#cb111-1" tabindex="-1"></a><span class="co"># # Plot the calls data</span></span>
+<span id="cb111-2"><a href="dynamic.html#cb111-2" tabindex="-1"></a><span class="co"># autoplot(calls)</span></span>
+<span id="cb111-3"><a href="dynamic.html#cb111-3" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb111-4"><a href="dynamic.html#cb111-4" tabindex="-1"></a><span class="co"># # Set up the xreg matrix</span></span>
+<span id="cb111-5"><a href="dynamic.html#cb111-5" tabindex="-1"></a><span class="co"># xreg &lt;- fourier(calls, K = c(10, 0))</span></span>
+<span id="cb111-6"><a href="dynamic.html#cb111-6" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb111-7"><a href="dynamic.html#cb111-7" tabindex="-1"></a><span class="co"># # Fit a dynamic regression model</span></span>
+<span id="cb111-8"><a href="dynamic.html#cb111-8" tabindex="-1"></a><span class="co"># fit &lt;- auto.arima(calls, xreg = xreg, seasonal = FALSE, stationary = TRUE)</span></span>
+<span id="cb111-9"><a href="dynamic.html#cb111-9" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb111-10"><a href="dynamic.html#cb111-10" tabindex="-1"></a><span class="co"># # Check the residuals</span></span>
+<span id="cb111-11"><a href="dynamic.html#cb111-11" tabindex="-1"></a><span class="co"># checkresiduals(fit)</span></span>
+<span id="cb111-12"><a href="dynamic.html#cb111-12" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb111-13"><a href="dynamic.html#cb111-13" tabindex="-1"></a><span class="co"># # Plot forecasts for 10 working days ahead</span></span>
+<span id="cb111-14"><a href="dynamic.html#cb111-14" tabindex="-1"></a><span class="co"># fc &lt;- forecast(fit, xreg =  fourier(calls, c(10, 0), h = 169*8))</span></span>
+<span id="cb111-15"><a href="dynamic.html#cb111-15" tabindex="-1"></a><span class="co"># autoplot(fc)</span></span></code></pre></div>
 <div id="tbats-model" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> TBATS Model<a href="dynamic.html#tbats-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Thte TBATS model (Trigonometric terms for seasonality, Box-Cox transformations for hetergeneity, ARMA errors for short-term dynamics, Trend (possibly damped), and Seasonal (including multiple and non-integer periods)).</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="dynamic.html#cb111-1" tabindex="-1"></a><span class="co"># gasoline %&gt;% tbats() %&gt;% forecast() %&gt;% autoplot()</span></span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="dynamic.html#cb112-1" tabindex="-1"></a><span class="co"># gasoline %&gt;% tbats() %&gt;% forecast() %&gt;% autoplot()</span></span></code></pre></div>
 <p>TBATS is easy to use, but the prediction intervals are often too wide, and it can be quite slow with large time series. TBATS returns output similar to this: TBATS(1, {0,0}, -, {&lt;51.18,14&gt;}), meaning 1=Box-Cox parameter, {0,0} = ARMA error, - = damping parameter, {&lt;51.18,14&gt;} = seasonal period and Fourier terms.</p>
 
 </div>

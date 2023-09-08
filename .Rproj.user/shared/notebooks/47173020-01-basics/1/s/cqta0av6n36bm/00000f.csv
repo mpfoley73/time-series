@@ -1,14 +1,21 @@
-"0","glimpse(us_employment_xts)
-"
-"1","An xts object on 1939-01-01 / 2019-09-01 containing:"
+"0","library(xts)"
+"0",""
+"0","us_employment_xts <-"
+"0","  us_employment_tibble %>%"
+"0","  filter(Title == ""Total Private"") %>%"
+"0","  arrange(Month) %>%"
+"0","  xts(.$Employed, order.by = .$Month, Title = .$Title)"
+"0",""
+"0","glimpse(us_employment_xts)"
+"1","An xts object on 2001-01-01 / 2019-09-01 containing:"
 "1"," "
 "1","
 "
-"1","  Data:    character [969, 4]
+"1","  Data:    character [225, 4]
 "
 "1","  Columns: Month, Series_ID, Title, Employed
 "
-"1","  Index:   Date [969] (TZ: ""UTC"")
+"1","  Index:   Date [225] (TZ: ""UTC"")
 "
 "1","  xts Attributes:
 "
@@ -19,7 +26,7 @@
 "1","Title"
 "1",""
 "1",":"
-"1"," chr [1:969] "
+"1"," chr [1:225] "
 "1",""
 "1","""Total Private"" ""Total Private"" ""Total Private"" ""Total Private"""
 "1",""

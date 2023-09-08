@@ -1,0 +1,7 @@
+"0","mt_fit_snaive <-
+  modeltime::naive_reg() %>%
+  set_engine(""snaive"") %>%
+  fit(Employed ~ Month, data = training(mt_split))
+"
+"2","frequency = 12 observations per 1 year
+"

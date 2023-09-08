@@ -1,10 +1,10 @@
-h1:toolbox Basics
+h1:basics Basics
 h2:common-frameworks Common Frameworks
 h4:base-r Base R
 h4:zoo-and-xts zoo and xts
-h4:tsibble tsibble
+h4:tidyverts tidyverts
+h4:modeltime modeltime
 h2:fitting-models Fitting Models
 h2:evaluating-fit Evaluating Fit
-h2:evaluating-accuracy Evaluating Accuracy
 h2:model-selection Model Selection
 

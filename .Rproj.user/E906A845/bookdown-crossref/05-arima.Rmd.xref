@@ -1,9 +1,14 @@
 h1:arima ARIMA
-h2:tranformations-and-differencing Tranformations and Differencing
-fig:elec This data series has non-constant variance.
-fig:xform Standard transformations under- or over-shoot constant variance.
+h2:stationary-time-series Stationary Time Series
+fig:elec Data series with trend and non-constant variance.
+fig:xform Standard transformations may under- or over-shoot constant variance.
 fig:boxcox Box-Cox transformation produces constant variance.
-h2:autoregressive-models Autoregressive Models
-h2:moving-average-models Moving Average Models
-h2:non-seasonal-arima Non-Seasonal ARIMA
+fig:differencing ACF before and after differencing.
+fig:stationary Box-Cox transformation plus double-differencing produces stationary time series with constant variance.
+h2:autoregressive-arp Autoregressive: AR()
+h2:moving-average-maq Moving Average: MA()
+h2:non-seasonal-arimap-d-q Non-Seasonal: ARIMA(, , )
+h2:seasonal-arimap-d-qp-d-qm Seasonal: ARIMA(, , )(, , )m
+h2:fitting-an-arima-model Fitting an ARIMA Model
+fig:arima-ex Double-differenced fpp::usmelec data with ACF and PACF plots.
 

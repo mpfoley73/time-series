@@ -1,22 +1,26 @@
-# Basics {#toolbox}
+# Basics {#basics}
 
-This section covers fundamental concepts in time series analysis. There seems to be three modeling paradigms: i) the base R framework using native `ts`, `zoo`, and `xts` objects to model with the `forecast` package, ii) the tidyverse framework using `tsibble` objects to model with the `fable` package, and iii) the tidymodels framework using `tibble` objects with the `timetk` package. The base R framework is clunky, so I avoid it. The tidymodels seems to be geared toward machine-learning workflows which are still unfamiliar to me. So most of these notes focus on framework ii, `tsibbles` with `fable`.
+This section covers fundamental concepts in time series analysis. There seems to be three modeling paradigms: i) the base R framework using native `ts`, `zoo`, and `xts` objects to model with the `forecast` package, ii) the **tidyverts** framework using `tsibble` objects to model with the `fable` package, and iii) the **tidymodels** framework using `tibble` objects with the `timetk` package. The base R framework is clunky, so I avoid it. The tidymodels seems to be geared toward machine-learning workflows which are still unfamiliar to me. So most of these notes use **tidyverts**.
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(tsibble)   # extends tibble to time-series data.
 library(feasts)    # feature extraction and statistics
 library(fable)     # forecasting tsibbles.
-# library(modeltime) # new time series forecasting framework.
-# library(tidymodels)
+library(tidymodels)
+library(modeltime) # new time series forecasting framework.
 ```
 
 ## Common Frameworks
 
-Let's review those three frameworks briefly. I'll work with the `fpp3::us_employment` data of US monthly employment data. There is one row per month and series (969 months x 150 series).
+Let's review those three frameworks briefly. I'll work with the `fpp3::us_employment` data of US monthly employment data. There is one row per month and series (225 months x 150 series).
 
 ```{r message=FALSE, collapse=TRUE}
-us_employment_tibble <- fpp3::us_employment %>% as_tibble() %>% mutate(Month = ym(Month))
+us_employment_tibble <- 
+  fpp3::us_employment %>% 
+  as_tibble() %>% 
+  mutate(Month = ym(Month)) %>%
+  filter(year(Month) >= 2001)
 
 glimpse(us_employment_tibble)
 ```
@@ -56,7 +60,7 @@ us_employment_xts <-
 glimpse(us_employment_xts)
 ```
 
-#### tsibble {-}
+#### tidyverts {-}
 
 A `tsibble`, from the package of the same name, is a time-series `tibble`. Unlike the `ts`, `zoo`, and `xts` objects, a `tsibble` preserves the time index, making heterogeneous data structures possible. For example, you can re-index a `tsibble` from monthly to yearly analysis, or include one or more features per time element and fit a linear regression. 
 
@@ -88,26 +92,40 @@ us_employment_tsibble %>%
   tail(3)
 ```
 
+#### modeltime {-}
+
+The **modeltime** framework requires no special data object - it works with tibbles.
+
 ## Fitting Models
 
-If you are fitting an explanatory model, the workflow will be fitting, verifying assumptions, then summarizing  the parameters. If your are fitting a predictive model, your workflow will be comparing models with cross-validation using a hold-out data set, then making predictions.
+The workflow for an explanatory model is: fit, verify assumptions, then summarize parameters. For a predictive model it's: compare models with cross-validation, predict values.
 
-Let's continue working with the `us_employment` data set and use just the Total Private series. We'll split the data into training and testing for predictive modeling.
+Let's continue working with the `us_employment` data set and use just the *Total Private* series. We'll split the data into training and testing to support predictive modeling.
 
 ```{r}
-us_employment_full <- us_employment_tsibble %>% 
-  filter(Title == "Total Private", year(Month) >= 2000)
+# Tidyverts (tv) framework with tsibbles.
+tv_full <- us_employment_tibble %>% 
+  filter(Title == "Total Private") %>%
+  mutate(Month = yearmonth(Month)) %>%
+  tsibble(key = c(Title), index = Month)
 
-us_employment_train <- us_employment_full %>% filter(year(Month) <= 2015)
+tv_train <- tv_full %>% filter(year(Month) <= 2015)
 
-us_employment_test <- us_employment_full %>% filter(year(Month) > 2015)
+tv_test <- tv_full %>% filter(year(Month) > 2015)
+
+# Modeltime (mt) with tibbles
+mt_split <-
+  us_employment_tibble %>% 
+  filter(Title == "Total Private") %>% 
+  timetk::time_series_split(date_var = Month, initial = "15 years", assess = "45 months") 
 ```
 
-Fit a *naive* model (projection of last value) to Google's `Close` from 2015, then predict values from Jan 2016. We'll create an 80:20 train-test split (`test` should be ~20% or at least as long as the anticipated forecast.).
+Fit some simple benchmark models. Some forecasting methods are extremely simple and surprisingly effective. The **mean** method projects the historical average, $\hat{y}_{T+h|T} = \bar{y}.$ The **naive** method projects the last observation, $\hat{y}_{T+h|T} = y_T.$ The **seasonal naive** method projects the last seasonal observation, $\hat{y}_{T+h|T} = y_{T+h-m(k+1)}.$ The **drift** method projects the straight line from the first and last observation, $\hat{y}_{T+h|T} = y_T + h\left(\frac{y_T - y_1}{T-1}\right).$ Modeltime doesn't appear to support the mean or random walk models. 
 
 ```{r}
-train_fit <- 
-  us_employment_train %>%
+# Tidverts supports fitting multiple models at once.
+tv_fit <- 
+  tv_train %>%
   model(
     Mean = MEAN(Employed),
     Naive = NAIVE(Employed),
@@ -115,34 +133,53 @@ train_fit <-
     Drift = RW(Employed ~ drift())
   )
 
-train_fcast <-
-  train_fit %>%
-  forecast(new_data = us_employment_test) %>%
-  # Make an 80% CI from the distribution. 
-  mutate(
-    mu = map_dbl(Employed, ~unlist(.) %>% .["mu"]),
-    sigma = map_dbl(Employed, ~unlist(.) %>% .["sigma"]),
-    lcl = qnorm(.10, mu, sigma),
-    ucl = qnorm(.90, mu, sigma)
-  ) %>% 
-  as_tibble()
+# Modeltime follows the tidymodels style. 
+mt_fit_naive <-
+  modeltime::naive_reg() %>%
+  set_engine("naive") %>%
+  parsnip::fit(Employed ~ Month, data = rsample::training(mt_split))
+
+mt_fit_snaive <-
+  modeltime::naive_reg() %>%
+  set_engine("snaive") %>%
+  parsnip::fit(Employed ~ Month, data = rsample::training(mt_split))
+
+mt_fit <- modeltime::modeltime_table(
+  mt_fit_naive,
+  mt_fit_snaive
+)
 ```
 
-The `autoplot()` and `autolayer()` functions take a lot of the headache out of plotting the results, especially since `forecast()` tucks away the confidence intervals in a `distribution` list object.
+The `autoplot()` and `autolayer()` functions take a lot of the headache out of plotting the results, especially since `forecast()` tucks away the confidence intervals in a `distribution` list object. Nevertheless, I like extracting the results manually.
 
-```{r}
-bind_rows(
-  us_employment_train, 
-  us_employment_test 
-) %>%
-  as_tibble() %>%
+```{r warning=FALSE}
+# modeltime
+mt_fc <- mt_fit %>%
+  modeltime::modeltime_calibrate(testing(mt_split)) %>%
+  modeltime::modeltime_forecast(
+    new_data = testing(mt_split), 
+    actual_data = us_employment_tibble %>% filter(Title == "Total Private")
+  )
+
+#  (not run)
+# mt_fc %>% modeltime::plot_modeltime_forecast(.interactive = FALSE)
+
+# tidyverts
+tv_fc <- tv_fit %>%
+  forecast(new_data = tv_test) %>%
+  hilo(80) %>%
+  mutate(
+    lpi = map_dbl(`80%`, ~.$lower),
+    upi = map_dbl(`80%`, ~.$upper)
+  )
+
+tv_fit %>%
+  augment() %>%
   ggplot(aes(x = Month)) +
-  geom_line(aes(y = Employed), color = "black", size = 1) +
-  geom_line(data = train_fcast, aes(y = mu, color = .model), size = 1) +
-  geom_ribbon(data = train_fcast, 
-              aes(ymin = lcl, ymax = ucl, fill = .model, color = .model), 
-              alpha = .2) +
-  labs(title = "Forecast with 80% CI", x = NULL, y = NULL)
+  geom_line(aes(y = Employed)) +
+  geom_line(data = tv_fc, aes(y = .mean, color = .model)) +
+  geom_ribbon(data = tv_fc, aes(ymin = lpi, ymax = upi, fill = .model), alpha = 0.2) +
+  labs(title = "Forecast with 80% CI")
 ```
 
 ## Evaluating Fit
@@ -152,27 +189,25 @@ Evaluate the model fit with residuals diagnostics.^[Residuals and errors are *no
 Innovation residuals should be independent random variables normally distributed with mean zero and constant variance (the normality and variance conditions are only required for inference and prediction intervals). Happily, `feasts` has just what you need.
 
 ```{r warning=FALSE}
-train_fit %>% 
+tv_fit %>% 
   select("Naive") %>% 
-  gg_tsresiduals() +
+  feasts::gg_tsresiduals() +
   labs(title = "Residuals Analysis")
 ```
 
-The autocorrelation plot violates the independence assumption. The histogram plot tests normality. The residuals plot tests mean zero and constant variance. You can carry out a  *portmanteau* test on the autocorrelation assumption. Two common tests are the Box-Pierce and the Ljung-Box. These tests check the likelihood of a combination of autocorrelations at once, without testing any one correlation, kind of like an ANOVA test. The Ljung-Box test statistic is a sum of squared $k$-lagged autocorrelations, $r_k^2$,
+The autocorrelation plot tests the independence assumption. The histogram plot tests normality. The residuals plot tests mean zero and constant variance. You can carry out a  *portmanteau* test on the autocorrelation assumption. Two common tests are the Box-Pierce and the Ljung-Box. These tests check the likelihood of a combination of autocorrelations at once, without testing any one correlation, kind of like an ANOVA test. The Ljung-Box test statistic is a sum of squared $k$-lagged autocorrelations, $r_k^2$,
 
 $$Q^* = T(T+2) \sum_{k=1}^l(T-k)^{-1}r_k^2.$$
 
 The test statistic has a $\chi^2$ distribution with $l - K$ degrees of freedom (where $K$ is the number of parameters in the model). Use $l = 10$ for non-seasonal data and $l = 2m$ for seasonal data. If your model has no explanatory variables, $K = 0.$ Reject the no-autocorrelation (i.e., white noise) assumption if *p* < .05.
 
 ```{r}
-train_fit %>% 
+tv_fit %>% 
   broom::augment() %>% 
   features(.var = .innov, features = ljung_box, lag = 10, dof = 0)
 ```
 
-## Evaluating Accuracy
-
-Some forecasting methods are extremely simple and surprisingly effective. The **mean** method projects the historical average, $\hat{y}_{T+h|T} = \bar{y}.$ The **naive** method projects the last observation, $\hat{y}_{T+h|T} = y_T.$ The **seasonal naive** method projects the last seasonal observation, $\hat{y}_{T+h|T} = y_{T+h-m(k+1)}.$ The **drift** method projects the straight line from the first and last observation, $\hat{y}_{T+h|T} = y_T + h\left(\frac{y_T - y_1}{T-1}\right).$
+## Model Selection
 
 Evaluate the forecast accuracy with the test data (aka, "hold-out set", and "out-of-sample data"). The **forecast error** is the difference between the observed and forecast value, $e_{T+h} = y_{T+h} - \hat{y}_{t+h|T}.$ Forecast errors differ from model residuals in that they come from the test data set and because forecast values are usually multi-step forecasts which include prior forecast values as inputs.
 
@@ -188,16 +223,17 @@ The MAE and RMSE are on the same scale as the data, so they are only useful for 
 Use `accuracy()` to evaluate a model.
 
 ```{r}
-train_fit %>% 
-  forecast(new_data = us_employment_test) %>%
-  fabletools::accuracy(data = us_employment_test) %>%
+tv_fit %>% 
+  fabletools::forecast(new_data = tv_test) %>%
+  fabletools::accuracy(data = tv_test) %>%
   select(.model, RMSE, MAE, MAPE, MASE)
 ```
 
-Time series *cross-validation* is a better way to evaluating a model. It breaks the dataset into multiple training sets by setting a cutoff at varying points and setting the test set to a single step ahead of the horizon. Function `stretch_tsibble()` creates a tsibble of initial size `.init` and appends additional data sets of increasing size `.step`.
+Time series *cross-validation* is a better way to evaluate a model. It breaks the dataset into multiple training sets by setting a cutoff at varying points and setting the test set to a single step ahead of the horizon. Function `stretch_tsibble()` creates a tsibble of initial size `.init` and appends additional data sets of increasing size `.step`. Normal cross-validation repeatedly fits a model to the data set with one of the rows left out. Since `model()` fits a separate model per index value, creating this long tsibble effectively accomplishes the same thing. Note the fundamental difference here though: time series CV does not leave out single values from points along the time series. It leaves out *all* points after a particular point along the time series - each sub-data set starts at the beginning and is uninterrupted until reaching the varying end points.
 
 ```{r warning=FALSE}
-us_employment_full %>%
+us_employment_tsibble %>%
+  filter(Title == "Total Private") %>%
   stretch_tsibble(.init = 3, .step = 1) %>%
   # Fit a model for each key
   model(
@@ -206,85 +242,6 @@ us_employment_full %>%
     SNaive = SNAIVE(Employed),
     Drift = RW(Employed ~ drift())
   ) %>%
-  forecast(h = 12) %>%
-  fabletools::accuracy(data = us_employment_test)
+  fabletools::forecast(h = 12) %>%
+  fabletools::accuracy(data = tv_test)
 ```
-
-## Model Selection 
-
-Let's compare the performance of a few candidate models for the base R datasets::WWWusage data set of internet usage.
-
-```{r}
-datasets::WWWusage %>%
-  as_tsibble() %>%
-  ggplot(aes(x = index, y = value)) +
-  geom_line() +
-  theme_light() +
-  labs(title = "Internet usage by minute", x = NULL, y = "Users")
-```
-
-We will use time-series cross-validation. The data set has `r length(datasets::WWWusage)` rows. Function `stretch_tsibble(.init, .step)` takes a tsibble and creates a new tsibble for cross validation. First `stretch_tsibble()` takes the first `.init` rows from the tsibble and adds a new column `.id` with value 1. Then it takes the first `.init` + `.step` rows from the tsibble and assigns `.id` value 2. It continues like this, creating longer and longer tsibbles until it cannot create a longer one from the original tsibble. Finally, it appends these together into one long tsibble with `.id` added to the index. Normal cross-validation repeatedly fits a model to the data set with one of the rows left out. Since `model()` fits a separate model per index value, creating this long tsibble effectively accomplishes the same thing. Note the fundamental difference here though: time series CV does not leave out single values from points along in the time series. It leaves out *all* points after a particular point along the time series - each sub-data set starts at the beginning and is uninterrupted until reaching the varying end points. Let's take a look at the CV data set before using it to fit the models.
-
-```{r collapse=TRUE}
-www_cv <- datasets::WWWusage %>%
-  as_tsibble() %>%
-  stretch_tsibble(.init = 10, .step = 1)
-
-# 10 rows + 11 rows + ... + 100 rows = 5,005 rows:
-nrow(www_cv)
-
-# .id added to index
-head(www_cv)
-
-# 91 index values
-summary(www_cv$.id)
-```
-
-Fit four models to the 91 data sets to compare the accuracy. Here's the full code.
-
-```{r}
-datasets::WWWusage %>%
-  as_tsibble() %>%
-  stretch_tsibble(.init = 10, .step = 1) %>%
-  model(
-    OLS = TSLM(value ~ index),
-    `Simple Exponential Smoothing` = ETS(value ~ error("A") + trend("N") + season("N")),
-    `Holt's method` = ETS(value ~ error("A") + trend("A") + season("N")),
-    `Holt's method (damped)` = ETS(value ~ error("A") + trend("Ad") + season("N"))
-  ) %>%
-  forecast(h = 1) %>%
-  accuracy(data = as_tsibble(datasets::WWWusage))
-```
-
-The best model as measured by RMSE was Holt's method with damping. OLS was pretty bad. Let's fit it to the whole data set and forecast future periods.
-
-```{r}
-www_fit <- datasets::WWWusage %>%
-  as_tsibble() %>%
-  model(holt_d = ETS(value ~ error("A") + trend("Ad") + season("N")))
-
-www_fit %>% report()
-```
-
-This time the damping parameter is very small (`r www_fit %>% tidy() %>% filter(term == "phi") %>% pull("estimate") %>% scales::number(accuracy = .001)`), resulting in a quick return to the horizontal.
-
-```{r}
-www_fc <- www_fit %>%
-  forecast(h = 10) %>%
-  mutate(sigma = map_dbl(value, ~unlist(.) %>% .["mu"]),
-         ci_025 = qnorm(.025, .mean, sigma),
-         ci_975 = qnorm(.975, .mean, sigma))
-
-www_fit %>%
-  augment() %>%
-  ggplot(aes(x = index)) +
-  geom_line(aes(y = value)) +
-  geom_line(aes(y = .fitted), color = "goldenrod") +
-  geom_line(data = www_fc, aes(y = .mean), color = "goldenrod") +
-  geom_ribbon(data = www_fc, aes(ymin = ci_025, ymax = ci_975), alpha = 0.2, fill = "goldenrod") +
-  theme_light() +
-  labs(title = "Internet usage by Minute.", 
-       subtitle = "Holt's method with damping. Shaded are is 95% prediction interval.",
-       x = NULL)
-```
-

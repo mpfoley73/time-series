@@ -23,14 +23,14 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-01" />
+<meta name="date" content="2023-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="toolbox.html"/>
+<link rel="prev" href="basics.html"/>
 <link rel="next" href="regression.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -165,13 +165,12 @@ div.csl-indent {
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="toolbox.html"><a href="toolbox.html"><i class="fa fa-check"></i><b>1</b> Basics</a>
+<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="toolbox.html"><a href="toolbox.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
-<li class="chapter" data-level="1.2" data-path="toolbox.html"><a href="toolbox.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
-<li class="chapter" data-level="1.3" data-path="toolbox.html"><a href="toolbox.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
-<li class="chapter" data-level="1.4" data-path="toolbox.html"><a href="toolbox.html#evaluating-accuracy"><i class="fa fa-check"></i><b>1.4</b> Evaluating Accuracy</a></li>
-<li class="chapter" data-level="1.5" data-path="toolbox.html"><a href="toolbox.html#model-selection"><i class="fa fa-check"></i><b>1.5</b> Model Selection</a></li>
+<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#common-frameworks"><i class="fa fa-check"></i><b>1.1</b> Common Frameworks</a></li>
+<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#fitting-models"><i class="fa fa-check"></i><b>1.2</b> Fitting Models</a></li>
+<li class="chapter" data-level="1.3" data-path="basics.html"><a href="basics.html#evaluating-fit"><i class="fa fa-check"></i><b>1.3</b> Evaluating Fit</a></li>
+<li class="chapter" data-level="1.4" data-path="basics.html"><a href="basics.html#model-selection"><i class="fa fa-check"></i><b>1.4</b> Model Selection</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i><b>2</b> Exploratory Analysis</a>
 <ul>
@@ -209,10 +208,12 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5" data-path="arima.html"><a href="arima.html"><i class="fa fa-check"></i><b>5</b> ARIMA</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#tranformations-and-differencing"><i class="fa fa-check"></i><b>5.1</b> Tranformations and Differencing</a></li>
-<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-models"><i class="fa fa-check"></i><b>5.2</b> Autoregressive Models</a></li>
-<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-models"><i class="fa fa-check"></i><b>5.3</b> Moving Average Models</a></li>
-<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arima"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal ARIMA</a></li>
+<li class="chapter" data-level="5.1" data-path="arima.html"><a href="arima.html#stationary-time-series"><i class="fa fa-check"></i><b>5.1</b> Stationary Time Series</a></li>
+<li class="chapter" data-level="5.2" data-path="arima.html"><a href="arima.html#autoregressive-arp"><i class="fa fa-check"></i><b>5.2</b> Autoregressive: AR(<em>p</em>)</a></li>
+<li class="chapter" data-level="5.3" data-path="arima.html"><a href="arima.html#moving-average-maq"><i class="fa fa-check"></i><b>5.3</b> Moving Average: MA(<em>q</em>)</a></li>
+<li class="chapter" data-level="5.4" data-path="arima.html"><a href="arima.html#non-seasonal-arimap-d-q"><i class="fa fa-check"></i><b>5.4</b> Non-Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)</a></li>
+<li class="chapter" data-level="5.5" data-path="arima.html"><a href="arima.html#seasonal-arimap-d-qp-d-qm"><i class="fa fa-check"></i><b>5.5</b> Seasonal: ARIMA(<em>p</em>, <em>d</em>, <em>q</em>)(<em>P</em>, <em>D</em>, <em>Q</em>)m</a></li>
+<li class="chapter" data-level="5.6" data-path="arima.html"><a href="arima.html#fitting-an-arima-model"><i class="fa fa-check"></i><b>5.6</b> Fitting an ARIMA Model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="dynamic.html"><a href="dynamic.html"><i class="fa fa-check"></i><b>6</b> Dynamic Harmonic Regression</a>
 <ul>
@@ -242,16 +243,16 @@ div.csl-indent {
 <div id="exploration" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Exploratory Analysis<a href="exploration.html#exploration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Start an analysis by viewing the data values and structure, then take some summary statistics. <code>fabletools::features()</code> is great for this.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploration.html#cb29-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="exploration.html#cb29-2" tabindex="-1"></a>  <span class="fu">features</span>(Beer, <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">quantile =</span> quantile))</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="exploration.html#cb21-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="exploration.html#cb21-2" tabindex="-1"></a>  <span class="fu">features</span>(Beer, <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">quantile =</span> quantile))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##    mean `quantile_0%` `quantile_25%` `quantile_50%` `quantile_75%`
 ##   &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
 ## 1  415.           213           379.            422           466.
 ## # ℹ 1 more variable: `quantile_100%` &lt;dbl&gt;</code></pre>
 <p>There are many autocorrelation features you might want to review. I don’t understand why you’d want to know all of these, but <code>feat_acf</code> has them.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploration.html#cb31-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="exploration.html#cb31-2" tabindex="-1"></a>  <span class="fu">features</span>(Beer, feat_acf)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="exploration.html#cb23-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="exploration.html#cb23-2" tabindex="-1"></a>  <span class="fu">features</span>(Beer, feat_acf)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##    acf1 acf10 diff1_acf1 diff1_acf10 diff2_acf1 diff2_acf10 season_acf1
 ##   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
@@ -259,14 +260,14 @@ div.csl-indent {
 <div id="graphical-analysis" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Graphical Analysis<a href="exploration.html#graphical-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The next task is to plot the data to identify patterns, unusual observations, changes over time, and relationships between variables. Look for <em>trend</em>, <em>cycles</em>, and <em>seasonality</em> in your exploratory plots. These features inform the subsequent forecasting process. <code>ggplot2::autoplot()</code> does a great job picking out the right plot, but I feel more comfortable staying old-school for now.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploration.html#cb33-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>ansett <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="exploration.html#cb33-2" tabindex="-1"></a>  <span class="fu">filter</span>(Airports <span class="sc">==</span> <span class="st">&quot;MEL-SYD&quot;</span>, Class <span class="sc">==</span> <span class="st">&quot;Economy&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="exploration.html#cb33-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> Passengers)) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="exploration.html#cb33-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb33-5"><a href="exploration.html#cb33-5" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb33-6"><a href="exploration.html#cb33-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Start with a simple time series plot.&quot;</span>,</span>
-<span id="cb33-7"><a href="exploration.html#cb33-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Weekly passenger volume.&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="exploration.html#cb25-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>ansett <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="exploration.html#cb25-2" tabindex="-1"></a>  <span class="fu">filter</span>(Airports <span class="sc">==</span> <span class="st">&quot;MEL-SYD&quot;</span>, Class <span class="sc">==</span> <span class="st">&quot;Economy&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="exploration.html#cb25-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> Passengers)) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="exploration.html#cb25-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="exploration.html#cb25-5" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb25-6"><a href="exploration.html#cb25-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Start with a simple time series plot.&quot;</span>,</span>
+<span id="cb25-7"><a href="exploration.html#cb25-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Weekly passenger volume.&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>What does this one reveal?</p>
 <ul>
 <li>There was a period in 1989 of zero passengers (strike).</li>
@@ -277,178 +278,178 @@ div.csl-indent {
 <li>Also appears to be some missing observations. (<em>common practice with missing observations is to impute values with the time series mean.</em>)</li>
 </ul>
 <p>If a data series has trend and seasonality, highlight it with <code>feasts::gg_season()</code>.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exploration.html#cb34-1" tabindex="-1"></a>a10 <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>PBS <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="exploration.html#cb34-2" tabindex="-1"></a>  <span class="fu">filter</span>(ATC2 <span class="sc">==</span> <span class="st">&quot;A10&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="exploration.html#cb34-3" tabindex="-1"></a>  <span class="fu">select</span>(Month, Cost) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="exploration.html#cb34-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Cost =</span> <span class="fu">sum</span>(Cost))</span>
-<span id="cb34-5"><a href="exploration.html#cb34-5" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="exploration.html#cb34-6" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
-<span id="cb34-7"><a href="exploration.html#cb34-7" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1991</span>, <span class="dv">1995</span>, <span class="dv">2000</span>, <span class="dv">2005</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-8"><a href="exploration.html#cb34-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">month</span>(Month, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>), <span class="at">y =</span> Cost, </span>
-<span id="cb34-9"><a href="exploration.html#cb34-9" tabindex="-1"></a>             <span class="at">group =</span> <span class="fu">factor</span>(<span class="fu">year</span>(Month)), </span>
-<span id="cb34-10"><a href="exploration.html#cb34-10" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">factor</span>(<span class="fu">year</span>(Month)),</span>
-<span id="cb34-11"><a href="exploration.html#cb34-11" tabindex="-1"></a>             <span class="at">label =</span> <span class="fu">if_else</span>(<span class="fu">month</span>(Month) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">12</span>), <span class="fu">year</span>(Month), <span class="cn">NA_real_</span>))) <span class="sc">+</span></span>
-<span id="cb34-12"><a href="exploration.html#cb34-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb34-13"><a href="exploration.html#cb34-13" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb34-14"><a href="exploration.html#cb34-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb34-15"><a href="exploration.html#cb34-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.25</span>)) <span class="sc">+</span></span>
-<span id="cb34-16"><a href="exploration.html#cb34-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using gglot&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb34-17"><a href="exploration.html#cb34-17" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="exploration.html#cb34-18" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
-<span id="cb34-19"><a href="exploration.html#cb34-19" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1991</span>, <span class="dv">1995</span>, <span class="dv">2000</span>, <span class="dv">2005</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-20"><a href="exploration.html#cb34-20" tabindex="-1"></a>  <span class="fu">fill_gaps</span>() <span class="sc">%&gt;%</span>  <span class="co"># otherwise, gg_season() barks.</span></span>
-<span id="cb34-21"><a href="exploration.html#cb34-21" tabindex="-1"></a>  <span class="fu">gg_season</span>(Cost, <span class="at">labels =</span> <span class="st">&quot;both&quot;</span>) <span class="sc">+</span></span>
-<span id="cb34-22"><a href="exploration.html#cb34-22" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb34-23"><a href="exploration.html#cb34-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.25</span>)) <span class="sc">+</span></span>
-<span id="cb34-24"><a href="exploration.html#cb34-24" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using feasts&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb34-25"><a href="exploration.html#cb34-25" tabindex="-1"></a></span>
-<span id="cb34-26"><a href="exploration.html#cb34-26" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span></span>
-<span id="cb34-27"><a href="exploration.html#cb34-27" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Medicare script costs increase from Feb - following Jan.&quot;</span>,</span>
-<span id="cb34-28"><a href="exploration.html#cb34-28" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;12-month seasonality plot, selected years.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploration.html#cb26-1" tabindex="-1"></a>a10 <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>PBS <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="exploration.html#cb26-2" tabindex="-1"></a>  <span class="fu">filter</span>(ATC2 <span class="sc">==</span> <span class="st">&quot;A10&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="exploration.html#cb26-3" tabindex="-1"></a>  <span class="fu">select</span>(Month, Cost) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="exploration.html#cb26-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Cost =</span> <span class="fu">sum</span>(Cost))</span>
+<span id="cb26-5"><a href="exploration.html#cb26-5" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="exploration.html#cb26-6" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
+<span id="cb26-7"><a href="exploration.html#cb26-7" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1991</span>, <span class="dv">1995</span>, <span class="dv">2000</span>, <span class="dv">2005</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-8"><a href="exploration.html#cb26-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">month</span>(Month, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>), <span class="at">y =</span> Cost, </span>
+<span id="cb26-9"><a href="exploration.html#cb26-9" tabindex="-1"></a>             <span class="at">group =</span> <span class="fu">factor</span>(<span class="fu">year</span>(Month)), </span>
+<span id="cb26-10"><a href="exploration.html#cb26-10" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">factor</span>(<span class="fu">year</span>(Month)),</span>
+<span id="cb26-11"><a href="exploration.html#cb26-11" tabindex="-1"></a>             <span class="at">label =</span> <span class="fu">if_else</span>(<span class="fu">month</span>(Month) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">12</span>), <span class="fu">year</span>(Month), <span class="cn">NA_real_</span>))) <span class="sc">+</span></span>
+<span id="cb26-12"><a href="exploration.html#cb26-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb26-13"><a href="exploration.html#cb26-13" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb26-14"><a href="exploration.html#cb26-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb26-15"><a href="exploration.html#cb26-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.25</span>)) <span class="sc">+</span></span>
+<span id="cb26-16"><a href="exploration.html#cb26-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using gglot&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb26-17"><a href="exploration.html#cb26-17" tabindex="-1"></a></span>
+<span id="cb26-18"><a href="exploration.html#cb26-18" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
+<span id="cb26-19"><a href="exploration.html#cb26-19" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1991</span>, <span class="dv">1995</span>, <span class="dv">2000</span>, <span class="dv">2005</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-20"><a href="exploration.html#cb26-20" tabindex="-1"></a>  <span class="fu">fill_gaps</span>() <span class="sc">%&gt;%</span>  <span class="co"># otherwise, gg_season() barks.</span></span>
+<span id="cb26-21"><a href="exploration.html#cb26-21" tabindex="-1"></a>  <span class="fu">gg_season</span>(Cost, <span class="at">labels =</span> <span class="st">&quot;both&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-22"><a href="exploration.html#cb26-22" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb26-23"><a href="exploration.html#cb26-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.25</span>)) <span class="sc">+</span></span>
+<span id="cb26-24"><a href="exploration.html#cb26-24" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using feasts&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb26-25"><a href="exploration.html#cb26-25" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="exploration.html#cb26-26" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span></span>
+<span id="cb26-27"><a href="exploration.html#cb26-27" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Medicare script costs increase from Feb - following Jan.&quot;</span>,</span>
+<span id="cb26-28"><a href="exploration.html#cb26-28" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;12-month seasonality plot, selected years.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>Emphasize the seasonality further by faceting on the sub-series with <code>feasts::gg_subseries()</code>.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="exploration.html#cb35-1" tabindex="-1"></a>yint <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="exploration.html#cb35-2" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb35-3"><a href="exploration.html#cb35-3" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">month</span>(Month, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-4"><a href="exploration.html#cb35-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_cost =</span> <span class="fu">mean</span>(Cost) <span class="sc">/</span> <span class="fl">1e6</span>)</span>
-<span id="cb35-5"><a href="exploration.html#cb35-5" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
-<span id="cb35-6"><a href="exploration.html#cb35-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">year</span>(Month), <span class="at">y =</span> Cost <span class="sc">/</span> <span class="fl">1e6</span>)) <span class="sc">+</span> </span>
-<span id="cb35-7"><a href="exploration.html#cb35-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb35-8"><a href="exploration.html#cb35-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">data =</span> yint, <span class="fu">aes</span>(<span class="at">yintercept =</span> mean_cost), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb35-9"><a href="exploration.html#cb35-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb35-10"><a href="exploration.html#cb35-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb35-11"><a href="exploration.html#cb35-11" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb35-12"><a href="exploration.html#cb35-12" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb35-13"><a href="exploration.html#cb35-13" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span></span>
-<span id="cb35-14"><a href="exploration.html#cb35-14" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(<span class="fu">month</span>(Month, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>)), <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb35-15"><a href="exploration.html#cb35-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using gglot&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb35-16"><a href="exploration.html#cb35-16" tabindex="-1"></a></span>
-<span id="cb35-17"><a href="exploration.html#cb35-17" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
-<span id="cb35-18"><a href="exploration.html#cb35-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Cost =</span> Cost <span class="sc">/</span> <span class="fl">1e6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-19"><a href="exploration.html#cb35-19" tabindex="-1"></a>  <span class="fu">fill_gaps</span>() <span class="sc">%&gt;%</span>  <span class="co"># otherwise, gg_subseries() barks.</span></span>
-<span id="cb35-20"><a href="exploration.html#cb35-20" tabindex="-1"></a>  <span class="fu">gg_subseries</span>(Cost) <span class="sc">+</span></span>
-<span id="cb35-21"><a href="exploration.html#cb35-21" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb35-22"><a href="exploration.html#cb35-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb35-23"><a href="exploration.html#cb35-23" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb35-24"><a href="exploration.html#cb35-24" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb35-25"><a href="exploration.html#cb35-25" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span></span>
-<span id="cb35-26"><a href="exploration.html#cb35-26" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using feasts&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb35-27"><a href="exploration.html#cb35-27" tabindex="-1"></a></span>
-<span id="cb35-28"><a href="exploration.html#cb35-28" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="sc">+</span></span>
-<span id="cb35-29"><a href="exploration.html#cb35-29" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Medicare script costs follow monthly seasonality, inreasing annually.&quot;</span>,</span>
-<span id="cb35-30"><a href="exploration.html#cb35-30" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Monthly subseries plot of cost $MM, 1991 - 2009.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploration.html#cb27-1" tabindex="-1"></a>yint <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="exploration.html#cb27-2" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="exploration.html#cb27-3" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">month</span>(Month, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="exploration.html#cb27-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_cost =</span> <span class="fu">mean</span>(Cost) <span class="sc">/</span> <span class="fl">1e6</span>)</span>
+<span id="cb27-5"><a href="exploration.html#cb27-5" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="exploration.html#cb27-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">year</span>(Month), <span class="at">y =</span> Cost <span class="sc">/</span> <span class="fl">1e6</span>)) <span class="sc">+</span> </span>
+<span id="cb27-7"><a href="exploration.html#cb27-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="exploration.html#cb27-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">data =</span> yint, <span class="fu">aes</span>(<span class="at">yintercept =</span> mean_cost), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="exploration.html#cb27-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb27-10"><a href="exploration.html#cb27-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-11"><a href="exploration.html#cb27-11" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-12"><a href="exploration.html#cb27-12" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb27-13"><a href="exploration.html#cb27-13" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span></span>
+<span id="cb27-14"><a href="exploration.html#cb27-14" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(<span class="fu">month</span>(Month, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>)), <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb27-15"><a href="exploration.html#cb27-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using gglot&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb27-16"><a href="exploration.html#cb27-16" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="exploration.html#cb27-17" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> a10 <span class="sc">%&gt;%</span></span>
+<span id="cb27-18"><a href="exploration.html#cb27-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Cost =</span> Cost <span class="sc">/</span> <span class="fl">1e6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-19"><a href="exploration.html#cb27-19" tabindex="-1"></a>  <span class="fu">fill_gaps</span>() <span class="sc">%&gt;%</span>  <span class="co"># otherwise, gg_subseries() barks.</span></span>
+<span id="cb27-20"><a href="exploration.html#cb27-20" tabindex="-1"></a>  <span class="fu">gg_subseries</span>(Cost) <span class="sc">+</span></span>
+<span id="cb27-21"><a href="exploration.html#cb27-21" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb27-22"><a href="exploration.html#cb27-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-23"><a href="exploration.html#cb27-23" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-24"><a href="exploration.html#cb27-24" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb27-25"><a href="exploration.html#cb27-25" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span></span>
+<span id="cb27-26"><a href="exploration.html#cb27-26" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using feasts&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb27-27"><a href="exploration.html#cb27-27" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="exploration.html#cb27-28" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="sc">+</span></span>
+<span id="cb27-29"><a href="exploration.html#cb27-29" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Medicare script costs follow monthly seasonality, inreasing annually.&quot;</span>,</span>
+<span id="cb27-30"><a href="exploration.html#cb27-30" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Monthly subseries plot of cost $MM, 1991 - 2009.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>Explore the correlation between two quantitative variables with the Pearson correlation coefficient. Recall that the covariance between series <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined <span class="math inline">\(Cov(X, Y) = E[(X - \mu_X) (Y - \mu_Y)]\)</span> which simplifies to <span class="math inline">\(Cov(X, Y) = E[XY] - \mu_X \mu_Y\)</span>. The covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is positive if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> increase together, negative if they move in opposite directions, and if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, <span class="math inline">\(E[XY] = E[X]E[Y] = \mu_X \mu_Y\)</span>, so <span class="math inline">\(Cov(X, Y) = 0\)</span>. Covariance is usually inconvenient because its values depend on the units of the series. Dividing <span class="math inline">\(Cov(X, Y)\)</span> by the standard deviations <span class="math inline">\(\sigma_X \sigma_Y\)</span> creates a unit-less variable with range [-1, 1], also known as the Pearson correlation.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p><span class="math display">\[\rho = \frac{\sigma_{XY}} {\sigma_X \sigma_Y}.\]</span></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="exploration.html#cb36-1" tabindex="-1"></a>PBS <span class="sc">%&gt;%</span> </span>
-<span id="cb36-2"><a href="exploration.html#cb36-2" tabindex="-1"></a>  <span class="fu">group_by</span>(ATC1) <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="exploration.html#cb36-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>, <span class="at">Cost =</span> <span class="fu">sum</span>(Cost)) <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="exploration.html#cb36-4" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> ATC1, <span class="at">values_from =</span> Cost) <span class="sc">%&gt;%</span></span>
-<span id="cb36-5"><a href="exploration.html#cb36-5" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb36-6"><a href="exploration.html#cb36-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Month) <span class="sc">%&gt;%</span></span>
-<span id="cb36-7"><a href="exploration.html#cb36-7" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb36-8"><a href="exploration.html#cb36-8" tabindex="-1"></a>  ggcorrplot<span class="sc">::</span><span class="fu">ggcorrplot</span>() <span class="sc">+</span></span>
-<span id="cb36-9"><a href="exploration.html#cb36-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb36-10"><a href="exploration.html#cb36-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Z and P indexes negatively correlated with others.&quot;</span>,</span>
-<span id="cb36-11"><a href="exploration.html#cb36-11" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Correlation plot of Medicare ATC1 indexes.&quot;</span>, </span>
-<span id="cb36-12"><a href="exploration.html#cb36-12" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploration.html#cb28-1" tabindex="-1"></a>PBS <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="exploration.html#cb28-2" tabindex="-1"></a>  <span class="fu">group_by</span>(ATC1) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="exploration.html#cb28-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>, <span class="at">Cost =</span> <span class="fu">sum</span>(Cost)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="exploration.html#cb28-4" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> ATC1, <span class="at">values_from =</span> Cost) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="exploration.html#cb28-5" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="exploration.html#cb28-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Month) <span class="sc">%&gt;%</span></span>
+<span id="cb28-7"><a href="exploration.html#cb28-7" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="exploration.html#cb28-8" tabindex="-1"></a>  ggcorrplot<span class="sc">::</span><span class="fu">ggcorrplot</span>() <span class="sc">+</span></span>
+<span id="cb28-9"><a href="exploration.html#cb28-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb28-10"><a href="exploration.html#cb28-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Z and P indexes negatively correlated with others.&quot;</span>,</span>
+<span id="cb28-11"><a href="exploration.html#cb28-11" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Correlation plot of Medicare ATC1 indexes.&quot;</span>, </span>
+<span id="cb28-12"><a href="exploration.html#cb28-12" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Autocorrelation is correlation with lagging observations. Lag plots of current period vs lags are a particular kind of correlation scatterplot useful for identifying seasonality. <code>feasts::ACF()</code> extends the base R <code>acf()</code> function to tsibbles. <code>aus_production</code> contains quarterly production levels. The 4-period lag is a year-over-year correlation and is strong because of seasonality in production. The 8-period lag is less strong. The 1-, 2-, and 3-period lags are not positively correlated. In fact, the lag-2 is negatively correlated.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="exploration.html#cb37-1" tabindex="-1"></a>prod2k <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="exploration.html#cb37-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">2000</span>)</span>
-<span id="cb37-3"><a href="exploration.html#cb37-3" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="exploration.html#cb37-4" tabindex="-1"></a>prod2k <span class="sc">%&gt;%</span></span>
-<span id="cb37-5"><a href="exploration.html#cb37-5" tabindex="-1"></a>  <span class="fu">gg_lag</span>(Beer, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="exploration.html#cb37-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb37-7"><a href="exploration.html#cb37-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Production is seasonal with Q4 peak, Q1 second.&quot;</span>,</span>
-<span id="cb37-8"><a href="exploration.html#cb37-8" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Quarterly lag plot of beer production&quot;</span>,</span>
-<span id="cb37-9"><a href="exploration.html#cb37-9" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) </span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exploration.html#cb38-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> prod2k <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="exploration.html#cb38-2" tabindex="-1"></a>  <span class="fu">ACF</span>(Beer, <span class="at">lag_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-3"><a href="exploration.html#cb38-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag)) <span class="sc">+</span> </span>
-<span id="cb38-4"><a href="exploration.html#cb38-4" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb38-5"><a href="exploration.html#cb38-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb38-6"><a href="exploration.html#cb38-6" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb38-7"><a href="exploration.html#cb38-7" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(prod2k)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb38-8"><a href="exploration.html#cb38-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">+</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(prod2k)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb38-9"><a href="exploration.html#cb38-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb38-10"><a href="exploration.html#cb38-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb38-11"><a href="exploration.html#cb38-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using ggplot&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb38-12"><a href="exploration.html#cb38-12" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="exploration.html#cb38-13" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> prod2k <span class="sc">%&gt;%</span> </span>
-<span id="cb38-14"><a href="exploration.html#cb38-14" tabindex="-1"></a>  <span class="fu">ACF</span>(Beer, <span class="at">lag_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-15"><a href="exploration.html#cb38-15" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
-<span id="cb38-16"><a href="exploration.html#cb38-16" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb38-17"><a href="exploration.html#cb38-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using autoplot&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb38-18"><a href="exploration.html#cb38-18" tabindex="-1"></a></span>
-<span id="cb38-19"><a href="exploration.html#cb38-19" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span></span>
-<span id="cb38-20"><a href="exploration.html#cb38-20" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Strongest correlation is 4-period lag, negative 2-period lag.&quot;</span>,</span>
-<span id="cb38-21"><a href="exploration.html#cb38-21" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Quarterly autocorrelation of beer production.&quot;</span>,</span>
-<span id="cb38-22"><a href="exploration.html#cb38-22" tabindex="-1"></a>                  <span class="at">caption =</span> <span class="st">&quot;Dashed lines are +/- square root of series length, the white noise bound.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploration.html#cb29-1" tabindex="-1"></a>prod2k <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="exploration.html#cb29-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">2000</span>)</span>
+<span id="cb29-3"><a href="exploration.html#cb29-3" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="exploration.html#cb29-4" tabindex="-1"></a>prod2k <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="exploration.html#cb29-5" tabindex="-1"></a>  <span class="fu">gg_lag</span>(Beer, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="exploration.html#cb29-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb29-7"><a href="exploration.html#cb29-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Production is seasonal with Q4 peak, Q1 second.&quot;</span>,</span>
+<span id="cb29-8"><a href="exploration.html#cb29-8" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Quarterly lag plot of beer production&quot;</span>,</span>
+<span id="cb29-9"><a href="exploration.html#cb29-9" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) </span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exploration.html#cb30-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> prod2k <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="exploration.html#cb30-2" tabindex="-1"></a>  <span class="fu">ACF</span>(Beer, <span class="at">lag_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="exploration.html#cb30-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag)) <span class="sc">+</span> </span>
+<span id="cb30-4"><a href="exploration.html#cb30-4" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="exploration.html#cb30-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="exploration.html#cb30-6" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="exploration.html#cb30-7" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(prod2k)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="exploration.html#cb30-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">+</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(prod2k)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="exploration.html#cb30-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb30-10"><a href="exploration.html#cb30-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb30-11"><a href="exploration.html#cb30-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using ggplot&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb30-12"><a href="exploration.html#cb30-12" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="exploration.html#cb30-13" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> prod2k <span class="sc">%&gt;%</span> </span>
+<span id="cb30-14"><a href="exploration.html#cb30-14" tabindex="-1"></a>  <span class="fu">ACF</span>(Beer, <span class="at">lag_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-15"><a href="exploration.html#cb30-15" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb30-16"><a href="exploration.html#cb30-16" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb30-17"><a href="exploration.html#cb30-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;using autoplot&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb30-18"><a href="exploration.html#cb30-18" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="exploration.html#cb30-19" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span></span>
+<span id="cb30-20"><a href="exploration.html#cb30-20" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Strongest correlation is 4-period lag, negative 2-period lag.&quot;</span>,</span>
+<span id="cb30-21"><a href="exploration.html#cb30-21" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Quarterly autocorrelation of beer production.&quot;</span>,</span>
+<span id="cb30-22"><a href="exploration.html#cb30-22" tabindex="-1"></a>                  <span class="at">caption =</span> <span class="st">&quot;Dashed lines are +/- square root of series length, the white noise bound.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
 <ul>
 <li><p>Autocorrelation for <em>trending</em> data tends to be large and positive because observations nearby in time are also nearby in size. The ACF tends to have positive values that slowly decrease as the lags increase.</p></li>
 <li><p>Autocorrelation for <em>seasonal</em> data tends to be larger for the seasonal lags (at multiples of the seasonal frequency). The Quarterly Australian Beer Production ACF above shows seasonality.</p></li>
 <li><p>Autocorrelation for <em>both trended and seasonal</em> data has a combination of these effects.</p></li>
 <li><p>Time series that show no autocorrelation are called <strong>white noise</strong>. White noise series have near-zero autocorrelation. Stock price changes often exhibit white noise. Almost all lags have autocorrelation insignificantly different from zero. Expect 95% of spikes to lie withing <span class="math inline">\(\pm 2 / \sqrt{T}\)</span> where <span class="math inline">\(T\)</span> is the length of the data series.</p></li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="exploration.html#cb39-1" tabindex="-1"></a>stock <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>gafa_stock <span class="sc">%&gt;%</span> </span>
-<span id="cb39-2"><a href="exploration.html#cb39-2" tabindex="-1"></a>  <span class="fu">filter</span>(Symbol <span class="sc">==</span> <span class="st">&quot;FB&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="exploration.html#cb39-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l1 =</span> Close <span class="sc">-</span> <span class="fu">lag</span>(Close))</span>
-<span id="cb39-4"><a href="exploration.html#cb39-4" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="exploration.html#cb39-5" tabindex="-1"></a>stock <span class="sc">%&gt;%</span></span>
-<span id="cb39-6"><a href="exploration.html#cb39-6" tabindex="-1"></a>  <span class="fu">ACF</span>(l1, <span class="at">lag_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-7"><a href="exploration.html#cb39-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag)) <span class="sc">+</span> </span>
-<span id="cb39-8"><a href="exploration.html#cb39-8" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb39-9"><a href="exploration.html#cb39-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb39-10"><a href="exploration.html#cb39-10" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb39-11"><a href="exploration.html#cb39-11" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(stock)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb39-12"><a href="exploration.html#cb39-12" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">+</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(stock)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb39-13"><a href="exploration.html#cb39-13" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb39-14"><a href="exploration.html#cb39-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb39-15"><a href="exploration.html#cb39-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Stock price changes tend to exhibit white noise.&quot;</span>,</span>
-<span id="cb39-16"><a href="exploration.html#cb39-16" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Daily autocorrelation of stock price changes.&quot;</span>,</span>
-<span id="cb39-17"><a href="exploration.html#cb39-17" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Dashed lines are +/- square root of series length, the white noise bound.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploration.html#cb31-1" tabindex="-1"></a>stock <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>gafa_stock <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="exploration.html#cb31-2" tabindex="-1"></a>  <span class="fu">filter</span>(Symbol <span class="sc">==</span> <span class="st">&quot;FB&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="exploration.html#cb31-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l1 =</span> Close <span class="sc">-</span> <span class="fu">lag</span>(Close))</span>
+<span id="cb31-4"><a href="exploration.html#cb31-4" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="exploration.html#cb31-5" tabindex="-1"></a>stock <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="exploration.html#cb31-6" tabindex="-1"></a>  <span class="fu">ACF</span>(l1, <span class="at">lag_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-7"><a href="exploration.html#cb31-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag)) <span class="sc">+</span> </span>
+<span id="cb31-8"><a href="exploration.html#cb31-8" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="exploration.html#cb31-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> acf), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb31-10"><a href="exploration.html#cb31-10" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb31-11"><a href="exploration.html#cb31-11" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(stock)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb31-12"><a href="exploration.html#cb31-12" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">+</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(stock)), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb31-13"><a href="exploration.html#cb31-13" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb31-14"><a href="exploration.html#cb31-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb31-15"><a href="exploration.html#cb31-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Stock price changes tend to exhibit white noise.&quot;</span>,</span>
+<span id="cb31-16"><a href="exploration.html#cb31-16" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Daily autocorrelation of stock price changes.&quot;</span>,</span>
+<span id="cb31-17"><a href="exploration.html#cb31-17" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Dashed lines are +/- square root of series length, the white noise bound.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>The Ljung-Box test tests the randomness of a series; a <em>p</em>-value under 0.05 rejects the null hypothesis of white noise. The test reject white noise for the beer production, but not for stock price changes.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exploration.html#cb40-1" tabindex="-1"></a><span class="fu">Box.test</span>(prod2k<span class="sc">$</span>Beer, <span class="at">lag =</span> <span class="dv">16</span>, <span class="at">fitdf =</span> <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>)</span>
-<span id="cb40-2"><a href="exploration.html#cb40-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb40-3"><a href="exploration.html#cb40-3" tabindex="-1"></a><span class="do">##  Box-Ljung test</span></span>
-<span id="cb40-4"><a href="exploration.html#cb40-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb40-5"><a href="exploration.html#cb40-5" tabindex="-1"></a><span class="do">## data:  prod2k$Beer</span></span>
-<span id="cb40-6"><a href="exploration.html#cb40-6" tabindex="-1"></a><span class="do">## X-squared = 187.44, df = 16, p-value &lt; 2.2e-16</span></span>
-<span id="cb40-7"><a href="exploration.html#cb40-7" tabindex="-1"></a><span class="fu">Box.test</span>(stock<span class="sc">$</span>l1, <span class="at">lag =</span> <span class="dv">16</span>, <span class="at">fitdf =</span> <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>)</span>
-<span id="cb40-8"><a href="exploration.html#cb40-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb40-9"><a href="exploration.html#cb40-9" tabindex="-1"></a><span class="do">##  Box-Ljung test</span></span>
-<span id="cb40-10"><a href="exploration.html#cb40-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb40-11"><a href="exploration.html#cb40-11" tabindex="-1"></a><span class="do">## data:  stock$l1</span></span>
-<span id="cb40-12"><a href="exploration.html#cb40-12" tabindex="-1"></a><span class="do">## X-squared = 16.745, df = 16, p-value = 0.4023</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exploration.html#cb32-1" tabindex="-1"></a><span class="fu">Box.test</span>(prod2k<span class="sc">$</span>Beer, <span class="at">lag =</span> <span class="dv">16</span>, <span class="at">fitdf =</span> <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>)</span>
+<span id="cb32-2"><a href="exploration.html#cb32-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb32-3"><a href="exploration.html#cb32-3" tabindex="-1"></a><span class="do">##  Box-Ljung test</span></span>
+<span id="cb32-4"><a href="exploration.html#cb32-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb32-5"><a href="exploration.html#cb32-5" tabindex="-1"></a><span class="do">## data:  prod2k$Beer</span></span>
+<span id="cb32-6"><a href="exploration.html#cb32-6" tabindex="-1"></a><span class="do">## X-squared = 187.44, df = 16, p-value &lt; 2.2e-16</span></span>
+<span id="cb32-7"><a href="exploration.html#cb32-7" tabindex="-1"></a><span class="fu">Box.test</span>(stock<span class="sc">$</span>l1, <span class="at">lag =</span> <span class="dv">16</span>, <span class="at">fitdf =</span> <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>)</span>
+<span id="cb32-8"><a href="exploration.html#cb32-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb32-9"><a href="exploration.html#cb32-9" tabindex="-1"></a><span class="do">##  Box-Ljung test</span></span>
+<span id="cb32-10"><a href="exploration.html#cb32-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb32-11"><a href="exploration.html#cb32-11" tabindex="-1"></a><span class="do">## data:  stock$l1</span></span>
+<span id="cb32-12"><a href="exploration.html#cb32-12" tabindex="-1"></a><span class="do">## X-squared = 16.745, df = 16, p-value = 0.4023</span></span></code></pre></div>
 </div>
 <div id="transformations" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Transformations<a href="exploration.html#transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Remove known sources of variation (e.g., days per month, population growth, inflation). E.g., monthly totals may vary due to differing month lengths.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="exploration.html#cb41-1" tabindex="-1"></a>milk <span class="ot">&lt;-</span> fma<span class="sc">::</span>milk <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="exploration.html#cb41-2" tabindex="-1"></a>  <span class="fu">as_tsibble</span>() <span class="sc">%&gt;%</span> <span class="co"># milk is a `ts` object</span></span>
-<span id="cb41-3"><a href="exploration.html#cb41-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">daily_avg =</span> value <span class="sc">/</span> lubridate<span class="sc">::</span><span class="fu">days_in_month</span>(index))</span>
-<span id="cb41-4"><a href="exploration.html#cb41-4" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="exploration.html#cb41-5" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> milk <span class="sc">%&gt;%</span></span>
-<span id="cb41-6"><a href="exploration.html#cb41-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb41-7"><a href="exploration.html#cb41-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb41-8"><a href="exploration.html#cb41-8" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb41-9"><a href="exploration.html#cb41-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb41-10"><a href="exploration.html#cb41-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Original&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb41-11"><a href="exploration.html#cb41-11" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="exploration.html#cb41-12" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> milk <span class="sc">%&gt;%</span></span>
-<span id="cb41-13"><a href="exploration.html#cb41-13" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> daily_avg)) <span class="sc">+</span></span>
-<span id="cb41-14"><a href="exploration.html#cb41-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb41-15"><a href="exploration.html#cb41-15" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb41-16"><a href="exploration.html#cb41-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Daily Average&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
-<span id="cb41-17"><a href="exploration.html#cb41-17" tabindex="-1"></a></span>
-<span id="cb41-18"><a href="exploration.html#cb41-18" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="sc">+</span></span>
-<span id="cb41-19"><a href="exploration.html#cb41-19" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Convert monthly sums into daily averages per month.&quot;</span>,</span>
-<span id="cb41-20"><a href="exploration.html#cb41-20" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Average daily milk production by month.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploration.html#cb33-1" tabindex="-1"></a>milk <span class="ot">&lt;-</span> fma<span class="sc">::</span>milk <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="exploration.html#cb33-2" tabindex="-1"></a>  <span class="fu">as_tsibble</span>() <span class="sc">%&gt;%</span> <span class="co"># milk is a `ts` object</span></span>
+<span id="cb33-3"><a href="exploration.html#cb33-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">daily_avg =</span> value <span class="sc">/</span> lubridate<span class="sc">::</span><span class="fu">days_in_month</span>(index))</span>
+<span id="cb33-4"><a href="exploration.html#cb33-4" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="exploration.html#cb33-5" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> milk <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="exploration.html#cb33-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="exploration.html#cb33-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="exploration.html#cb33-8" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb33-9"><a href="exploration.html#cb33-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="exploration.html#cb33-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Original&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb33-11"><a href="exploration.html#cb33-11" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="exploration.html#cb33-12" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> milk <span class="sc">%&gt;%</span></span>
+<span id="cb33-13"><a href="exploration.html#cb33-13" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> daily_avg)) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="exploration.html#cb33-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-15"><a href="exploration.html#cb33-15" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb33-16"><a href="exploration.html#cb33-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Daily Average&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb33-17"><a href="exploration.html#cb33-17" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="exploration.html#cb33-18" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="sc">+</span></span>
+<span id="cb33-19"><a href="exploration.html#cb33-19" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Convert monthly sums into daily averages per month.&quot;</span>,</span>
+<span id="cb33-20"><a href="exploration.html#cb33-20" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Average daily milk production by month.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>Make patterns more consistent across the data set. Simpler patterns usually lead to more accurate forecasts. A Box-Cox transformation can equalize seasonal variation.</p>
 <p><span class="math display">\[w_t = \begin{cases} \mathrm{log}(y_t), &amp; \mbox{if } \lambda\mbox{ = 0} \\
 \left(\mathrm{sign}(y_t) |y_t|^\lambda - 1 \right) / \lambda, &amp; \mbox{otherwise} \end{cases}\]</span></p>
@@ -462,35 +463,35 @@ div.csl-indent {
 <li><span class="math inline">\(\lambda = -1\)</span>: inverse.</li>
 </ul>
 <p>A good value of <span class="math inline">\(\lambda\)</span> is one which makes the size of the seasonal variation about the same across the whole series. <code>fabletools::features()</code> and <code>BoxCox.lambda()</code> optimize <span class="math inline">\(\lambda\)</span>, but try to choose a simple value to make interpretation clearer. Note that while forecasts are not sensitive to <span class="math inline">\(\lambda\)</span>, prediction intervals <em>are</em>.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="exploration.html#cb42-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb42-2"><a href="exploration.html#cb42-2" tabindex="-1"></a>  <span class="co"># guerrero() applies Guerrero&#39;s method to select lambda that minimizes the</span></span>
-<span id="cb42-3"><a href="exploration.html#cb42-3" tabindex="-1"></a>  <span class="co"># coefficient of variation: .12.</span></span>
-<span id="cb42-4"><a href="exploration.html#cb42-4" tabindex="-1"></a>  <span class="fu">features</span>(Gas, <span class="at">features =</span> guerrero) <span class="sc">%&gt;%</span></span>
-<span id="cb42-5"><a href="exploration.html#cb42-5" tabindex="-1"></a>  <span class="fu">pull</span>(lambda_guerrero)</span>
-<span id="cb42-6"><a href="exploration.html#cb42-6" tabindex="-1"></a></span>
-<span id="cb42-7"><a href="exploration.html#cb42-7" tabindex="-1"></a><span class="co"># supposedly the same method, but returns .10 instead.</span></span>
-<span id="cb42-8"><a href="exploration.html#cb42-8" tabindex="-1"></a>lambda_v2 <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(aus_production<span class="sc">$</span>Gas, <span class="at">method =</span> <span class="st">&quot;guerrero&quot;</span>)</span>
-<span id="cb42-9"><a href="exploration.html#cb42-9" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="exploration.html#cb42-10" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb42-11"><a href="exploration.html#cb42-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gas_xform =</span> <span class="fu">box_cox</span>(Gas, lambda)) <span class="sc">%&gt;%</span></span>
-<span id="cb42-12"><a href="exploration.html#cb42-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
-<span id="cb42-13"><a href="exploration.html#cb42-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Gas), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb42-14"><a href="exploration.html#cb42-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb42-15"><a href="exploration.html#cb42-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb42-16"><a href="exploration.html#cb42-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Original&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>)</span>
-<span id="cb42-17"><a href="exploration.html#cb42-17" tabindex="-1"></a></span>
-<span id="cb42-18"><a href="exploration.html#cb42-18" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb42-19"><a href="exploration.html#cb42-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gas_xform =</span> <span class="fu">box_cox</span>(Gas, lambda)) <span class="sc">%&gt;%</span></span>
-<span id="cb42-20"><a href="exploration.html#cb42-20" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
-<span id="cb42-21"><a href="exploration.html#cb42-21" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> gas_xform), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb42-22"><a href="exploration.html#cb42-22" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb42-23"><a href="exploration.html#cb42-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">glue</span>(<span class="st">&quot;Box-Cox, lambda = {scales::comma(lambda, accuracy = 0.01)}&quot;</span>),</span>
-<span id="cb42-24"><a href="exploration.html#cb42-24" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">glue</span>(<span class="st">&quot;Gas^{scales::comma(lambda, accuracy = 0.01)}&quot;</span>))</span>
-<span id="cb42-25"><a href="exploration.html#cb42-25" tabindex="-1"></a></span>
-<span id="cb42-26"><a href="exploration.html#cb42-26" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="sc">+</span> </span>
-<span id="cb42-27"><a href="exploration.html#cb42-27" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Box-Cox transformation equalizes the seasonal component.&quot;</span>,</span>
-<span id="cb42-28"><a href="exploration.html#cb42-28" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Box-Cox transformation (Guerrero&#39;s method) of quarterly gas production.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exploration.html#cb34-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="exploration.html#cb34-2" tabindex="-1"></a>  <span class="co"># guerrero() applies Guerrero&#39;s method to select lambda that minimizes the</span></span>
+<span id="cb34-3"><a href="exploration.html#cb34-3" tabindex="-1"></a>  <span class="co"># coefficient of variation: .12.</span></span>
+<span id="cb34-4"><a href="exploration.html#cb34-4" tabindex="-1"></a>  <span class="fu">features</span>(Gas, <span class="at">features =</span> guerrero) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="exploration.html#cb34-5" tabindex="-1"></a>  <span class="fu">pull</span>(lambda_guerrero)</span>
+<span id="cb34-6"><a href="exploration.html#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="exploration.html#cb34-7" tabindex="-1"></a><span class="co"># supposedly the same method, but returns .10 instead.</span></span>
+<span id="cb34-8"><a href="exploration.html#cb34-8" tabindex="-1"></a>lambda_v2 <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(aus_production<span class="sc">$</span>Gas, <span class="at">method =</span> <span class="st">&quot;guerrero&quot;</span>)</span>
+<span id="cb34-9"><a href="exploration.html#cb34-9" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="exploration.html#cb34-10" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb34-11"><a href="exploration.html#cb34-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gas_xform =</span> <span class="fu">box_cox</span>(Gas, lambda)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-12"><a href="exploration.html#cb34-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
+<span id="cb34-13"><a href="exploration.html#cb34-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Gas), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb34-14"><a href="exploration.html#cb34-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb34-15"><a href="exploration.html#cb34-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb34-16"><a href="exploration.html#cb34-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Original&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>)</span>
+<span id="cb34-17"><a href="exploration.html#cb34-17" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="exploration.html#cb34-18" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb34-19"><a href="exploration.html#cb34-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gas_xform =</span> <span class="fu">box_cox</span>(Gas, lambda)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-20"><a href="exploration.html#cb34-20" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
+<span id="cb34-21"><a href="exploration.html#cb34-21" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> gas_xform), <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb34-22"><a href="exploration.html#cb34-22" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb34-23"><a href="exploration.html#cb34-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">glue</span>(<span class="st">&quot;Box-Cox, lambda = {scales::comma(lambda, accuracy = 0.01)}&quot;</span>),</span>
+<span id="cb34-24"><a href="exploration.html#cb34-24" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">glue</span>(<span class="st">&quot;Gas^{scales::comma(lambda, accuracy = 0.01)}&quot;</span>))</span>
+<span id="cb34-25"><a href="exploration.html#cb34-25" tabindex="-1"></a></span>
+<span id="cb34-26"><a href="exploration.html#cb34-26" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="sc">+</span> </span>
+<span id="cb34-27"><a href="exploration.html#cb34-27" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Box-Cox transformation equalizes the seasonal component.&quot;</span>,</span>
+<span id="cb34-28"><a href="exploration.html#cb34-28" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">&quot;Box-Cox transformation (Guerrero&#39;s method) of quarterly gas production.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
 <div id="decomposition" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Decomposition<a href="exploration.html#decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -499,152 +500,157 @@ div.csl-indent {
 <h3><span class="header-section-number">2.3.1</span> Classical Decomposition<a href="exploration.html#classical-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Classical decomposition was commonly used until the 1950s. It is still the basis of other methods, so it is good to understand. Classical decomposition is based on moving averages. An <em>m</em>-MA moving average of order <span class="math inline">\(m = 2k + 1\)</span> averages the <span class="math inline">\(k\)</span> observations before <span class="math inline">\(t\)</span> through the <span class="math inline">\(k\)</span> observations after <span class="math inline">\(t\)</span>. The <code>slider</code> package is great for this. <span class="math inline">\(m\)</span> is usually an odd number so that the number of periods before and after are equal.</p>
 <p><span class="math display">\[\hat{T}_t = \frac{1}{m}\sum_{j = -k}^k y_{t+j}\]</span></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="exploration.html#cb43-1" tabindex="-1"></a><span class="fu">library</span>(slider) <span class="co"># sliding window functions</span></span>
-<span id="cb43-2"><a href="exploration.html#cb43-2" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="exploration.html#cb43-3" tabindex="-1"></a>tsibbledata<span class="sc">::</span>global_economy <span class="sc">%&gt;%</span></span>
-<span id="cb43-4"><a href="exploration.html#cb43-4" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">&quot;Australia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-5"><a href="exploration.html#cb43-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb43-6"><a href="exploration.html#cb43-6" tabindex="-1"></a>    <span class="st">`</span><span class="at">3-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">1</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb43-7"><a href="exploration.html#cb43-7" tabindex="-1"></a>    <span class="st">`</span><span class="at">5-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">2</span>, <span class="at">.after =</span> <span class="dv">2</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb43-8"><a href="exploration.html#cb43-8" tabindex="-1"></a>    <span class="st">`</span><span class="at">7-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">3</span>, <span class="at">.after =</span> <span class="dv">3</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb43-9"><a href="exploration.html#cb43-9" tabindex="-1"></a>    <span class="st">`</span><span class="at">9-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">4</span>, <span class="at">.after =</span> <span class="dv">4</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb43-10"><a href="exploration.html#cb43-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb43-11"><a href="exploration.html#cb43-11" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">&quot;-MA&quot;</span>), <span class="at">names_to =</span> <span class="st">&quot;MA_name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;MA&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-12"><a href="exploration.html#cb43-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year)) <span class="sc">+</span></span>
-<span id="cb43-13"><a href="exploration.html#cb43-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> MA, <span class="at">color =</span> MA_name), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb43-14"><a href="exploration.html#cb43-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Exports), <span class="at">size =</span> <span class="fl">1.25</span>, <span class="at">color =</span> <span class="st">&quot;#000000&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb43-15"><a href="exploration.html#cb43-15" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb43-16"><a href="exploration.html#cb43-16" tabindex="-1"></a><span class="co">#  guides(color = guide_legend(title = &quot;series&quot;)) +</span></span>
-<span id="cb43-17"><a href="exploration.html#cb43-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;m-MA simple moving averages smooth a time series.&quot;</span>,</span>
-<span id="cb43-18"><a href="exploration.html#cb43-18" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;m-MA of annual export proportion of GDP for m = 3, 5, 7, 9.&quot;</span>, </span>
-<span id="cb43-19"><a href="exploration.html#cb43-19" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Pct of GDP&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="exploration.html#cb35-1" tabindex="-1"></a><span class="fu">library</span>(slider) <span class="co"># sliding window functions</span></span>
+<span id="cb35-2"><a href="exploration.html#cb35-2" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="exploration.html#cb35-3" tabindex="-1"></a>tsibbledata<span class="sc">::</span>global_economy <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="exploration.html#cb35-4" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">&quot;Australia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="exploration.html#cb35-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-6"><a href="exploration.html#cb35-6" tabindex="-1"></a>    <span class="st">`</span><span class="at">3-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">1</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb35-7"><a href="exploration.html#cb35-7" tabindex="-1"></a>    <span class="st">`</span><span class="at">5-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">2</span>, <span class="at">.after =</span> <span class="dv">2</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb35-8"><a href="exploration.html#cb35-8" tabindex="-1"></a>    <span class="st">`</span><span class="at">7-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">3</span>, <span class="at">.after =</span> <span class="dv">3</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb35-9"><a href="exploration.html#cb35-9" tabindex="-1"></a>    <span class="st">`</span><span class="at">9-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Exports, mean, <span class="at">.before =</span> <span class="dv">4</span>, <span class="at">.after =</span> <span class="dv">4</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-10"><a href="exploration.html#cb35-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb35-11"><a href="exploration.html#cb35-11" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">&quot;-MA&quot;</span>), <span class="at">names_to =</span> <span class="st">&quot;MA_name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;MA&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-12"><a href="exploration.html#cb35-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year)) <span class="sc">+</span></span>
+<span id="cb35-13"><a href="exploration.html#cb35-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> MA, <span class="at">color =</span> MA_name), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb35-14"><a href="exploration.html#cb35-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Exports), <span class="at">size =</span> <span class="fl">1.25</span>, <span class="at">color =</span> <span class="st">&quot;#000000&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb35-15"><a href="exploration.html#cb35-15" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb35-16"><a href="exploration.html#cb35-16" tabindex="-1"></a><span class="co">#  guides(color = guide_legend(title = &quot;series&quot;)) +</span></span>
+<span id="cb35-17"><a href="exploration.html#cb35-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;m-MA simple moving averages smooth a time series.&quot;</span>,</span>
+<span id="cb35-18"><a href="exploration.html#cb35-18" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;m-MA of annual export proportion of GDP for m = 3, 5, 7, 9.&quot;</span>, </span>
+<span id="cb35-19"><a href="exploration.html#cb35-19" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Pct of GDP&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="time-series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>But what if you have known seasonal periods in the data? For example, with quarterly seasonality it makes sense to take a moving average of the 4 periods at once. Do this with a moving average of a four-period moving average.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="exploration.html#cb44-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="exploration.html#cb44-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">1992</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb44-3"><a href="exploration.html#cb44-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb44-4"><a href="exploration.html#cb44-4" tabindex="-1"></a>    <span class="st">`</span><span class="at">4-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Beer, mean, <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">2</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb44-5"><a href="exploration.html#cb44-5" tabindex="-1"></a>    <span class="st">`</span><span class="at">2x4-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(<span class="st">`</span><span class="at">4-MA</span><span class="st">`</span>, mean, <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">0</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb44-6"><a href="exploration.html#cb44-6" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb44-7"><a href="exploration.html#cb44-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">&quot;-MA&quot;</span>), <span class="at">names_to =</span> <span class="st">&quot;MA_type&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;MA&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb44-8"><a href="exploration.html#cb44-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
-<span id="cb44-9"><a href="exploration.html#cb44-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb44-10"><a href="exploration.html#cb44-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> MA, <span class="at">color =</span> MA_type), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb44-11"><a href="exploration.html#cb44-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb44-12"><a href="exploration.html#cb44-12" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>() <span class="sc">+</span></span>
-<span id="cb44-13"><a href="exploration.html#cb44-13" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">&quot;series&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb44-14"><a href="exploration.html#cb44-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;MAs of MAs smooth seasonal periods.&quot;</span>,</span>
-<span id="cb44-15"><a href="exploration.html#cb44-15" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2-MA of a 4-MA for quarterly data.&quot;</span>,</span>
-<span id="cb44-16"><a href="exploration.html#cb44-16" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="exploration.html#cb37-1" tabindex="-1"></a>tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="exploration.html#cb37-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">1992</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="exploration.html#cb37-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb37-4"><a href="exploration.html#cb37-4" tabindex="-1"></a>    <span class="st">`</span><span class="at">4-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(Beer, mean, <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">2</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb37-5"><a href="exploration.html#cb37-5" tabindex="-1"></a>    <span class="st">`</span><span class="at">2x4-MA</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">slide_dbl</span>(<span class="st">`</span><span class="at">4-MA</span><span class="st">`</span>, mean, <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">0</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-6"><a href="exploration.html#cb37-6" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="exploration.html#cb37-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">&quot;-MA&quot;</span>), <span class="at">names_to =</span> <span class="st">&quot;MA_type&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;MA&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-8"><a href="exploration.html#cb37-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
+<span id="cb37-9"><a href="exploration.html#cb37-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Beer), <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="exploration.html#cb37-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> MA, <span class="at">color =</span> MA_type), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb37-11"><a href="exploration.html#cb37-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb37-12"><a href="exploration.html#cb37-12" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>() <span class="sc">+</span></span>
+<span id="cb37-13"><a href="exploration.html#cb37-13" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">&quot;series&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb37-14"><a href="exploration.html#cb37-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;MAs of MAs smooth seasonal periods.&quot;</span>,</span>
+<span id="cb37-15"><a href="exploration.html#cb37-15" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2-MA of a 4-MA for quarterly data.&quot;</span>,</span>
+<span id="cb37-16"><a href="exploration.html#cb37-16" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>Classical decomposition calculates a trend-cycle component <span class="math inline">\(\hat{T}_t\)</span> with an <em>m</em>-MA (odd order) or <span class="math inline">\(2 \times m\)</span>-MA. The de-trended series is the difference, <span class="math inline">\(y_t - \hat{T}_t\)</span>. The seasonal component <span class="math inline">\(\hat{S}_t\)</span> is the seasonal average (e.g., for monthly seasons, then <span class="math inline">\(\hat{S}_1\)</span> would be the January average). The remainder is the residual, <span class="math inline">\(\hat{R}_t = y_t - \hat{T}_t - \hat{S}_t.\)</span> If the cycle variation and seasonal magnitude increases with the observation level, then the same principles apply except the subtrations are replaced with divisions, <span class="math inline">\(y_t / \hat{T}_t\)</span> and remainder <span class="math inline">\(\hat{R}_t = y_t / (\hat{T}_t \hat{S}_t)\)</span>.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="exploration.html#cb45-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
-<span id="cb45-2"><a href="exploration.html#cb45-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="exploration.html#cb45-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">classical =</span> <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;additive&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb45-4"><a href="exploration.html#cb45-4" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb45-5"><a href="exploration.html#cb45-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>random, </span>
-<span id="cb45-6"><a href="exploration.html#cb45-6" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb45-7"><a href="exploration.html#cb45-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
-<span id="cb45-8"><a href="exploration.html#cb45-8" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;seasonal&quot;</span>, <span class="st">&quot;random&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb45-9"><a href="exploration.html#cb45-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
-<span id="cb45-10"><a href="exploration.html#cb45-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb45-11"><a href="exploration.html#cb45-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb45-12"><a href="exploration.html#cb45-12" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb45-13"><a href="exploration.html#cb45-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Classical additive decomposition of US retail employment&quot;</span>,</span>
-<span id="cb45-14"><a href="exploration.html#cb45-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = trend + seasonal + random&quot;</span>,</span>
-<span id="cb45-15"><a href="exploration.html#cb45-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exploration.html#cb38-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="exploration.html#cb38-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="exploration.html#cb38-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">classical =</span> <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;additive&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="exploration.html#cb38-4" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="exploration.html#cb38-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>random, </span>
+<span id="cb38-6"><a href="exploration.html#cb38-6" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-7"><a href="exploration.html#cb38-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
+<span id="cb38-8"><a href="exploration.html#cb38-8" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;seasonal&quot;</span>, <span class="st">&quot;random&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb38-9"><a href="exploration.html#cb38-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
+<span id="cb38-10"><a href="exploration.html#cb38-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="exploration.html#cb38-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb38-12"><a href="exploration.html#cb38-12" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-13"><a href="exploration.html#cb38-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Classical additive decomposition of US retail employment&quot;</span>,</span>
+<span id="cb38-14"><a href="exploration.html#cb38-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = trend + seasonal + random&quot;</span>,</span>
+<span id="cb38-15"><a href="exploration.html#cb38-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>Classical decomposition has weaknesses: the trend-cycle is unavailable for the first few and and last few periods; it assumes the seasonal component is stable over time; and it also tends to over-smooth the data.</p>
 </div>
 <div id="x-11-and-seats" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> X-11 and SEATS<a href="exploration.html#x-11-and-seats" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>X-11 and Seasonal Extraction in ARIMA Time Series (SEATS) are commonly used by governmental agencies. X-11 overcomes some of classical decomposition’s drawbacks by adding extra steps. It creates trend-cycle estimates for all periods, and accommodates a slowly varying seasonal component.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="exploration.html#cb46-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="exploration.html#cb46-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="exploration.html#cb46-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">x11 =</span> <span class="fu">X_13ARIMA_SEATS</span>(Employed <span class="sc">~</span> <span class="fu">x11</span>())) <span class="sc">%&gt;%</span></span>
-<span id="cb46-4"><a href="exploration.html#cb46-4" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb46-5"><a href="exploration.html#cb46-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>irregular, </span>
-<span id="cb46-6"><a href="exploration.html#cb46-6" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb46-7"><a href="exploration.html#cb46-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
-<span id="cb46-8"><a href="exploration.html#cb46-8" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;seasonal&quot;</span>, <span class="st">&quot;irregular&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb46-9"><a href="exploration.html#cb46-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
-<span id="cb46-10"><a href="exploration.html#cb46-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-11"><a href="exploration.html#cb46-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb46-12"><a href="exploration.html#cb46-12" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-13"><a href="exploration.html#cb46-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;X11 decomposition of US retail employment&quot;</span>,</span>
-<span id="cb46-14"><a href="exploration.html#cb46-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = trend + seasonal + irregular&quot;</span>,</span>
-<span id="cb46-15"><a href="exploration.html#cb46-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="exploration.html#cb39-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="exploration.html#cb39-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="exploration.html#cb39-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">x11 =</span> <span class="fu">X_13ARIMA_SEATS</span>(Employed <span class="sc">~</span> <span class="fu">x11</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="exploration.html#cb39-4" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="exploration.html#cb39-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>irregular, </span>
+<span id="cb39-6"><a href="exploration.html#cb39-6" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="exploration.html#cb39-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
+<span id="cb39-8"><a href="exploration.html#cb39-8" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;seasonal&quot;</span>, <span class="st">&quot;irregular&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb39-9"><a href="exploration.html#cb39-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
+<span id="cb39-10"><a href="exploration.html#cb39-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-11"><a href="exploration.html#cb39-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb39-12"><a href="exploration.html#cb39-12" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-13"><a href="exploration.html#cb39-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;X11 decomposition of US retail employment&quot;</span>,</span>
+<span id="cb39-14"><a href="exploration.html#cb39-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = trend + seasonal + irregular&quot;</span>,</span>
+<span id="cb39-15"><a href="exploration.html#cb39-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>SEATS is another one (too complicated to discuss evidently!).</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="exploration.html#cb47-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a href="exploration.html#cb47-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="exploration.html#cb47-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">x11 =</span> <span class="fu">X_13ARIMA_SEATS</span>(Employed <span class="sc">~</span> <span class="fu">seats</span>())) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="exploration.html#cb47-4" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb47-5"><a href="exploration.html#cb47-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>irregular, </span>
-<span id="cb47-6"><a href="exploration.html#cb47-6" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-7"><a href="exploration.html#cb47-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
-<span id="cb47-8"><a href="exploration.html#cb47-8" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;seasonal&quot;</span>, <span class="st">&quot;irregular&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb47-9"><a href="exploration.html#cb47-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
-<span id="cb47-10"><a href="exploration.html#cb47-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb47-11"><a href="exploration.html#cb47-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb47-12"><a href="exploration.html#cb47-12" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb47-13"><a href="exploration.html#cb47-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;SEATS decomposition of US retail employment&quot;</span>,</span>
-<span id="cb47-14"><a href="exploration.html#cb47-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = f(trend, seasonal, irregular)&quot;</span>,</span>
-<span id="cb47-15"><a href="exploration.html#cb47-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exploration.html#cb40-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="exploration.html#cb40-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="exploration.html#cb40-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">x11 =</span> <span class="fu">X_13ARIMA_SEATS</span>(Employed <span class="sc">~</span> <span class="fu">seats</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb40-4"><a href="exploration.html#cb40-4" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="exploration.html#cb40-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>irregular, </span>
+<span id="cb40-6"><a href="exploration.html#cb40-6" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-7"><a href="exploration.html#cb40-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
+<span id="cb40-8"><a href="exploration.html#cb40-8" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;seasonal&quot;</span>, <span class="st">&quot;irregular&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb40-9"><a href="exploration.html#cb40-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
+<span id="cb40-10"><a href="exploration.html#cb40-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="exploration.html#cb40-11" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb40-12"><a href="exploration.html#cb40-12" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-13"><a href="exploration.html#cb40-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;SEATS decomposition of US retail employment&quot;</span>,</span>
+<span id="cb40-14"><a href="exploration.html#cb40-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = f(trend, seasonal, irregular)&quot;</span>,</span>
+<span id="cb40-15"><a href="exploration.html#cb40-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
 <div id="stl" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> STL<a href="exploration.html#stl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Seasonal and Trend decomposition using Loess (STL) has several advantages over classical decomposition, and the SEATS and X-11 methods. It handles any type of seasonality (not just monthly and quarterly); the seasonality component can change; the smoothness of the trend-cycle can be changed by the modeler; and it is robust to outliers.</p>
 <p>The <code>widow</code> settings inside <code>model()</code> control how rapidly the components change.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="exploration.html#cb48-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
-<span id="cb48-2"><a href="exploration.html#cb48-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb48-3"><a href="exploration.html#cb48-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">STL =</span> <span class="fu">STL</span>(Employed <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">window =</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="st">&quot;periodic&quot;</span>),</span>
-<span id="cb48-4"><a href="exploration.html#cb48-4" tabindex="-1"></a>                  <span class="at">robust =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb48-5"><a href="exploration.html#cb48-5" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb48-6"><a href="exploration.html#cb48-6" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>remainder, </span>
-<span id="cb48-7"><a href="exploration.html#cb48-7" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb48-8"><a href="exploration.html#cb48-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
-<span id="cb48-9"><a href="exploration.html#cb48-9" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;season_year&quot;</span>, <span class="st">&quot;remainder&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb48-10"><a href="exploration.html#cb48-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
-<span id="cb48-11"><a href="exploration.html#cb48-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb48-12"><a href="exploration.html#cb48-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb48-13"><a href="exploration.html#cb48-13" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb48-14"><a href="exploration.html#cb48-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;STL decomposition of US retail employment&quot;</span>,</span>
-<span id="cb48-15"><a href="exploration.html#cb48-15" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = f(trend, seasonal, irregular)&quot;</span>,</span>
-<span id="cb48-16"><a href="exploration.html#cb48-16" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="exploration.html#cb41-1" tabindex="-1"></a>fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="exploration.html#cb41-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span> <span class="sc">&amp;</span> Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="exploration.html#cb41-3" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">STL =</span> <span class="fu">STL</span>(Employed <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">window =</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="st">&quot;periodic&quot;</span>),</span>
+<span id="cb41-4"><a href="exploration.html#cb41-4" tabindex="-1"></a>                  <span class="at">robust =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="exploration.html#cb41-5" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="exploration.html#cb41-6" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Employed<span class="sc">:</span>remainder, </span>
+<span id="cb41-7"><a href="exploration.html#cb41-7" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;employed&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-8"><a href="exploration.html#cb41-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">factor</span>(component, </span>
+<span id="cb41-9"><a href="exploration.html#cb41-9" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Employed&quot;</span>, <span class="st">&quot;trend&quot;</span>, <span class="st">&quot;season_year&quot;</span>, <span class="st">&quot;remainder&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="exploration.html#cb41-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> employed)) <span class="sc">+</span></span>
+<span id="cb41-11"><a href="exploration.html#cb41-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-12"><a href="exploration.html#cb41-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb41-13"><a href="exploration.html#cb41-13" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(component), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="exploration.html#cb41-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;STL decomposition of US retail employment&quot;</span>,</span>
+<span id="cb41-15"><a href="exploration.html#cb41-15" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Employed = f(trend, seasonal, irregular)&quot;</span>,</span>
+<span id="cb41-16"><a href="exploration.html#cb41-16" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <p>STL decomposition is the basis for other insights into the data series. You can measure the relative strength of trend and seasonality by the relative size of their variance: <span class="math inline">\(F_T = 1 - \mathrm{Var}(R_T) / \mathrm{Var}(R_T + T_T)\)</span> and <span class="math inline">\(F_S = 1 - \mathrm{Var}(S_T) / \mathrm{Var}(S_T + T_T)\)</span>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="exploration.html#cb49-1" tabindex="-1"></a>us_employment_featues <span class="ot">&lt;-</span> fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span> </span>
-<span id="cb49-2"><a href="exploration.html#cb49-2" tabindex="-1"></a>  <span class="fu">features</span>(Employed, feat_stl) <span class="sc">%&gt;%</span> </span>
-<span id="cb49-3"><a href="exploration.html#cb49-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(Series_ID, Title) <span class="sc">%&gt;%</span> <span class="fu">unique</span>(), </span>
-<span id="cb49-4"><a href="exploration.html#cb49-4" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">&quot;Series_ID&quot;</span>)</span>
-<span id="cb49-5"><a href="exploration.html#cb49-5" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="exploration.html#cb49-6" tabindex="-1"></a>us_1 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
-<span id="cb49-7"><a href="exploration.html#cb49-7" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&gt;=</span> <span class="fl">0.995</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&gt;</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-8"><a href="exploration.html#cb49-8" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-9"><a href="exploration.html#cb49-9" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
-<span id="cb49-10"><a href="exploration.html#cb49-10" tabindex="-1"></a>us_2 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
-<span id="cb49-11"><a href="exploration.html#cb49-11" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&gt;=</span> <span class="fl">0.995</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&lt;</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-12"><a href="exploration.html#cb49-12" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-13"><a href="exploration.html#cb49-13" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
-<span id="cb49-14"><a href="exploration.html#cb49-14" tabindex="-1"></a>us_3 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
-<span id="cb49-15"><a href="exploration.html#cb49-15" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&lt;=</span> <span class="fl">0.985</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&lt;</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-16"><a href="exploration.html#cb49-16" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-17"><a href="exploration.html#cb49-17" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
-<span id="cb49-18"><a href="exploration.html#cb49-18" tabindex="-1"></a>us_4 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
-<span id="cb49-19"><a href="exploration.html#cb49-19" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&lt;=</span> <span class="fl">0.985</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&gt;</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-20"><a href="exploration.html#cb49-20" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-21"><a href="exploration.html#cb49-21" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
-<span id="cb49-22"><a href="exploration.html#cb49-22" tabindex="-1"></a>us_employment_ids <span class="ot">&lt;-</span> <span class="fu">c</span>(us_1, us_2, us_3, us_4)</span>
-<span id="cb49-23"><a href="exploration.html#cb49-23" tabindex="-1"></a>us_employment_featues <span class="sc">%&gt;%</span> </span>
-<span id="cb49-24"><a href="exploration.html#cb49-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Series_lbl =</span> <span class="fu">if_else</span>(Series_ID <span class="sc">%in%</span> us_employment_ids, Title, <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb49-25"><a href="exploration.html#cb49-25" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trend_strength, <span class="at">y =</span> seasonal_strength_year)) <span class="sc">+</span></span>
-<span id="cb49-26"><a href="exploration.html#cb49-26" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb49-27"><a href="exploration.html#cb49-27" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Series_lbl), <span class="at">color =</span> <span class="st">&quot;goldenrod4&quot;</span>) <span class="sc">+</span></span>
-<span id="cb49-28"><a href="exploration.html#cb49-28" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb49-29"><a href="exploration.html#cb49-29" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Some sectors have seasonal employment, othes trend, others both.&quot;</span>)</span></code></pre></div>
-<p><img src="time-series_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="exploration.html#cb42-1" tabindex="-1"></a>us_employment_featues <span class="ot">&lt;-</span> fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="exploration.html#cb42-2" tabindex="-1"></a>  <span class="fu">features</span>(Employed, feat_stl) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="exploration.html#cb42-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(fpp3<span class="sc">::</span>us_employment <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(Series_ID, Title) <span class="sc">%&gt;%</span> <span class="fu">unique</span>(), </span>
+<span id="cb42-4"><a href="exploration.html#cb42-4" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">&quot;Series_ID&quot;</span>)</span>
+<span id="cb42-5"><a href="exploration.html#cb42-5" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="exploration.html#cb42-6" tabindex="-1"></a>us_1 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
+<span id="cb42-7"><a href="exploration.html#cb42-7" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&gt;=</span> <span class="fl">0.995</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&gt;</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-8"><a href="exploration.html#cb42-8" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-9"><a href="exploration.html#cb42-9" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
+<span id="cb42-10"><a href="exploration.html#cb42-10" tabindex="-1"></a>us_2 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
+<span id="cb42-11"><a href="exploration.html#cb42-11" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&gt;=</span> <span class="fl">0.995</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&lt;</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-12"><a href="exploration.html#cb42-12" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-13"><a href="exploration.html#cb42-13" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
+<span id="cb42-14"><a href="exploration.html#cb42-14" tabindex="-1"></a>us_3 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
+<span id="cb42-15"><a href="exploration.html#cb42-15" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&lt;=</span> <span class="fl">0.985</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&lt;</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-16"><a href="exploration.html#cb42-16" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-17"><a href="exploration.html#cb42-17" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
+<span id="cb42-18"><a href="exploration.html#cb42-18" tabindex="-1"></a>us_4 <span class="ot">&lt;-</span> us_employment_featues <span class="sc">%&gt;%</span></span>
+<span id="cb42-19"><a href="exploration.html#cb42-19" tabindex="-1"></a>  <span class="fu">filter</span>(trend_strength <span class="sc">&lt;=</span> <span class="fl">0.985</span> <span class="sc">&amp;</span> seasonal_strength_year <span class="sc">&gt;</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-20"><a href="exploration.html#cb42-20" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-21"><a href="exploration.html#cb42-21" tabindex="-1"></a>  <span class="fu">pull</span>(Series_ID)</span>
+<span id="cb42-22"><a href="exploration.html#cb42-22" tabindex="-1"></a>us_employment_ids <span class="ot">&lt;-</span> <span class="fu">c</span>(us_1, us_2, us_3, us_4)</span>
+<span id="cb42-23"><a href="exploration.html#cb42-23" tabindex="-1"></a>us_employment_featues <span class="sc">%&gt;%</span> </span>
+<span id="cb42-24"><a href="exploration.html#cb42-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Series_lbl =</span> <span class="fu">if_else</span>(Series_ID <span class="sc">%in%</span> us_employment_ids, Title, <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-25"><a href="exploration.html#cb42-25" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trend_strength, <span class="at">y =</span> seasonal_strength_year)) <span class="sc">+</span></span>
+<span id="cb42-26"><a href="exploration.html#cb42-26" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-27"><a href="exploration.html#cb42-27" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Series_lbl), <span class="at">color =</span> <span class="st">&quot;goldenrod4&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-28"><a href="exploration.html#cb42-28" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb42-29"><a href="exploration.html#cb42-29" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Some sectors have seasonal employment, othes trend, others both.&quot;</span>)</span></code></pre></div>
+<p><img src="time-series_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -660,7 +666,7 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="toolbox.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

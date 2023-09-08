@@ -5,28 +5,6 @@ library(tidyverse)
 library(tsibble)
 library(feasts) # feature extraction and statistics
 library(fable) # forecasting
-# library(patchwork) # arranging plots
-# library(flextable)
-# library(kableExtra)
-
-knitr::opts_chunk$set(
-  ft.align="left"
-)
-
-flextable::set_flextable_defaults(
-  # font.family = "Arial", 
-  font.size = 10, 
-  big.mark = ",",
-  theme_fun = "theme_vanilla"
-)
-
-ggplot2::theme_set(
-  theme_light() +
-    theme(
-      strip.background = element_rect(fill = "gray90", color = "gray60"),
-      strip.text = element_text(color = "gray20", margin = margin(5, 5, 5, 5))
-    )
-)
 ```
 
 Exponential smoothing methods are weighted averages of past observations, with the weights decaying exponentially as the observations get more remote. Exponential smoothing is a family of methods that vary by their *trend* and *seasonal* components.
