@@ -1,6 +1,0 @@
-"0","us_employment_full <- us_employment_tsibble %>% "
-"0","  filter(Title == ""Total Private"", year(Month) >= 2000)"
-"0",""
-"0","us_employment_train <- us_employment_full %>% filter(year(Month) <= 2015)"
-"0",""
-"0","us_employment_test <- us_employment_full %>% filter(year(Month) > 2015)"
